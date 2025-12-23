@@ -15,9 +15,6 @@ import DeploymentEventHandler from '../DeploymentEventHandler';
 import engineProfileXML from './fixtures/engine-profile.bpmn';
 import engineProfileDMN from './fixtures/engine-platform.dmn';
 
-import engineProfileCloudXML from './fixtures/engine-cloud.bpmn';
-import engineProfileCloudDMN from './fixtures/engine-cloud.dmn';
-
 import emptyDMN from './fixtures/empty.dmn';
 
 import emptyXML from './fixtures/empty.bpmn';
@@ -443,29 +440,6 @@ describe('<DeploymentEventHandler>', function() {
       });
 
 
-      it('cloud bpmn', async function() {
-
-        // given
-        const tab = createTab({
-          type: 'cloud-bpmn',
-          file: {
-            contents: engineProfileCloudXML
-          }
-        });
-
-        const handleDeploymentDone = subscribe.getCall(0).args[1];
-
-        // when
-        await handleDeploymentDone({ tab });
-
-        const { executionPlatform } = track.getCall(0).args[1];
-
-        // then
-        expect(executionPlatform).to.eql('Camunda Cloud');
-
-      });
-
-
       it('dmn', async function() {
 
         // given
@@ -487,28 +461,6 @@ describe('<DeploymentEventHandler>', function() {
         expect(executionPlatform).to.eql('Camunda Platform');
         expect(executionPlatformVersion).to.eql('7.16.0');
 
-      });
-
-
-      it('cloud dmn', async function() {
-
-        // given
-        const tab = createTab({
-          type: 'cloud-dmn',
-          file: {
-            contents: engineProfileCloudDMN
-          }
-        });
-
-        const handleDeploymentDone = subscribe.getCall(0).args[1];
-
-        // when
-        await handleDeploymentDone({ tab });
-
-        const { executionPlatform } = track.getCall(0).args[1];
-
-        // then
-        expect(executionPlatform).to.eql('Camunda Cloud');
       });
 
     });

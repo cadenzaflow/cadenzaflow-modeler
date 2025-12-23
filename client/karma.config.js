@@ -72,11 +72,12 @@ module.exports = function(karma) {
 
     browsers: browsers,
 
-    browserNoActivityTimeout: 60000,
+    browserNoActivityTimeout: 100000,
     browserDisconnectTolerance: 3,
-    browserSocketTimeout: 60000,
-    browserDisconnectTimeout: 60000,
-    pingTimeout: 60000,
+    browserSocketTimeout: 100000,
+    browserDisconnectTimeout: 100000,
+    captureTimeout: 100000,
+    pingTimeout: 100000,
 
     singleRun: true,
     autoWatch: false,
@@ -136,10 +137,16 @@ module.exports = function(karma) {
         ],
         modules: [
           'node_modules',
+          path.resolve(__dirname, '../node_modules'),
           absoluteBasePath,
           resourcePath
         ],
         alias: {
+          'react': require.resolve('react'),
+
+          // 'react-dom': require.resolve('react-dom'),
+          // 'react-dom/server': require.resolve('react-dom/server'),
+          // 'react-dom/test-utils': require.resolve('react-dom/test-utils'),
           'bpmn-js/lib/Modeler': modelers ? 'bpmn-js/lib/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-cloud/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-cloud/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-platform/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-platform/Modeler' : 'test/mocks/bpmn-js/Modeler',

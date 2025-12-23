@@ -15,8 +15,7 @@ import classnames from 'classnames';
 import semver from 'semver';
 
 import Flags, {
-  PLATFORM_ENGINE_VERSION,
-  CLOUD_ENGINE_VERSION
+  PLATFORM_ENGINE_VERSION
 } from '../../util/Flags';
 
 import {
@@ -30,8 +29,7 @@ import { Fill } from '../slot-fill';
 import { ENGINES, ENGINE_LABELS, ENGINE_PROFILES, getLatestStable } from '../../util/Engines';
 
 const HELP_LINKS = {
-  [ ENGINES.PLATFORM ]: utmTag('https://docs.camunda.org/manual/latest/'),
-  [ ENGINES.CLOUD ]: utmTag('https://docs.camunda.io/')
+  [ENGINES.PLATFORM]: utmTag('https://docs.camunda.org/manual/latest/')
 };
 
 const DONWLOAD_PAGE = utmTag('https://camunda.com/download/modeler/');
@@ -284,18 +282,12 @@ export function getStatusBarLabel(engineProfile) {
 
   if (!executionPlatformVersion) {
     return `${ENGINE_LABELS[executionPlatform]}`;
-  } else if (executionPlatformVersion.startsWith('1.')) {
-    return `${ENGINE_LABELS[executionPlatform]} (Zeebe ${toSemverMinor(executionPlatformVersion)})`;
   } else {
     return `Camunda ${toDisplayVersion(engineProfile)}`;
   }
 }
 
 export function getAnnotatedVersion(version, platform) {
-  if (version.startsWith('1.')) {
-    return 'Zeebe ' + version;
-  }
-
   if (platform && isAlpha(version, platform)) {
     return version + ' (alpha)';
   }
@@ -321,8 +313,6 @@ export function getDefaultVersion(engine, settingsVersion) {
 function getFlagVersion(engine) {
   if (engine === ENGINES.PLATFORM) {
     return Flags.get(PLATFORM_ENGINE_VERSION);
-  } else if (engine === ENGINES.CLOUD) {
-    return Flags.get(CLOUD_ENGINE_VERSION);
   }
 }
 

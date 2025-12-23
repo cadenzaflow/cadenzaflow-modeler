@@ -27,11 +27,10 @@ import {
   Settings,
   StartInstance,
   SystemClipboard,
-  Workspace,
-  ZeebeAPI
+  Workspace
 } from './mocks';
 
-import { findRenderedComponentWithType } from 'react-dom/test-utils';
+
 
 import { TabsProvider } from '../';
 
@@ -154,8 +153,7 @@ function createApp(options = {}) {
     settings: new Settings(),
     startInstance: new StartInstance(),
     systemClipboard: new SystemClipboard(),
-    workspace: new Workspace(),
-    zeebeAPI: new ZeebeAPI()
+    workspace: new Workspace()
   };
 
   if (options.globals) {
@@ -241,4 +239,65 @@ async function ensureLastXML(multiSheetTab) {
   await multiSheetTab.switchSheet(sheets[ 0 ]);
 
   expect(multiSheetTab.getCached().activeSheet.type).to.eql('bpmn');
+}
+
+/**
+ * Find the first component of a given type in the tree.
+ *
+ * @param {React.Component} tree
+ * @param {Function} type
+ *
+ * @return {React.Component}
+ */
+function findRenderedComponentWithType(tree, type) {
+  if (isCompositeComponentWithType(tree, type)) {
+    return tree;
+  }
+
+  if (tree._reactInternalFiber) {
+    let child = tree._reactInternalFiber.child;
+
+    while (child) {
+      if (child.stateNode && isCompositeComponentWithType(child.stateNode, type)) {
+        return child.stateNode;
+      }
+
+      const found = findRenderedComponentWithTypeInFiber(child, type);
+      if (found) {
+        return found;
+      }
+
+      child = child.sibling;
+    }
+  }
+
+  // Fallback for older React versions or different structures if needed
+  // This is a simplified version targeting what react-dom/test-utils did
+  throw new Error(`Could not find component of type ${type.name || type}`);
+}
+
+function findRenderedComponentWithTypeInFiber(fiber, type) {
+  let child = fiber.child;
+
+  while (child) {
+    if (child.stateNode && isCompositeComponentWithType(child.stateNode, type)) {
+      return child.stateNode;
+    }
+
+    const found = findRenderedComponentWithTypeInFiber(child, type);
+
+    if (found) {
+      return found;
+    }
+
+    child = child.sibling;
+  }
+
+  return null;
+}
+
+function isCompositeComponentWithType(component, type) {
+
+  // Check if the component is an instance of the class type
+  return component instanceof type;
 }

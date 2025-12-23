@@ -38,13 +38,17 @@ export default class PrivacyPreferences extends PureComponent {
     preferences: null
   };
 
+  _isMounted = false;
+
   async componentDidMount() {
+    this._isMounted = true;
+
     const {
       config
     } = this.props;
 
     let result = await config.get(CONFIG_KEY);
-    if (!result) {
+    if (!result && this._isMounted) {
       this.setState({
         showModal: true,
         isInitialPreferences: true,
@@ -58,13 +62,20 @@ export default class PrivacyPreferences extends PureComponent {
       } = context;
 
       let preferences = await config.get(CONFIG_KEY);
-      this.setState({
-        autoFocusKey,
-        showModal: true,
-        isInitialPreferences: false,
-        preferences: preferences
-      });
+
+      if (this._isMounted) {
+        this.setState({
+          autoFocusKey,
+          showModal: true,
+          isInitialPreferences: false,
+          preferences: preferences
+        });
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   onClose = () => {

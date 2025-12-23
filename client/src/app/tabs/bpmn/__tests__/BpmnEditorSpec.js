@@ -1993,7 +1993,7 @@ describe('<BpmnEditor>', function() {
     }));
 
 
-    it('should open as Camunda Cloud if unknown execution profile', async function() {
+    it('should open as Camunda Platform if unknown execution profile', async function() {
 
       // given
       const onImportSpy = spy();
@@ -2006,7 +2006,7 @@ describe('<BpmnEditor>', function() {
       // then
       expect(onImportSpy).to.have.been.calledOnce;
       expect(instance.getCached().engineProfile).to.be.eql({
-        executionPlatform: 'Camunda Cloud',
+        executionPlatform: 'Camunda Platform',
         executionPlatformVersion: '7.15.0',
       });
     });

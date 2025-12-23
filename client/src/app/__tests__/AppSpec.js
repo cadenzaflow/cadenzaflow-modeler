@@ -32,8 +32,7 @@ import {
   StartInstance,
   SystemClipboard,
   TabsProvider,
-  Workspace,
-  ZeebeAPI
+  Workspace
 } from './mocks';
 
 import pDefer from 'p-defer';
@@ -82,6 +81,9 @@ describe('<App>', function() {
           onMenuUpdate: updateMenuSpy
         });
 
+        // ignore mount
+        updateMenuSpy.resetHistory();
+
         const openedTabs = await app.openFiles([
           createFile('1.bpmn'),
           createFile('2.bpmn')
@@ -106,6 +108,9 @@ describe('<App>', function() {
           onMenuUpdate: updateMenuSpy
         });
 
+        // ignore mount
+        updateMenuSpy.resetHistory();
+
         // when
         app.handleTabChanged()();
 
@@ -125,6 +130,9 @@ describe('<App>', function() {
         const { app, queryByText } = createApp({
           onMenuUpdate: updateMenuSpy
         });
+
+        // ignore mount
+        updateMenuSpy.resetHistory();
 
         await app.openFiles([
           createFile('1.bpmn'),
@@ -161,6 +169,9 @@ describe('<App>', function() {
         const { app } = createApp({
           onMenuUpdate: updateMenuSpy
         });
+
+        // ignore mount
+        updateMenuSpy.resetHistory();
 
         // when
         await app.showTab(EMPTY_TAB);
@@ -241,7 +252,7 @@ describe('<App>', function() {
       ]);
 
       // then
-      expect(updateMenuSpy.firstCall.args[0]).to.have.property('tabs', app.state.tabs);
+      expect(updateMenuSpy.lastCall.args[0]).to.have.property('tabs', app.state.tabs);
     });
 
 
@@ -262,7 +273,7 @@ describe('<App>', function() {
         ]);
 
         // then
-        expect(updateMenuSpy.firstCall.args[0]).to.have.property('activeTab', app.state.tabs[0]);
+        expect(updateMenuSpy.lastCall.args[0]).to.have.property('activeTab', app.state.tabs[0]);
       });
 
 
@@ -3733,8 +3744,7 @@ function createApp(options = {}) {
     settings: new Settings(),
     startInstance: new StartInstance(),
     systemClipboard: new SystemClipboard(),
-    workspace: new Workspace(),
-    zeebeAPI: new ZeebeAPI()
+    workspace: new Workspace()
   };
 
   const globals = {

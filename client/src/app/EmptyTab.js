@@ -10,9 +10,7 @@
 
 import React, { PureComponent } from 'react';
 
-import CloudIcon from '../../resources/icons/Cloud.svg';
 import PlatformIcon from '../../resources/icons/Platform.svg';
-import AiIcon from '../../resources/icons/Ai.svg';
 
 import { utmTag } from '../util/utmTag';
 
@@ -22,7 +20,7 @@ import {
   Tab
 } from './primitives';
 
-import Flags, { DISABLE_ZEEBE, DISABLE_PLATFORM } from '../util/Flags';
+import Flags, { DISABLE_PLATFORM } from '../util/Flags';
 
 
 export default class EmptyTab extends PureComponent {
@@ -64,27 +62,6 @@ export default class EmptyTab extends PureComponent {
     return tabs;
   }
 
-  renderCloudColumn = () => {
-
-    const createButtons = this.getCreateButtons('Camunda 8');
-
-    return (
-      <div id="welcome-page-cloud" className="welcome-card relative" data-testid="welcome-page-cloud">
-        <div className="engine-info">
-          <div className="engine-info-heading">
-            <CloudIcon className="engine-icon cloud-icon" />
-            <h3>Camunda 8</h3>
-          </div>
-          <a href={ utmTag('https://camunda.com/products/cloud/') }>See version details</a>
-        </div>
-
-        <p>Create a new file</p>
-
-        {createButtons}
-      </div>
-    );
-  };
-
   renderPlatformColumn = () => {
 
     const createButtons = this.getCreateButtons('Camunda 7');
@@ -112,18 +89,6 @@ export default class EmptyTab extends PureComponent {
       <div id="welcome-page-learn-more" className="welcome-card">
         <div className="learn-more">
           <h3>Learn more</h3>
-          <div className="article top">
-            <AiIcon />
-            <a href={ utmTag('https://docs.camunda.io/docs/guides/getting-started-agentic-orchestration') }>Build your first AI agent</a>
-          </div>
-          <div className="article relative">
-            <p>Introduction to Camunda 8</p>
-            <a href={ utmTag('https://camunda.com/blog/2022/04/camunda-platform-8-orchestrate-all-the-things') }>Read blog post</a>
-          </div>
-          <div className="article relative">
-            <p>Migrating from Camunda 7</p>
-            <a href={ utmTag('https://docs.camunda.io/docs/guides/migrating-from-Camunda-Platform/') }>Camunda Docs</a>
-          </div>
           <div className="article">
             <p>About Modeler 5</p>
             <a href="#" onClick={ () => this.props.onAction('emit-event', { type: 'versionInfo.open' }) }>Open &quot;What&apos;s new&quot;</a>
@@ -141,9 +106,7 @@ export default class EmptyTab extends PureComponent {
 
     return (
       <Tab className={ css.EmptyTab }>
-        {!Flags.get(DISABLE_ZEEBE) && !Flags.get(DISABLE_PLATFORM) && <h2 className="welcome-header">Choose the right version for your project:</h2>}
         <div className="welcome-cards">
-          {!Flags.get(DISABLE_ZEEBE) && <>{this.renderCloudColumn()}</>}
           {!Flags.get(DISABLE_PLATFORM) && <>{this.renderPlatformColumn()}</>}
           {this.renderLearnMoreColumn()}
         </div>

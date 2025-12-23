@@ -421,9 +421,7 @@ export class FileSystem extends Mock {
   }
 }
 
-export class ZeebeAPI extends Mock {
 
-}
 
 export class Backend extends Mock {
 

@@ -22,8 +22,6 @@ const path = require('path');
 
 const fs = require('fs');
 
-const { Camunda8 } = require('@camunda8/sdk');
-
 const Cli = require('./cli');
 const Config = require('./config');
 const Dialog = require('./dialog');
@@ -35,9 +33,8 @@ const Platform = require('./platform');
 const Plugins = require('./plugins');
 const WindowManager = require('./window-manager');
 const Workspace = require('./workspace');
-const ZeebeAPI = require('./zeebe-api');
-const { getTemplatesPath } = require('./template-updater/util');
-const { TemplateUpdater, OOTB_CONNECTORS_ENDPOINT } = require('./template-updater/template-updater');
+
+// Camunda 8 connector templates removed
 
 const FileContext = require('./file-context/file-context');
 const { toFileUrl } = require('./file-context/util');
@@ -76,7 +73,7 @@ const MINIMUM_SIZE = {
 
 var DEFAULT_USER_PATH = path.join(app.getPath('appData'), 'camunda-modeler');
 
-bootstrapLog.info(`starting ${ name } v${ version }`);
+bootstrapLog.info(`starting ${name} v${version}`);
 
 const {
   platform
@@ -90,8 +87,7 @@ const {
   flags,
   menu,
   plugins,
-  windowManager,
-  zeebeAPI
+  windowManager
 } = bootstrap();
 
 app.flags = flags;
@@ -295,88 +291,6 @@ renderer.on('file:write', function(filePath, file, options = {}, done) {
     const newFile = writeFile(filePath, file, options);
 
     done(null, newFile);
-  } catch (err) {
-    done(err);
-  }
-});
-
-// zeebe api //////////
-
-renderer.on('zeebe:checkConnection', async function(options, done) {
-  try {
-    const connectivity = await zeebeAPI.checkConnection(options);
-
-    done(null, connectivity);
-  } catch (err) {
-    done(err);
-  }
-});
-
-renderer.on('zeebe:deploy', async function(options, done) {
-  try {
-    const deploymentResult = await zeebeAPI.deploy(options);
-
-    done(null, deploymentResult);
-  } catch (err) {
-    done(err);
-  }
-});
-
-renderer.on('zeebe:startInstance', async function(options, done) {
-  try {
-    const runResult = await zeebeAPI.startInstance(options);
-
-    done(null, runResult);
-  } catch (err) {
-    done(err);
-  }
-});
-
-renderer.on('zeebe:getGatewayVersion', async function(options, done) {
-  try {
-    const gatewayVersionResponse = await zeebeAPI.getGatewayVersion(options);
-
-    done(null, gatewayVersionResponse);
-  } catch (err) {
-    done(err);
-  }
-});
-
-renderer.on('zeebe:searchProcessInstances', async function(options, done) {
-  try {
-    const searchProcessInstancesResponse = await zeebeAPI.searchProcessInstances(options);
-
-    done(null, searchProcessInstancesResponse);
-  } catch (err) {
-    done(err);
-  }
-});
-
-renderer.on('zeebe:searchVariables', async function(options, done) {
-  try {
-    const searchVariablesResponse = await zeebeAPI.searchVariables(options);
-
-    done(null, searchVariablesResponse);
-  } catch (err) {
-    done(err);
-  }
-});
-
-renderer.on('zeebe:searchIncidents', async function(options, done) {
-  try {
-    const searchIncidentsResponse = await zeebeAPI.searchIncidents(options);
-
-    done(null, searchIncidentsResponse);
-  } catch (err) {
-    done(err);
-  }
-});
-
-renderer.on('zeebe:searchElementInstances', async function(options, done) {
-  try {
-    const searchElementInstancesResponse = await zeebeAPI.searchElementInstances(options);
-
-    done(null, searchElementInstancesResponse);
   } catch (err) {
     done(err);
   }
@@ -728,17 +642,10 @@ function bootstrap() {
   });
 
   // (3) config
-  const ignoredPaths = [];
-
-  if (isConnectorTemplatesDisabled(flags, userPath)) {
-    ignoredPaths.push(getTemplatesPath(userPath, OOTB_CONNECTORS_ENDPOINT.fileName));
-  }
-
   const config = new Config({
     appPath,
     resourcesPaths,
-    userPath,
-    ignoredPaths
+    userPath
   });
 
   // error tracking can start as soon as config and flags are initialized.
@@ -789,19 +696,7 @@ function bootstrap() {
   // track plugins
   errorTracking.setTag(Sentry, 'plugins', generatePluginsTag(plugins));
 
-  // (9) zeebe API
-  const zeebeAPI = new ZeebeAPI({ readFile }, Camunda8, flags);
-
-  // (10) template updater
-  const templateUpdater = new TemplateUpdater(userPath, isConnectorTemplatesDisabled(flags, userPath) ? [] : [ OOTB_CONNECTORS_ENDPOINT ]);
-
-  templateUpdater.on('update:done', (hasNew, warnings) => {
-    renderer.send('client:templates-update-done', hasNew, warnings);
-  });
-
-  renderer.on('client:templates-update', ({ executionPlatform, executionPlatformVersion }) => {
-    templateUpdater.update(executionPlatform, executionPlatformVersion);
-  });
+  // Camunda 8 connector templates and template updater removed
 
   // (11) file context
   const fileContextLog = Log('app:file-context');
@@ -838,8 +733,7 @@ function bootstrap() {
     flags,
     menu,
     plugins,
-    windowManager,
-    zeebeAPI
+    windowManager
   };
 }
 
@@ -861,15 +755,7 @@ function setUserPath(path = DEFAULT_USER_PATH) {
   app.setPath('userData', path);
 }
 
-function isConnectorTemplatesDisabled(flags, userPath) {
-
-  // TODO(@barmac): use bootstrapped config or extract settings to a separate module
-  const settings = new Config({ userPath }).get('settings');
-
-  return (
-    flags.get('disable-connector-templates', false) || settings['app.disableConnectorTemplates']
-  );
-}
+// Camunda 8: isConnectorTemplatesDisabled function removed
 
 function arePluginsDisabled(flags, config) {
   const settings = config.get('settings');

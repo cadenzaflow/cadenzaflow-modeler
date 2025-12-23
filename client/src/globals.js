@@ -15,11 +15,10 @@ import Log from './remote/Log';
 import Plugins from './remote/Plugins';
 import SystemClipboard from './remote/SystemClipboard';
 import Workspace from './remote/Workspace';
-import ZeebeAPI from './remote/ZeebeAPI';
+
 
 import Settings from './app/Settings';
-import StartInstance from './app/zeebe/StartInstance';
-import Deployment from './app/zeebe/Deployment';
+
 
 const {
   metadata,
@@ -48,11 +47,7 @@ export const systemClipboard = new SystemClipboard(backend);
 
 export const workspace = new Workspace(backend);
 
-export const zeebeAPI = new ZeebeAPI(backend);
 
-export const deployment = new Deployment(config, zeebeAPI);
-
-export const startInstance = new StartInstance(config, zeebeAPI);
 
 export const isMac = backend.getPlatform() === 'darwin';
 
@@ -64,15 +59,15 @@ export {
 export const globals = {
   backend,
   config,
-  deployment,
+
   dialog,
   fileSystem,
   isMac,
   log,
   plugins,
   settings,
-  startInstance,
+
   systemClipboard,
   workspace,
-  zeebeAPI
+
 };

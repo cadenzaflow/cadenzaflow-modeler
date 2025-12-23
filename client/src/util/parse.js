@@ -143,10 +143,6 @@ export function parseFormFieldCounts(contents) {
 }
 
 function getDefaultExecutionPlatform(type) {
-  if (/^cloud/.test(type)) {
-    return ENGINES.CLOUD;
-  }
-
   return ENGINES.PLATFORM;
 }
 

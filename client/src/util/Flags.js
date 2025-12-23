@@ -34,7 +34,7 @@ export default new Flags();
 export const DISABLE_DMN = 'disable-dmn';
 export const DISABLE_FORM = 'disable-form';
 export const DISABLE_PLATFORM = 'disable-platform';
-export const DISABLE_ZEEBE = 'disable-zeebe';
+
 export const DISABLE_ADJUST_ORIGIN = 'disable-adjust-origin';
 export const DISABLE_PLUGINS = 'disable-plugins';
 export const RELAUNCH = 'relaunch';
@@ -45,7 +45,7 @@ export const SENTRY_DSN = 'sentry-dsn';
 export const MIXPANEL_TOKEN = 'mixpanel-token';
 export const MIXPANEL_STAGE = 'mixpanel-stage';
 export const DISPLAY_VERSION = 'display-version';
-export const CLOUD_ENGINE_VERSION = 'c8-engine-version';
+
 export const PLATFORM_ENGINE_VERSION = 'c7-engine-version';
 export const DISABLE_HTTL_HINT = 'disable-httl-hint';
 export const DEFAULT_HTTL = 'default-httl';

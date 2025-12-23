@@ -698,7 +698,7 @@ describe('<FormEditor>', function() {
     });
 
 
-    it('should open unknown execution profile form as Camunda Cloud', async function() {
+    it('should open unknown execution profile form as Camunda Platform', async function() {
 
       // given
       const onImportSpy = spy();
@@ -712,7 +712,7 @@ describe('<FormEditor>', function() {
       expect(onImportSpy).to.have.been.calledOnce;
 
       expect(instance.getCached().engineProfile).to.eql({
-        executionPlatform: 'Camunda Cloud',
+        executionPlatform: 'Camunda Platform',
         executionPlatformVersion: '7.16.0'
       });
     });

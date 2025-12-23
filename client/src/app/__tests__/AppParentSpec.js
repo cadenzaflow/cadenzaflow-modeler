@@ -29,8 +29,7 @@ import {
   StartInstance,
   SystemClipboard,
   TabsProvider,
-  Workspace,
-  ZeebeAPI
+  Workspace
 } from './mocks';
 
 /* global sinon */
@@ -1023,8 +1022,7 @@ function createAppParent(options = {}) {
     settings: new Settings(),
     startInstance: new StartInstance(),
     systemClipboard: new SystemClipboard(),
-    workspace: new Workspace(),
-    zeebeAPI: new ZeebeAPI()
+    workspace: new Workspace()
   };
 
   const globals = {

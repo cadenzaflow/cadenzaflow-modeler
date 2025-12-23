@@ -1113,6 +1113,9 @@ export class App extends PureComponent {
       onReady
     } = this.props;
 
+    // Initialize menu on mount
+    this.updateMenu();
+
     if (typeof onReady === 'function') {
       onReady();
     }
@@ -1713,7 +1716,7 @@ export class App extends PureComponent {
       return false;
     }
 
-    const { encoding } = provider.exports && provider.exports[ exportType ] || ENCODING_UTF8;
+    const { encoding } = provider.exports && provider.exports[exportType] || ENCODING_UTF8;
 
     return {
       encoding,
@@ -2198,7 +2201,6 @@ export class App extends PureComponent {
                       config={ this.getGlobal('config') }
                       deployment={ this.getGlobal('deployment') }
                       startInstance={ this.getGlobal('startInstance') }
-                      zeebeApi={ this.getGlobal('zeebeAPI') }
                     />
                   }
                 </TabContainer>
@@ -2549,15 +2551,15 @@ function failSafe(fn, errorHandler) {
 }
 
 function getProcessor(type) {
-  if (type === 'cloud-bpmn') {
+  if (type === 'cloud-bpmn' || type === 'bpmn') {
     return 'bpmn';
   }
 
-  if (type === 'cloud-dmn') {
+  if (type === 'cloud-dmn' || type === 'dmn') {
     return 'dmn';
   }
 
-  if (type === 'cloud-form') {
+  if (type === 'cloud-form' || type === 'form') {
     return 'form';
   }
 

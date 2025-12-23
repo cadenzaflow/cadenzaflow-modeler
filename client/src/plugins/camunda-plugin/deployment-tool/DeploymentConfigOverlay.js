@@ -44,7 +44,10 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
     this.valuesCache = { ...props.configuration };
   }
 
+  _isMounted = false;
+
   componentDidMount = () => {
+    this._isMounted = true;
     const {
       subscribeToFocusChange,
       validator
@@ -60,6 +63,7 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
   };
 
   componentWillUnmount = () => {
+    this._isMounted = false;
     this.props.unsubscribeFromFocusChange();
   };
 
@@ -81,6 +85,10 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
     if (isConnectionError(externalErrorCodeCache) || skipError) {
 
       const validationResult = await this.props.validator.validateConnection(valuesCache.endpoint);
+
+      if (!this._isMounted) {
+        return;
+      }
 
       if (!hasKeys(validationResult)) {
 
@@ -140,6 +148,10 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
     } = values;
 
     const connectionValidation = await this.props.validator.validateConnection(endpoint);
+
+    if (!this._isMounted) {
+      return;
+    }
 
     if (!hasKeys(connectionValidation)) {
 
@@ -211,6 +223,9 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
 
   checkAuthStatus = (values) => {
     this.props.validator.validateConnectionWithoutCredentials(values.endpoint.url).then((result) => {
+      if (!this._isMounted) {
+        return;
+      }
       if (!result) {
         this.onAuthDetection(false);
       } else if (!result.isExpired) {
@@ -310,7 +325,9 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
                               form.setFieldError,
                               this.isOnBeforeSubmit,
                               onAuthDetection,
-                              (code) => { this.externalErrorCodeCache = code; }
+                              (code) => {
+                                this.externalErrorCodeCache = code;
+                              }
                             );
                           } }
                           label="REST endpoint"

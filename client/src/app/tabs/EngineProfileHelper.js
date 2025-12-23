@@ -56,15 +56,15 @@ export default class EngineProfileHelper {
 
 function fixExecutionPlatform(engineProfile = {}) {
   const {
-    executionPlatform = 'Camunda Cloud'
+    executionPlatform = 'Camunda Platform'
   } = engineProfile;
 
-  if ([ 'Camunda Platform', 'Camunda Cloud' ].includes(executionPlatform)) {
+  if ([ 'Camunda Platform' ].includes(executionPlatform)) {
     return engineProfile;
   }
 
   return {
     ...engineProfile,
-    executionPlatform: 'Camunda Cloud'
+    executionPlatform: 'Camunda Platform'
   };
 }

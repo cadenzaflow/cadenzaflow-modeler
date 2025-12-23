@@ -64,13 +64,6 @@ export const schema = {
     //   label: 'Disable adjust origin',
     //   restartRequired: true,
     // },
-    'app.defaultC8Version': {
-      type: 'select',
-      options: getEngineOptions(ENGINES.CLOUD),
-      default: getLatestStable(ENGINES.CLOUD),
-      flag: 'c8-engine-version',
-      label: 'Default Camunda 8 version',
-    },
     'app.defaultC7Version': {
       type: 'select',
       options: getEngineOptions(ENGINES.PLATFORM),

@@ -21,8 +21,6 @@ import {
 
 import engineProfilePlatform from './fixtures/engine-platform.form';
 
-import engineProfileCloud from './fixtures/engine-cloud.form';
-
 
 describe('<FormEditorEventHandler>', function() {
 
@@ -141,28 +139,7 @@ describe('<FormEditorEventHandler>', function() {
     });
 
 
-    it('should send engine profile - C8', async function() {
 
-      // given
-      const tab = createTab({
-        file: { contents: engineProfileCloud },
-        type: 'form'
-      });
-
-      const handleLayoutChanged = subscribe.getCall(0).args[1];
-
-      // when
-      await handleLayoutChanged({
-        tab
-      });
-
-      expect(track).to.have.been.calledWith(LAYOUT_CHANGED_EVENT_NAME, {
-        layout: undefined,
-        executionPlatform: 'Camunda Cloud',
-        executionPlatformVersion: '1.1'
-      });
-
-    });
 
   });
 
@@ -199,29 +176,6 @@ describe('<FormEditorEventHandler>', function() {
       });
     });
 
-
-    it('should send engine profile - C8', async function() {
-
-      // given
-      const tab = createTab({
-        file: { contents: engineProfileCloud },
-        type: 'form'
-      });
-
-      const handleInputDataChanged = subscribe.getCall(1).args[1];
-
-      // when
-      await handleInputDataChanged({
-        tab
-      });
-
-      expect(track).to.have.been.calledWith(INPUT_DATA_CHANGED_EVENT_NAME, {
-        executionPlatform: 'Camunda Cloud',
-        executionPlatformVersion: '1.1'
-      });
-
-    });
-
   });
 
 
@@ -255,29 +209,6 @@ describe('<FormEditorEventHandler>', function() {
         executionPlatform: 'Camunda Platform',
         executionPlatformVersion: '7.15'
       });
-    });
-
-
-    it('should send engine profile - C8', async function() {
-
-      // given
-      const tab = createTab({
-        file: { contents: engineProfileCloud },
-        type: 'form'
-      });
-
-      const handleInputDataChanged = subscribe.getCall(2).args[1];
-
-      // when
-      await handleInputDataChanged({
-        tab
-      });
-
-      expect(track).to.have.been.calledWith(PREVIEW_CHANGED_EVENT_NAME, {
-        executionPlatform: 'Camunda Cloud',
-        executionPlatformVersion: '1.1'
-      });
-
     });
 
   });

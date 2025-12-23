@@ -11,7 +11,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@camunda8/sdk": "^8.7.28",
     "@sentry/integrations": "^7.113.0",
     "@sentry/node": "^10.0.0",
     "bpmn-moddle": "^9.0.1",
@@ -23,8 +22,7 @@
     "min-dash": "^4.1.1",
     "mri": "^1.1.6",
     "parents": "^1.0.1",
-    "saxen": "^10.0.0",
-    "zeebe-bpmn-moddle": "^1.7.0"
+    "saxen": "^10.0.0"
   },
   "homepage": "https://github.com/camunda/camunda-modeler",
   "repository": {

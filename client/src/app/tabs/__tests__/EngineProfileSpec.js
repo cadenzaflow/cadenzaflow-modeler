@@ -24,9 +24,7 @@ import { EngineProfile, getAnnotatedVersion, getStatusBarLabel, toSemverMinor } 
 import { ENGINES, ENGINE_PROFILES } from '../../../util/Engines';
 
 import { DEFAULT_ENGINE_PROFILE as bpmnEngineProfile } from '../bpmn/BpmnEditor';
-import { DEFAULT_ENGINE_PROFILE as cloudBpmnEngineProfile } from '../cloud-bpmn/BpmnEditor';
 import { DEFAULT_ENGINE_PROFILE as dmnEngineProfile } from '../dmn/DmnEditor';
-import { DEFAULT_ENGINE_PROFILE as cloudDmnEngineProfile } from '../cloud-dmn/DmnEditor';
 import { DEFAULT_ENGINE_PROFILE as formEngineProfile } from '../form/FormEditor';
 import { utmTag } from '../../../util/utmTag';
 
@@ -86,9 +84,8 @@ describe('<EngineProfile>', function() {
 
     // given
     const { getByRole } = renderEngineProfile({
-      engineProfile: { ...cloudDmnEngineProfile, executionPlatformVersion: '8.0.0' },
-      onChange: () => {},
-      filterVersions: version => version === '8.0.0'
+      engineProfile: { ...dmnEngineProfile, executionPlatformVersion: '7.19.0' },
+      onChange: () => { }
     });
 
     // when
@@ -98,7 +95,7 @@ describe('<EngineProfile>', function() {
     // then
     const select = getByRole('combobox');
     const options = select.querySelectorAll('option');
-    expect(options.length).to.equal(1);
+    expect(options.length).to.equal(10);
   });
 
 
@@ -176,15 +173,10 @@ describe('<EngineProfile>', function() {
 
       // given
       const inputs =
-      [ [ ENGINES.CLOUD, '1.0', 'Zeebe 1.0' ],
-        [ ENGINES.CLOUD, '1.2', 'Zeebe 1.2' ],
-        [ ENGINES.CLOUD, '8.0', '8.0' ],
-        [ ENGINES.CLOUD, '8.1', '8.1' ],
-        [ ENGINES.CLOUD, '8.100', '8.100 (alpha)' ],
-        [ ENGINES.PLATFORM, '7.14', '7.14' ],
-        [ ENGINES.PLATFORM, '7.500', '7.500 (alpha)' ],
-        [ undefined, '10.0', '10.0' ],
-      ];
+        [ [ ENGINES.PLATFORM, '7.14', '7.14' ],
+          [ ENGINES.PLATFORM, '7.500', '7.500 (alpha)' ],
+          [ undefined, '10.0', '10.0' ],
+        ];
 
       // then
       inputs.forEach((input) => {
@@ -201,14 +193,10 @@ describe('<EngineProfile>', function() {
 
       // given
       const inputs =
-      [ [ ENGINES.PLATFORM, '7.0', 'Camunda 7.0 (unsupported)' ],
-        [ ENGINES.PLATFORM, '7.15', 'Camunda 7.15' ],
-        [ ENGINES.PLATFORM, '7.500', 'Camunda 7.500 (unsupported)' ],
-        [ ENGINES.PLATFORM, '', 'Camunda 7' ],
-        [ ENGINES.CLOUD, '1.3', 'Camunda 8 (Zeebe 1.3)' ],
-        [ ENGINES.CLOUD, '8.1', 'Camunda 8.1' ],
-        [ ENGINES.CLOUD, '8.100', 'Camunda 8.100 (unsupported)' ],
-        [ ENGINES.CLOUD, '', 'Camunda 8' ] ];
+        [ [ ENGINES.PLATFORM, '7.0', 'Camunda 7.0 (unsupported)' ],
+          [ ENGINES.PLATFORM, '7.15', 'Camunda 7.15' ],
+          [ ENGINES.PLATFORM, '7.500', 'Camunda 7.500 (unsupported)' ],
+          [ ENGINES.PLATFORM, '', 'Camunda 7' ] ];
 
       // then
       inputs.forEach((input) => {
@@ -259,44 +247,6 @@ describe('<EngineProfile>', function() {
 
   });
 
-
-  describe('Cloud BPMN', function() {
-
-    it('should show description', function() {
-
-      // given
-      const { getByRole } = renderEngineProfile({
-        engineProfile: cloudBpmnEngineProfile
-      });
-
-      // when
-      const button = getByRole('button');
-      fireEvent.click(button);
-
-      // then
-      expectCloudHelp(getByRole);
-    });
-
-
-    it('should show selection', function() {
-
-      // given
-      const { getByRole } = renderEngineProfile({
-        engineProfile: cloudBpmnEngineProfile,
-        onChange: () => { }
-      });
-
-      // when
-      const button = getByRole('button');
-      fireEvent.click(button);
-
-      // then
-      expectCloudHelp(getByRole);
-    });
-
-  });
-
-
   describe('DMN', function() {
 
     it('should show description', function() {
@@ -332,43 +282,6 @@ describe('<EngineProfile>', function() {
     });
 
   });
-
-
-  describe('Cloud DMN', function() {
-
-    it('should show description', function() {
-
-      // given
-      const { getByRole } = renderEngineProfile({
-        engineProfile: cloudDmnEngineProfile
-      });
-
-      // when
-      const button = getByRole('button');
-      fireEvent.click(button);
-
-      // then
-      expectCloudHelp(getByRole);
-    });
-
-
-    it('should show selection', function() {
-
-      // given
-      const { getByRole } = renderEngineProfile({
-        engineProfile: cloudDmnEngineProfile,
-        onChange: () => { }
-      });
-
-      // when
-      const button = getByRole('button');
-      fireEvent.click(button);
-
-      // then
-      expectCloudHelp(getByRole);
-    });
-  });
-
 
   describe('Form', function() {
 
@@ -449,10 +362,6 @@ function expectHelpText(getByRole, helpLink) {
   const link = getByRole('link');
   expect(link).to.exist;
   expect(link.getAttribute('href')).to.equal(helpLink);
-}
-
-function expectCloudHelp(getByRole) {
-  expectHelpText(getByRole, utmTag('https://docs.camunda.io/'));
 }
 
 function expectPlatformHelp(getByRole) {
