@@ -106,7 +106,7 @@ export class DmnEditor extends CachedComponent {
         }
 
         return {
-          executionPlatform: executionPlatform.name,
+          executionPlatform: executionPlatform.name === 'Camunda Platform' ? ENGINES.PLATFORM : executionPlatform.name,
           executionPlatformVersion: toSemver(executionPlatform.version)
         };
       },

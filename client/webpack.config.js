@@ -20,7 +20,7 @@ const MIXPANEL_STAGE = process.env.MIXPANEL_STAGE || null;
 const DEV = NODE_ENV === 'development';
 const LICENSE_CHECK = process.env.LICENSE_CHECK;
 
-const UPDATES_SERVER_PRODUCT_NAME = process.env.UPDATES_SERVER_PRODUCT_NAME || 'Camunda Modeler';
+const UPDATES_SERVER_PRODUCT_NAME = process.env.UPDATES_SERVER_PRODUCT_NAME || 'CadenzaFlow Modeler';
 
 const getVersion = require('../app/util/get-version');
 
@@ -66,8 +66,8 @@ module.exports = {
       resourcePath
     ],
     alias: {
-      'react': path.resolve(__dirname, 'node_modules/react'),
-      'react-dom': path.resolve(__dirname, 'node_modules/react-dom')
+      'react': path.resolve(__dirname, '../node_modules/react'),
+      'react-dom': path.resolve(__dirname, '../node_modules/react-dom')
     }
   },
   module: {

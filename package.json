@@ -1,5 +1,5 @@
 {
-  "name": "camunda-modeler-builder",
+  "name": "cadenzaflow-modeler-builder",
   "version": "0.0.0",
   "private": true,
   "description": "Modeling solution for BPMN, DMN, and Forms based on bpmn.io.",

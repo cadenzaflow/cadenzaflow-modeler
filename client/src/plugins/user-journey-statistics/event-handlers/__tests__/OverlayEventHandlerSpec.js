@@ -87,27 +87,6 @@ describe('<OverlayEventHandler>', function() {
           });
 
 
-          it('cloud bpmn', async function() {
-
-            // given
-            const tab = createTab({
-              type: 'cloud-bpmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(0).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'deploymentTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:deploy:opened', {
-              diagramType: 'bpmn'
-            });
-          });
-
 
           it('dmn', async function() {
 
@@ -130,28 +109,6 @@ describe('<OverlayEventHandler>', function() {
             });
           });
 
-
-          it('cloud dmn', async function() {
-
-            // given
-            const tab = createTab({
-              type: 'cloud-dmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(0).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'deploymentTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:deploy:opened', {
-              diagramType: 'dmn'
-            });
-
-          });
 
         });
 
@@ -180,28 +137,6 @@ describe('<OverlayEventHandler>', function() {
           });
 
 
-          it('cloud bpmn', async function() {
-
-            // given
-            const tab = createTab({
-              type: 'cloud-bpmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(0).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'startInstanceTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:startInstance:opened', {
-              diagramType: 'bpmn'
-            });
-          });
-
-
           it('dmn', async function() {
 
             // given
@@ -223,27 +158,6 @@ describe('<OverlayEventHandler>', function() {
             });
           });
 
-
-          it('cloud dmn', async function() {
-
-            // given
-            const tab = createTab({
-              type: 'cloud-dmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(0).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'startInstanceTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:startInstance:opened', {
-              diagramType: 'dmn'
-            });
-          });
 
         });
 
@@ -276,28 +190,6 @@ describe('<OverlayEventHandler>', function() {
           });
 
 
-          it('cloud bpmn', async function() {
-
-            // given
-            const tab = createTab({
-              type: 'cloud-bpmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(1).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'deploymentTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:deploy:closed', {
-              diagramType: 'bpmn'
-            });
-          });
-
-
           it('dmn', async function() {
 
             // given
@@ -319,28 +211,6 @@ describe('<OverlayEventHandler>', function() {
             });
           });
 
-
-          it('cloud dmn', async function() {
-
-            // given
-            const tab = createTab({
-              type: 'cloud-dmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(1).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'deploymentTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:deploy:closed', {
-              diagramType: 'dmn'
-            });
-
-          });
 
         });
 
@@ -369,26 +239,7 @@ describe('<OverlayEventHandler>', function() {
           });
 
 
-          it('cloud bpmn', async function() {
 
-            // given
-            const tab = createTab({
-              type: 'cloud-bpmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(1).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'startInstanceTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:startInstance:closed', {
-              diagramType: 'bpmn'
-            });
-          });
 
 
           it('dmn', async function() {
@@ -412,27 +263,6 @@ describe('<OverlayEventHandler>', function() {
             });
           });
 
-
-          it('cloud dmn', async function() {
-
-            // given
-            const tab = createTab({
-              type: 'cloud-dmn'
-            });
-
-            const handleOverlayAction = subscribe.getCall(1).args[1];
-
-            // when
-            await handleOverlayAction({
-              tab,
-              context: 'startInstanceTool'
-            });
-
-            // then
-            expect(track).to.have.been.calledWith('overlay:startInstance:closed', {
-              diagramType: 'dmn'
-            });
-          });
 
         });
 
@@ -462,8 +292,8 @@ describe('<OverlayEventHandler>', function() {
           const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.15.0');
+          expect(executionPlatform).to.eql('CadenzaFlow');
+          expect(executionPlatformVersion).to.eql('1.0.0');
 
         });
 
@@ -486,8 +316,8 @@ describe('<OverlayEventHandler>', function() {
           const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.16.0');
+          expect(executionPlatform).to.eql('CadenzaFlow');
+          expect(executionPlatformVersion).to.eql('1.1.0');
 
 
         });
@@ -514,7 +344,7 @@ describe('<OverlayEventHandler>', function() {
           const { executionPlatform } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
+          expect(executionPlatform).to.eql('CadenzaFlow');
         });
 
 
@@ -536,7 +366,7 @@ describe('<OverlayEventHandler>', function() {
           const { executionPlatform } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
+          expect(executionPlatform).to.eql('CadenzaFlow');
         });
 
       });

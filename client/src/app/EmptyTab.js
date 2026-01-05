@@ -64,16 +64,16 @@ export default class EmptyTab extends PureComponent {
 
   renderPlatformColumn = () => {
 
-    const createButtons = this.getCreateButtons('Camunda 7');
+    const createButtons = this.getCreateButtons('CadenzaFlow');
 
     return (
       <div id="welcome-page-platform" className="welcome-card" data-testid="welcome-page-platform">
         <div className="engine-info">
           <div className="engine-info-heading">
             <PlatformIcon className="engine-icon platform-icon" />
-            <h3>Camunda 7</h3>
+            <h3>CadenzaFlow</h3>
           </div>
-          <a href={ utmTag('https://camunda.com/products/camunda-platform/') }>See version details</a>
+          <a href={ utmTag('https://cadenzaflow.com/platform') }>See version details</a>
         </div>
 
         <p>Create a new file</p>
@@ -90,12 +90,12 @@ export default class EmptyTab extends PureComponent {
         <div className="learn-more">
           <h3>Learn more</h3>
           <div className="article">
-            <p>About Modeler 5</p>
+            <p>About Modeler</p>
             <a href="#" onClick={ () => this.props.onAction('emit-event', { type: 'versionInfo.open' }) }>Open &quot;What&apos;s new&quot;</a>
           </div>
           <div className="article">
             <p>Model your first diagram</p>
-            <a href={ utmTag('https://docs.camunda.io/docs/components/modeler/desktop-modeler/model-your-first-diagram/') }>Camunda Modeler Docs</a>
+            <a href={ utmTag('https://docs.cadenzaflow.org/manual/latest/modeler/bpmn/') }>CadenzaFlow Modeler Docs</a>
           </div>
         </div>
       </div>

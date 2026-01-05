@@ -197,8 +197,8 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.15.0');
+          expect(executionPlatform).to.eql('CadenzaFlow');
+          expect(executionPlatformVersion).to.eql('1.0.0');
         });
 
 
@@ -220,8 +220,8 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.16.0');
+          expect(executionPlatform).to.eql('CadenzaFlow');
+          expect(executionPlatformVersion).to.eql('1.1.0');
         });
 
 
@@ -243,8 +243,8 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.15');
+          expect(executionPlatform).to.eql('CadenzaFlow');
+          expect(executionPlatformVersion).to.eql('1.1.0');
         });
 
 
@@ -271,7 +271,7 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
+          expect(executionPlatform).to.eql('CadenzaFlow');
         });
 
 
@@ -293,7 +293,7 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
+          expect(executionPlatform).to.eql('CadenzaFlow');
         });
 
 
@@ -315,7 +315,7 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
+          expect(executionPlatform).to.eql('CadenzaFlow');
         });
 
       });
@@ -341,8 +341,8 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.15.0');
+          expect(executionPlatform).to.eql('CadenzaFlow');
+          expect(executionPlatformVersion).to.eql('1.0.0');
 
         });
 
@@ -365,32 +365,8 @@ describe('<TabEventHandler>', function() {
           const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
           // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.16.0');
-
-        });
-
-
-        it('form', async function() {
-
-          // given
-          const tab = createTab({
-            type: 'form',
-            file: {
-              contents: engineProfilePlatform
-            }
-          });
-
-          // when
-          const bpmnCallback = subscribe.getCall(3).args[1];
-
-          await bpmnCallback({ tab });
-
-          const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
-
-          // then
-          expect(executionPlatform).to.eql('Camunda Platform');
-          expect(executionPlatformVersion).to.eql('7.15');
+          expect(executionPlatform).to.eql('CadenzaFlow');
+          expect(executionPlatformVersion).to.eql('1.1.0');
 
         });
 
@@ -455,8 +431,8 @@ describe('<TabEventHandler>', function() {
       // then
       expect(track).to.have.been.calledWith('diagram:closed', {
         diagramType: 'form',
-        executionPlatform: 'Camunda Platform',
-        executionPlatformVersion: '7.15',
+        executionPlatform: 'CadenzaFlow',
+        executionPlatformVersion: '1.1.0',
         formFieldTypes: {
           textfield: 1,
           button: 1
@@ -485,8 +461,8 @@ describe('<TabEventHandler>', function() {
       // then
       expect(track).to.have.been.calledWith('diagram:closed', {
         diagramType: 'form',
-        executionPlatform: 'Camunda Cloud',
-        executionPlatformVersion: '8.4',
+        executionPlatform: 'CadenzaFlow',
+        executionPlatformVersion: '1.1.0',
         formFieldTypes: {
           group: 5,
           image: 5,

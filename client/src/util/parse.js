@@ -13,7 +13,6 @@ import { is } from 'bpmn-js/lib/util/ModelUtil';
 import BpmnModdle from 'bpmn-moddle';
 
 import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
-import ZeebeBpmnModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 import ModelerModdle from 'modeler-moddle/resources/modeler';
 
 import { selfAndAllFlowElements } from './elementsUtil';
@@ -29,10 +28,6 @@ export async function getBpmnDefinitions(xml, diagramType) {
 
   if (diagramType === 'bpmn') {
     extensions.camunda = CamundaBpmnModdle;
-  }
-
-  if (diagramType === 'cloud-bpmn') {
-    extensions.zeebe = ZeebeBpmnModdle;
   }
 
   const moddle = new BpmnModdle(extensions);

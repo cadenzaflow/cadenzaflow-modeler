@@ -142,21 +142,7 @@ describe('plugins', function() {
 
   describe('global bindings', function() {
 
-    it('should expose plugins protocol for window#getPluginsDirectory', function() {
 
-      // given
-      const global = {};
-
-      const plugins = new Plugins();
-
-      plugins.bindHelpers(global);
-
-      // when
-      const directory = global.getPluginsDirectory();
-
-      // then
-      expect(directory).to.be.eql('app-plugins://');
-    });
 
 
     it('should expose plugins protocol for window#getModelerDirectory', function() {

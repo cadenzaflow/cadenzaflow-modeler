@@ -2142,36 +2142,36 @@ describe('<DmnEditor>', function() {
 
 
     it('should show engine profile (no engine profile)', expectEngineProfile(noEngineProfileXML, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: undefined
     }));
 
 
     it('should show engine profile (with namespace)', expectEngineProfile(namespaceEngineProfileXML, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: undefined
     }));
 
 
     it('should show engine profile (Camunda 7.16.0)', expectEngineProfile(engineProfileXML, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: '7.16.0'
     }));
 
 
     it('should show engine profile (Camunda 7.16)', expectEngineProfile(missingPatchEngineProfileXML, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: '7.16.0'
     }));
 
 
     it('should show engine profile (Camunda 7.16.1)', expectEngineProfile(patchEngineProfileXML, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: '7.16.1'
     }));
 
 
-    it('should open unknown engine profile as Camunda Platform', async function() {
+    it('should open unknown engine profile as CadenzaFlow', async function() {
 
       // given
       const onImportSpy = spy();
@@ -2183,7 +2183,7 @@ describe('<DmnEditor>', function() {
       expect(onImportSpy).to.have.been.calledOnce;
 
       expect(instance.getCached().engineProfile).to.eql({
-        executionPlatform: 'Camunda Platform',
+        executionPlatform: 'CadenzaFlow',
         executionPlatformVersion: '7.15.0'
       });
     });

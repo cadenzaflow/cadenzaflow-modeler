@@ -9,19 +9,19 @@
  */
 
 export const ENGINES = {
-  PLATFORM: 'Camunda Platform'
+  PLATFORM: 'CadenzaFlow'
 };
 
 export const ENGINE_PROFILES = [
   {
     executionPlatform: ENGINES.PLATFORM,
-    executionPlatformVersions: [ '7.24.0', '7.23.0', '7.22.0', '7.21.0', '7.20.0', '7.19.0', '7.18.0', '7.17.0', '7.16.0', '7.15.0' ],
-    latestStable: '7.24.0'
+    executionPlatformVersions: [ '1.1.0', '1.0.0' ],
+    latestStable: '1.1.0'
   }
 ];
 
 export const ENGINE_LABELS = {
-  [ENGINES.PLATFORM]: 'Camunda 7'
+  [ENGINES.PLATFORM]: 'CadenzaFlow'
 };
 
 export function getLatestStable(platform) {

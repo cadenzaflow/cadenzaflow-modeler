@@ -6,6 +6,11 @@ All notable changes to the [Camunda Modeler](https://github.com/camunda/camunda-
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.0.0
+
+* `FEAT`: Initial release of **CadenzaFlow Modeler**.
+* `CHORE`: Rebranded from Camunda Modeler 5.42.0.
+
 ## 5.42.0
 
 * `DEPS`: update to `@bpmn-io/properties-panel@3.34.0`

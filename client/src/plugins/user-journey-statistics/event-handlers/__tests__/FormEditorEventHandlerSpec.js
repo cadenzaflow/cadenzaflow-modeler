@@ -133,8 +133,8 @@ describe('<FormEditorEventHandler>', function() {
       // then
       expect(track).to.have.been.calledWith(LAYOUT_CHANGED_EVENT_NAME, {
         layout: undefined,
-        executionPlatform: 'Camunda Platform',
-        executionPlatformVersion: '7.15'
+        executionPlatform: 'CadenzaFlow',
+        executionPlatformVersion: '1.1.0'
       });
     });
 
@@ -171,8 +171,8 @@ describe('<FormEditorEventHandler>', function() {
 
       // then
       expect(track).to.have.been.calledWith(INPUT_DATA_CHANGED_EVENT_NAME, {
-        executionPlatform: 'Camunda Platform',
-        executionPlatformVersion: '7.15'
+        executionPlatform: 'CadenzaFlow',
+        executionPlatformVersion: '1.1.0'
       });
     });
 
@@ -206,8 +206,8 @@ describe('<FormEditorEventHandler>', function() {
 
       // then
       expect(track).to.have.been.calledWith(PREVIEW_CHANGED_EVENT_NAME, {
-        executionPlatform: 'Camunda Platform',
-        executionPlatformVersion: '7.15'
+        executionPlatform: 'CadenzaFlow',
+        executionPlatformVersion: '1.1.0'
       });
     });
 

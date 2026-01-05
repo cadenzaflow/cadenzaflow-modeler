@@ -27,7 +27,7 @@ describe('util/Engines', function() {
       };
     }
 
-    it('Platform', verifyLatestStable(ENGINES.PLATFORM, '7.24.0'));
+    it('Platform', verifyLatestStable(ENGINES.PLATFORM, '1.1.0'));
 
   });
 

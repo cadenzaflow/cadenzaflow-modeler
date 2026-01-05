@@ -1983,10 +1983,6 @@ export class App extends PureComponent {
       return this.emit('app.settings-open');
     }
 
-    if (action === 'open-deployment') {
-      return this.emitWithTab('app.open-deployment', activeTab);
-    }
-
     const tab = this.tabRef.current;
 
     return tab.triggerAction(action, options);
@@ -2199,8 +2195,6 @@ export class App extends PureComponent {
                       settings={ this.getGlobal('settings') }
                       backend={ this.getGlobal('backend') }
                       config={ this.getGlobal('config') }
-                      deployment={ this.getGlobal('deployment') }
-                      startInstance={ this.getGlobal('startInstance') }
                     />
                   }
                 </TabContainer>

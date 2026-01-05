@@ -10,14 +10,11 @@
 
 const BpmnModdle = require('bpmn-moddle');
 
-const zeebe = require('zeebe-bpmn-moddle/resources/zeebe');
-
-const moddle = new BpmnModdle({ zeebe });
+const moddle = new BpmnModdle();
 
 const {
   findExtensionElement,
   is,
-  isCamunda8BPMN,
   traverse
 } = require('./util');
 
@@ -35,10 +32,6 @@ module.exports = {
       };
     }
 
-    if (!isCamunda8BPMN(item.file.contents)) {
-      throw new Error('Not a Camunda 8 BPMN file');
-    }
-
     let rootElement, processes, linkedIds;
 
     try {
@@ -51,7 +44,7 @@ module.exports = {
         ...findLinkedFormIds(rootElement)
       ];
     } catch (error) {
-      throw new Error(`Failed to parse BPMN file: ${ error.message }`);
+      throw new Error(`Failed to parse BPMN file: ${error.message}`);
     }
 
     return {
@@ -120,7 +113,25 @@ function findLinkedIds(definitions, type, elementType, extensionElementType, pro
 }
 
 function findLinkedProcessIds(definitions) {
-  return findLinkedIds(definitions, 'bpmn', 'bpmn:CallActivity', 'zeebe:CalledElement', 'processId');
+  const linkedIds = [];
+
+  traverse(definitions, {
+    enter(element) {
+      if (is(element, 'bpmn:CallActivity')) {
+        const calledElement = element.get('calledElement');
+
+        if (calledElement) {
+          linkedIds.push({
+            type: 'bpmn',
+            elementId: element.get('id'),
+            linkedId: calledElement
+          });
+        }
+      }
+    }
+  });
+
+  return linkedIds;
 }
 
 function findLinkedDecisionIds(definitions) {

@@ -1,6 +1,6 @@
 {
-  "appId": "com.camunda.CamundaModeler",
-  "productName": "Camunda Modeler",
+  "appId": "com.cadenzaflow.CadenzaFlowModeler",
+  "productName": "CadenzaFlow Modeler",
   "files": [
     {
       "filter": [
@@ -14,10 +14,14 @@
   "afterPack": "./tasks/after-pack.js",
   "afterSign": "./tasks/after-sign.mjs",
   "win": {
+    "icon": "resources/icon.png",
     "target": [
       {
         "target": "zip",
-        "arch": [ "x64", "ia32" ]
+        "arch": [
+          "x64",
+          "ia32"
+        ]
       }
     ]
   },
@@ -26,7 +30,9 @@
     "target": [
       {
         "target": "tar.gz",
-        "arch": [ "x64" ]
+        "arch": [
+          "x64"
+        ]
       }
     ]
   },
@@ -36,36 +42,41 @@
     "target": [
       {
         "target": "dmg",
-        "arch": [ "x64", "arm64" ]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       },
       {
         "target": "zip",
-        "arch": [ "x64", "arm64" ]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       }
     ]
   },
   "fileAssociations": [
     {
       "ext": "bpmn",
-      "name": "CamundaModeler.BPMN",
+      "name": "CadenzaFlowModeler.BPMN",
       "description": "BPMN file",
       "role": "Editor",
       "mimeType": "application/bpmn"
     },
     {
       "ext": "dmn",
-      "name": "CamundaModeler.DMN",
+      "name": "CadenzaFlowModeler.DMN",
       "description": "DMN file",
       "role": "Editor",
       "mimeType": "application/dmn"
     },
     {
       "ext": "form",
-      "name": "CamundaModeler.FORM",
+      "name": "CadenzaFlowModeler.FORM",
       "description": "FORM file",
       "role": "Editor",
       "mimeType": "application/camunda-form"
     }
-  ],
-  "npmArgs": "--workspaces=false"
+  ]
 }

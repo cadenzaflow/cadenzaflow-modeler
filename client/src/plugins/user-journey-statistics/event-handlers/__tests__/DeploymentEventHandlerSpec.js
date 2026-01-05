@@ -73,8 +73,8 @@ describe('<DeploymentEventHandler>', function() {
             tab,
             context: 'deploymentTool',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
           });
 
@@ -82,31 +82,9 @@ describe('<DeploymentEventHandler>', function() {
           expect(track).to.have.been.calledWith('deploy:success', {
             diagramType: 'bpmn',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
-          });
-        });
-
-
-        it('cloud-bpmn', async function() {
-
-          // given
-          const tab = createTab({
-            type: 'cloud-bpmn'
-          });
-
-          const handleDeploymentDone = subscribe.getCall(0).args[1];
-
-          // when
-          await handleDeploymentDone({
-            tab,
-            context: 'deploymentTool'
-          });
-
-          // then
-          expect(track).to.have.been.calledWith('deploy:success', {
-            diagramType: 'bpmn'
           });
         });
 
@@ -125,8 +103,8 @@ describe('<DeploymentEventHandler>', function() {
             tab,
             context: 'deploymentTool',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
           });
 
@@ -134,38 +112,8 @@ describe('<DeploymentEventHandler>', function() {
           expect(track).to.have.been.calledWith('deploy:success', {
             diagramType: 'dmn',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
-            }
-          });
-        });
-
-
-        it('cloud dmn', async function() {
-
-          // given
-          const tab = createTab({
-            type: 'cloud-dmn'
-          });
-
-          const handleDeploymentDone = subscribe.getCall(0).args[1];
-
-          // when
-          await handleDeploymentDone({
-            tab,
-            context: 'deploymentTool',
-            deployedTo: {
-              executionPlatformVersion: '8.0.0',
-              executionPlatform: 'Camunda'
-            }
-          });
-
-          // then
-          expect(track).to.have.been.calledWith('deploy:success', {
-            diagramType: 'dmn',
-            deployedTo: {
-              executionPlatformVersion: '8.0.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
           });
         });
@@ -187,8 +135,8 @@ describe('<DeploymentEventHandler>', function() {
           tab,
           context: 'taskTesting',
           deployedTo: {
-            executionPlatformVersion: '8.8.0',
-            executionPlatform: 'Camunda'
+            executionPlatformVersion: '1.1.0',
+            executionPlatform: 'CadenzaFlow'
           }
         });
 
@@ -196,8 +144,8 @@ describe('<DeploymentEventHandler>', function() {
         expect(track).to.have.been.calledWith('taskTesting:deploy:success', {
           diagramType: 'bpmn',
           deployedTo: {
-            executionPlatformVersion: '8.8.0',
-            executionPlatform: 'Camunda'
+            executionPlatformVersion: '1.1.0',
+            executionPlatform: 'CadenzaFlow'
           }
         });
 
@@ -225,8 +173,8 @@ describe('<DeploymentEventHandler>', function() {
             tab,
             context: 'startInstanceTool',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
           });
 
@@ -234,33 +182,12 @@ describe('<DeploymentEventHandler>', function() {
           expect(track).to.have.been.calledWith('startInstance:success', {
             diagramType: 'bpmn',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
           });
         });
 
-
-        it('cloud-bpmn', async function() {
-
-          // given
-          const tab = createTab({
-            type: 'cloud-bpmn'
-          });
-
-          const handleDeploymentDone = subscribe.getCall(0).args[1];
-
-          // when
-          await handleDeploymentDone({
-            tab,
-            context: 'startInstanceTool'
-          });
-
-          // then
-          expect(track).to.have.been.calledWith('startInstance:success', {
-            diagramType: 'bpmn'
-          });
-        });
 
 
         it('dmn', async function() {
@@ -277,8 +204,8 @@ describe('<DeploymentEventHandler>', function() {
             tab,
             context: 'startInstanceTool',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
           });
 
@@ -286,38 +213,8 @@ describe('<DeploymentEventHandler>', function() {
           expect(track).to.have.been.calledWith('startInstance:success', {
             diagramType: 'dmn',
             deployedTo: {
-              executionPlatformVersion: '7.15.0',
-              executionPlatform: 'Camunda'
-            }
-          });
-        });
-
-
-        it('cloud dmn', async function() {
-
-          // given
-          const tab = createTab({
-            type: 'cloud-dmn'
-          });
-
-          const handleDeploymentDone = subscribe.getCall(0).args[1];
-
-          // when
-          await handleDeploymentDone({
-            tab,
-            context: 'startInstanceTool',
-            deployedTo: {
-              executionPlatformVersion: '8.0.0',
-              executionPlatform: 'Camunda'
-            }
-          });
-
-          // then
-          expect(track).to.have.been.calledWith('startInstance:success', {
-            diagramType: 'dmn',
-            deployedTo: {
-              executionPlatformVersion: '8.0.0',
-              executionPlatform: 'Camunda'
+              executionPlatformVersion: '1.0.0',
+              executionPlatform: 'CadenzaFlow'
             }
           });
         });
@@ -351,8 +248,8 @@ describe('<DeploymentEventHandler>', function() {
         error,
         context: 'deploymentTool',
         deployedTo: {
-          executionPlatformVersion: '7.15.0',
-          executionPlatform: 'camunda'
+          executionPlatformVersion: '1.0.0',
+          executionPlatform: 'CadenzaFlow'
         }
       });
 
@@ -364,8 +261,8 @@ describe('<DeploymentEventHandler>', function() {
         diagramType: 'bpmn',
         error: EXAMPLE_ERROR,
         deployedTo: {
-          executionPlatformVersion: '7.15.0',
-          executionPlatform: 'camunda'
+          executionPlatformVersion: '1.0.0',
+          executionPlatform: 'CadenzaFlow'
         }
       });
     });
@@ -390,8 +287,8 @@ describe('<DeploymentEventHandler>', function() {
         error,
         context: 'startInstanceTool',
         deployedTo: {
-          executionPlatformVersion: '7.15.0',
-          executionPlatform: 'camunda'
+          executionPlatformVersion: '1.0.0',
+          executionPlatform: 'CadenzaFlow'
         }
       });
 
@@ -403,8 +300,8 @@ describe('<DeploymentEventHandler>', function() {
         diagramType: 'bpmn',
         error: EXAMPLE_ERROR,
         deployedTo: {
-          executionPlatformVersion: '7.15.0',
-          executionPlatform: 'camunda'
+          executionPlatformVersion: '1.0.0',
+          executionPlatform: 'CadenzaFlow'
         }
       });
     });
@@ -434,8 +331,8 @@ describe('<DeploymentEventHandler>', function() {
         const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
         // then
-        expect(executionPlatform).to.eql('Camunda Platform');
-        expect(executionPlatformVersion).to.eql('7.15.0');
+        expect(executionPlatform).to.eql('CadenzaFlow');
+        expect(executionPlatformVersion).to.eql('1.0.0');
 
       });
 
@@ -458,8 +355,8 @@ describe('<DeploymentEventHandler>', function() {
         const { executionPlatform, executionPlatformVersion } = track.getCall(0).args[1];
 
         // then
-        expect(executionPlatform).to.eql('Camunda Platform');
-        expect(executionPlatformVersion).to.eql('7.16.0');
+        expect(executionPlatform).to.eql('CadenzaFlow');
+        expect(executionPlatformVersion).to.eql('1.1.0');
 
       });
 
@@ -486,7 +383,7 @@ describe('<DeploymentEventHandler>', function() {
         const { executionPlatform } = track.getCall(0).args[1];
 
         // then
-        expect(executionPlatform).to.eql('Camunda Platform');
+        expect(executionPlatform).to.eql('CadenzaFlow');
       });
 
 
@@ -508,33 +405,12 @@ describe('<DeploymentEventHandler>', function() {
         const { executionPlatform } = track.getCall(0).args[1];
 
         // then
-        expect(executionPlatform).to.eql('Camunda Platform');
+        expect(executionPlatform).to.eql('CadenzaFlow');
       });
 
 
     });
 
-  });
-
-
-  it('should send target type', async function() {
-
-    // given
-    const tab = createTab({
-      type: 'cloud-bpmn'
-    });
-
-    const cloudTargetType = 'camundaCloud';
-
-    const handleDeploymentDone = subscribe.getCall(0).args[1];
-
-    // when
-    await handleDeploymentDone({ tab, targetType: cloudTargetType });
-
-    const { targetType } = track.getCall(0).args[1];
-
-    // then
-    expect(targetType).to.eql(cloudTargetType);
   });
 
 
@@ -547,15 +423,18 @@ describe('<DeploymentEventHandler>', function() {
 
     const handleBpmnCreated = subscribe.getCall(2).args[1];
 
-    await handleBpmnCreated({ modeler: {
-      get: () => {
-        return {
-          getAll: () => [
-            { id: 'foo', modelerTemplate: 'templateId_foo' },
-            { id: 'bar', modelerTemplate: 'templateId_bar' }
-          ]
-        };}
-    } });
+    await handleBpmnCreated({
+      modeler: {
+        get: () => {
+          return {
+            getAll: () => [
+              { id: 'foo', modelerTemplate: 'templateId_foo' },
+              { id: 'bar', modelerTemplate: 'templateId_bar' }
+            ]
+          };
+        }
+      }
+    });
 
     // when
     const handleDeploymentDone = subscribe.getCall(0).args[1];

@@ -17,8 +17,8 @@ import { utmTag } from '../../util/utmTag';
 
 
 const RELEASE_NOTES_LINK = utmTag('https://camunda.com/blog/category/releases/');
-const DOCS_LINK = utmTag('https://docs.camunda.io/docs/components/modeler/desktop-modeler/');
-const CHANGELOG_LINK = 'https://github.com/camunda/camunda-modeler/blob/main/CHANGELOG.md';
+const DOCS_LINK = utmTag('https://docs.cadenzaflow.org/manual/latest/modeler/');
+const CHANGELOG_LINK = 'https://github.com/cadenzaflow/cadenzaflow-modeler/blob/main/CHANGELOG.md';
 
 const OFFSET = { right: 0 };
 
@@ -56,8 +56,8 @@ function LearnMoreSection(props) {
       </Section.Header>
       <Section.Body>
         <ul className="dashed">
-          <li><a href={ RELEASE_NOTES_LINK }>Release Notes on Camunda blog</a></li>
-          <li><a href={ DOCS_LINK }>Camunda Modeler docs</a></li>
+          <li><a href={ RELEASE_NOTES_LINK }>Release Notes</a></li>
+          <li><a href={ DOCS_LINK }>CadenzaFlow Modeler docs</a></li>
           <li><a href={ CHANGELOG_LINK }>Changelog on GitHub</a></li>
         </ul>
       </Section.Body>

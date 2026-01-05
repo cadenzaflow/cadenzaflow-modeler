@@ -331,7 +331,7 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
                             );
                           } }
                           label="REST endpoint"
-                          hint="Should point to a running Camunda REST API endpoint."
+                          hint="Should point to a running CadenzaFlow REST API endpoint."
                         />
 
                         {

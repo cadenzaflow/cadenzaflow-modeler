@@ -1,13 +1,13 @@
 {
-  "name": "camunda-modeler",
-  "version": "5.42.0",
+  "name": "cadenzaflow-modeler",
+  "version": "1.0.0",
   "description": "Modeling solution for BPMN, DMN, and Forms based on bpmn.io.",
   "private": true,
   "main": "prod.js",
   "author": {
-    "name": "Camunda Services GmbH",
-    "email": "info@camunda.com",
-    "url": "https://camunda.com"
+    "name": "CadenzaFlow",
+    "email": "info@cadenzaflow.com",
+    "url": "https://cadenzaflow.com"
   },
   "license": "MIT",
   "dependencies": {
@@ -24,10 +24,10 @@
     "parents": "^1.0.1",
     "saxen": "^10.0.0"
   },
-  "homepage": "https://github.com/camunda/camunda-modeler",
+  "homepage": "https://github.com/cadenzaflow/cadenzaflow-modeler",
   "repository": {
     "type": "git",
-    "url": "https://github.com/camunda/camunda-modeler"
+    "url": "https://github.com/cadenzaflow/cadenzaflow-modeler"
   },
   "optionalDependencies": {
     "vscode-windows-ca-certs": "^0.3.0"

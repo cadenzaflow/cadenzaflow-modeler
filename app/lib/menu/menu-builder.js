@@ -616,11 +616,7 @@ class MenuBuilder {
     const topPart = [
       {
         label: 'Documentation',
-        click: () => browserOpen('https://docs.camunda.io/docs/components/modeler/desktop-modeler/?utm_source=modeler&utm_medium=referral')
-      },
-      {
-        label: 'User Forum',
-        click: () => browserOpen('https://forum.camunda.io/c/bpmn-modeling/?utm_source=modeler&utm_medium=referral')
+        click: () => browserOpen('https://docs.cadenzaflow.org/manual/latest/modeler/')
       },
       {
         label: 'Keyboard Shortcuts',
@@ -629,7 +625,7 @@ class MenuBuilder {
       getSeparatorTemplate(),
       {
         label: 'Search Feature Requests',
-        click: () => browserOpen('https://github.com/camunda/camunda-modeler/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement')
+        click: () => browserOpen('https://github.com/cadenzaflow/cadenzaflow-modeler/issues?q=is%3Aopen%20is%3Aissue%20label%3Aenhancement')
       },
       {
         label: 'Report Issue',
@@ -671,7 +667,7 @@ class MenuBuilder {
     const bottomPart = [
       {
         label: 'FEEL Reference',
-        click: () => browserOpen('https://docs.camunda.io/docs/components/modeler/feel/what-is-feel/?utm_source=modeler&utm_medium=referral')
+        click: () => browserOpen('https://docs.cadenzaflow.org/manual/latest/user-guide/process-engine/expression-language/friendly-enough-expression-language/')
       },
       getSeparatorTemplate(),
       {

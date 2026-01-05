@@ -644,25 +644,25 @@ describe('<FormEditor>', function() {
 
 
     it('should show engine profile (no engine profile)', expectEngineProfile(noEngineProfile, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: undefined
     }));
 
 
     it('should show engine profile (Camunda 7.16.0)', expectEngineProfile(engineProfileSchema, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: '7.16.0'
     }));
 
 
     it('should show engine profile (Camunda 7.16)', expectEngineProfile(missingPatchEngineProfile, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: '7.16.0'
     }));
 
 
     it('should show engine profile (Camunda 7.16.1)', expectEngineProfile(patchEngineProfile, {
-      executionPlatform: 'Camunda Platform',
+      executionPlatform: 'CadenzaFlow',
       executionPlatformVersion: '7.16.1'
     }));
 
@@ -678,27 +678,27 @@ describe('<FormEditor>', function() {
       expect(wrapper.find('EngineProfile').exists()).to.be.true;
 
       expect(instance.getCached().engineProfile).to.eql({
-        executionPlatform: 'Camunda Platform',
+        executionPlatform: 'CadenzaFlow',
         executionPlatformVersion: '7.16.0'
       });
 
       // when
       const schema = instance.getCached().form.getSchema();
 
-      schema.executionPlatform = 'Camunda Platform';
+      schema.executionPlatform = 'CadenzaFlow';
       schema.executionPlatformVersion = '7.15.0';
 
       instance.handleChanged();
 
       // then
       expect(instance.getCached().engineProfile).to.eql({
-        executionPlatform: 'Camunda Platform',
+        executionPlatform: 'CadenzaFlow',
         executionPlatformVersion: '7.15.0'
       });
     });
 
 
-    it('should open unknown execution profile form as Camunda Platform', async function() {
+    it('should open unknown execution profile form as CadenzaFlow', async function() {
 
       // given
       const onImportSpy = spy();
@@ -712,7 +712,7 @@ describe('<FormEditor>', function() {
       expect(onImportSpy).to.have.been.calledOnce;
 
       expect(instance.getCached().engineProfile).to.eql({
-        executionPlatform: 'Camunda Platform',
+        executionPlatform: 'CadenzaFlow',
         executionPlatformVersion: '7.16.0'
       });
     });

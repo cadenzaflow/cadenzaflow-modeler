@@ -82,6 +82,6 @@
     }
   ],
   "type": "default",
-  "executionPlatform": "Camunda Cloud",
-  "executionPlatformVersion": "8.4"
+  "executionPlatform": "CadenzaFlow",
+  "executionPlatformVersion": "1.1.0"
 }

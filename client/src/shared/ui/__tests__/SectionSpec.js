@@ -75,7 +75,7 @@ describe('<Section>', function() {
 
       // then
       expectStyle(container, {
-        'overflow-y': 'hidden'
+        'overflowY': 'hidden'
       });
 
     });

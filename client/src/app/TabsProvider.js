@@ -60,11 +60,7 @@ import { utmTag } from '../util/utmTag';
 const BPMN_HELP_MENU = [
   {
     label: 'BPMN 2.0 Tutorial',
-    action: utmTag('https://camunda.org/bpmn/tutorial/')
-  },
-  {
-    label: 'BPMN Modeling Reference',
-    action: utmTag('https://camunda.org/bpmn/reference/')
+    action: utmTag('https://docs.cadenzaflow.org/manual/latest/reference/bpmn20/')
   }
 ];
 
@@ -73,7 +69,7 @@ const BPMN_HELP_MENU = [
 const DMN_HELP_MENU = [
   {
     label: 'DMN Tutorial',
-    action: utmTag('https://camunda.org/dmn/tutorial/')
+    action: utmTag('https://docs.cadenzaflow.org/manual/latest/reference/dmn/')
   }
 ];
 
@@ -163,7 +159,7 @@ export default class TabsProvider {
         getNewFileMenu() {
           return [ {
             label: 'BPMN diagram',
-            group: 'Camunda 7',
+            group: 'CadenzaFlow',
             action: 'create-bpmn-diagram'
           } ];
         },
@@ -213,7 +209,7 @@ export default class TabsProvider {
         getNewFileMenu() {
           return [ {
             label: 'DMN diagram',
-            group: 'Camunda 7',
+            group: 'CadenzaFlow',
             action: 'create-dmn-diagram'
           } ];
         },
@@ -248,7 +244,7 @@ export default class TabsProvider {
         getNewFileMenu() {
           return [ {
             label: 'Form',
-            group: 'Camunda 7',
+            group: 'CadenzaFlow',
             action: 'create-form'
           } ];
         },

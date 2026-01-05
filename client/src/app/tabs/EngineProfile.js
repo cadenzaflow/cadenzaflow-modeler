@@ -283,7 +283,7 @@ export function getStatusBarLabel(engineProfile) {
   if (!executionPlatformVersion) {
     return `${ENGINE_LABELS[executionPlatform]}`;
   } else {
-    return `Camunda ${toDisplayVersion(engineProfile)}`;
+    return `${ENGINE_LABELS[executionPlatform]} ${toDisplayVersion(engineProfile)}`;
   }
 }
 
@@ -381,7 +381,7 @@ export function getEngineProfileFromBpmn(definitions, defaultProfile) {
   }
 
   return {
-    executionPlatform: definitions.get('modeler:executionPlatform') || defaultProfile.executionPlatform,
+    executionPlatform: normalizeExecutionPlatform(definitions.get('modeler:executionPlatform')) || defaultProfile.executionPlatform,
     executionPlatformVersion: toSemver(definitions.get('modeler:executionPlatformVersion') || defaultProfile.executionPlatformVersion)
   };
 }
@@ -395,9 +395,16 @@ export function getEngineProfileFromForm(schema, defaultProfile) {
   }
 
   return {
-    executionPlatform: schema.executionPlatform || defaultProfile.executionPlatform,
+    executionPlatform: normalizeExecutionPlatform(schema.executionPlatform) || defaultProfile.executionPlatform,
     executionPlatformVersion: toSemver(schema.executionPlatformVersion || defaultProfile.executionPlatformVersion)
   };
+}
+
+function normalizeExecutionPlatform(platform) {
+  if (platform === 'Camunda Platform') {
+    return ENGINES.PLATFORM;
+  }
+  return platform;
 }
 
 /**

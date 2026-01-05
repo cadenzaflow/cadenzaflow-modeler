@@ -57,7 +57,7 @@ describe('<EngineProfile>', function() {
     fireEvent.click(button);
 
     // then
-    expect(getByText(/This file can be deployed and executed on Camunda 7/)).to.exist;
+    expect(getByText(/This file can be deployed and executed on CadenzaFlow/)).to.exist;
   });
 
 
@@ -84,7 +84,7 @@ describe('<EngineProfile>', function() {
 
     // given
     const { getByRole } = renderEngineProfile({
-      engineProfile: { ...dmnEngineProfile, executionPlatformVersion: '7.19.0' },
+      engineProfile: { ...dmnEngineProfile, executionPlatformVersion: '1.0.0' },
       onChange: () => { }
     });
 
@@ -95,7 +95,7 @@ describe('<EngineProfile>', function() {
     // then
     const select = getByRole('combobox');
     const options = select.querySelectorAll('option');
-    expect(options.length).to.equal(10);
+    expect(options.length).to.equal(2);
   });
 
 
@@ -173,8 +173,8 @@ describe('<EngineProfile>', function() {
 
       // given
       const inputs =
-        [ [ ENGINES.PLATFORM, '7.14', '7.14' ],
-          [ ENGINES.PLATFORM, '7.500', '7.500 (alpha)' ],
+        [ [ ENGINES.PLATFORM, '1.0', '1.0' ],
+          [ ENGINES.PLATFORM, '2.0', '2.0 (alpha)' ],
           [ undefined, '10.0', '10.0' ],
         ];
 
@@ -193,10 +193,10 @@ describe('<EngineProfile>', function() {
 
       // given
       const inputs =
-        [ [ ENGINES.PLATFORM, '7.0', 'Camunda 7.0 (unsupported)' ],
-          [ ENGINES.PLATFORM, '7.15', 'Camunda 7.15' ],
-          [ ENGINES.PLATFORM, '7.500', 'Camunda 7.500 (unsupported)' ],
-          [ ENGINES.PLATFORM, '', 'Camunda 7' ] ];
+        [ [ ENGINES.PLATFORM, '0.5', 'CadenzaFlow 0.5 (unsupported)' ],
+          [ ENGINES.PLATFORM, '1.0', 'CadenzaFlow 1.0' ],
+          [ ENGINES.PLATFORM, '2.0', 'CadenzaFlow 2.0 (unsupported)' ],
+          [ ENGINES.PLATFORM, '', 'CadenzaFlow' ] ];
 
       // then
       inputs.forEach((input) => {
