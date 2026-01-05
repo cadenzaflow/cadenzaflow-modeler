@@ -16,7 +16,7 @@ import { ReleaseInfo } from './ReleaseInfo';
 import { utmTag } from '../../util/utmTag';
 
 
-const RELEASE_NOTES_LINK = utmTag('https://camunda.com/blog/category/releases/');
+const RELEASE_NOTES_LINK = utmTag('https://cadenzaflow.com/blog/');
 const DOCS_LINK = utmTag('https://docs.cadenzaflow.org/manual/latest/modeler/');
 const CHANGELOG_LINK = 'https://github.com/cadenzaflow/cadenzaflow-modeler/blob/main/CHANGELOG.md';
 

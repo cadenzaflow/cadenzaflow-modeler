@@ -622,25 +622,27 @@ class MenuBuilder {
         label: 'Keyboard Shortcuts',
         click: () => app.emit('menu:action', 'show-shortcuts')
       },
-      getSeparatorTemplate(),
-      {
-        label: 'Search Feature Requests',
-        click: () => browserOpen('https://github.com/cadenzaflow/cadenzaflow-modeler/issues?q=is%3Aopen%20is%3Aissue%20label%3Aenhancement')
-      },
-      {
-        label: 'Report Issue',
-        click: () => app.emit('menu:action', 'emit-event', { type: 'reportFeedback.open' })
-      },
+
+      // getSeparatorTemplate(),
+      // {
+      //   label: 'Search Feature Requests',
+      //   click: () => browserOpen('https://github.com/cadenzaflow/cadenzaflow-modeler/issues?q=is%3Aopen%20is%3Aissue%20label%3Aenhancement')
+      // },
+      // {
+      //   label: 'Report Issue',
+      //   click: () => app.emit('menu:action', 'emit-event', { type: 'reportFeedback.open' })
+      // },
       ... (app.flags && !app.flags.get('disable-remote-interaction')) ? [
         getSeparatorTemplate(),
         {
           label: 'Privacy Preferences',
           click: () => app.emit('menu:action', 'emit-event', { type: 'show-privacy-preferences' })
-        },
-        {
-          label: 'Check for Updates',
-          click: () => app.emit('menu:action', 'emit-event', { type: 'updateChecks.execute' })
-        },
+        }
+
+        // {
+        //   label: 'Check for Updates',
+        //   click: () => app.emit('menu:action', 'emit-event', { type: 'updateChecks.execute' })
+        // },
       ] : [],
       getSeparatorTemplate()
     ];

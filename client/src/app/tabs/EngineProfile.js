@@ -29,10 +29,10 @@ import { Fill } from '../slot-fill';
 import { ENGINES, ENGINE_LABELS, ENGINE_PROFILES, getLatestStable } from '../../util/Engines';
 
 const HELP_LINKS = {
-  [ENGINES.PLATFORM]: utmTag('https://docs.camunda.org/manual/latest/')
+  [ENGINES.PLATFORM]: utmTag('https://docs.cadenzaflow.org/manual/latest/')
 };
 
-const DONWLOAD_PAGE = utmTag('https://camunda.com/download/modeler/');
+const DONWLOAD_PAGE = utmTag('https://downloads.cadenzaflow.com/release/communityEdition/cadenzaflow-modeler/');
 
 export function EngineProfile(props) {
   const {

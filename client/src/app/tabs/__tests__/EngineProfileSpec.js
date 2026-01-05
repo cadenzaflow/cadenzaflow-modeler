@@ -365,7 +365,7 @@ function expectHelpText(getByRole, helpLink) {
 }
 
 function expectPlatformHelp(getByRole) {
-  expectHelpText(getByRole, utmTag('https://docs.camunda.org/manual/latest/'));
+  expectHelpText(getByRole, utmTag('https://docs.cadenzaflow.org/manual/latest/'));
 }
 
 function selectVersion(select, version) {

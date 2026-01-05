@@ -34,16 +34,16 @@
     "start": "run-s \"dev -- {@}\" --",
     "link-dependencies": "node tasks/link-dependencies.js"
   },
-  "author": "Camunda <http://camunda.com>",
+  "author": "CadenzaFlow <http://cadenzaflow.com>",
   "license": "SEE LICENSE IN LICENSE",
-  "homepage": "https://github.com/camunda/camunda-modeler",
+  "homepage": "https://github.com/cadenzaflow/cadenzaflow-modeler",
   "workspaces": [
     "app",
     "client"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/camunda/camunda-modeler"
+    "url": "https://github.com/cadenzaflow/cadenzaflow-modeler"
   },
   "devDependencies": {
     "@electron/notarize": "^3.0.1",
