@@ -164,12 +164,11 @@ describe('<PrivacyPreferencesView>', function() {
     it('should load privacy preferences', function() {
 
       // given
-      const values = [ false, true, false ];
+      const values = [ false, false ];
 
       const privacyPreferences = {
         ENABLE_CRASH_REPORTS: values[0],
-        ENABLE_USAGE_STATISTICS: values[1],
-        ENABLE_UPDATE_CHECKS: values[2]
+        ENABLE_UPDATE_CHECKS: values[1]
       };
 
       // when
@@ -188,7 +187,7 @@ describe('<PrivacyPreferencesView>', function() {
     it('should not set autofocus', async function() {
 
       // given
-      const preferenceKey = PREFERENCES_LIST[2].key;
+      const preferenceKey = PREFERENCES_LIST[1].key;
 
       // when
       const wrapper = mount(<PrivacyPreferencesView />);
@@ -202,7 +201,7 @@ describe('<PrivacyPreferencesView>', function() {
     it('should set autofocus if specified', async function() {
 
       // given
-      const preferenceKey = PREFERENCES_LIST[2].key;
+      const preferenceKey = PREFERENCES_LIST[1].key;
 
       // when
       const wrapper = mount(
@@ -218,7 +217,6 @@ describe('<PrivacyPreferencesView>', function() {
 
       let currentPreferences = {
         ENABLE_CRASH_REPORTS: true,
-        ENABLE_USAGE_STATISTICS: true,
         ENABLE_UPDATE_CHECKS: true
       };
 

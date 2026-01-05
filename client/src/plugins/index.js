@@ -18,10 +18,7 @@ import PrivacyPreferences from './privacy-preferences';
 // ProcessApplications removed
 import ReportFeedback from './report-feedback';
 import UpdateChecks from './update-checks';
-import UserJourneyStatistics from './user-journey-statistics';
 import VersionInfo from './version-info';
-
-// ZeebePlugin removed
 import TemplateUpdater from './template-updater';
 import Settings from './settings';
 
@@ -35,7 +32,6 @@ export default [
   ReportFeedback,
   UpdateChecks,
   VersionInfo,
-  UserJourneyStatistics,
   TemplateUpdater,
   Settings
 ];
