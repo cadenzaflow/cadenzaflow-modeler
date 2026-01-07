@@ -11,7 +11,7 @@
 import { utmTag } from '../../util/utmTag';
 
 
-export const PRIVACY_TEXT_FIELD = 'To enhance user experience, Camunda Modeler can integrate with 3rd party services, which requires external network requests. Please choose from the settings below.';
+export const PRIVACY_TEXT_FIELD = 'To enhance user experience, CadenzaFlow Modeler can integrate with 3rd party services, which requires external network requests. Please choose from the settings below.';
 
 export const PRIVACY_POLICY_URL = utmTag('https://cadenzaflow.com/legal/privacy-and-data-protection/');
 
@@ -26,8 +26,9 @@ export const CANCEL_BUTTON_TEXT = 'Cancel';
 export const TITLE = 'Privacy Preferences';
 
 export const DEFAULT_VALUES = {
-  ENABLE_CRASH_REPORTS: true,
-  ENABLE_UPDATE_CHECKS: true
+  ENABLE_CRASH_REPORTS: true
+
+  // ENABLE_UPDATE_CHECKS: true
 };
 
 export const PREFERENCES_LIST = [
@@ -35,11 +36,11 @@ export const PREFERENCES_LIST = [
     title: 'Enable Error Reports',
     explanation: 'Allow CadenzaFlow Modeler to send error reports containing stack traces and unhandled exceptions.',
     key: 'ENABLE_CRASH_REPORTS'
-  },
-
-  {
-    title: 'Enable Update Checks',
-    explanation: 'Allow CadenzaFlow Modeler to periodically check for new updates.',
-    key: 'ENABLE_UPDATE_CHECKS'
   }
+
+  // {
+  //   title: 'Enable Update Checks',
+  //   explanation: 'Allow CadenzaFlow Modeler to periodically check for new updates.',
+  //   key: 'ENABLE_UPDATE_CHECKS'
+  // }
 ];

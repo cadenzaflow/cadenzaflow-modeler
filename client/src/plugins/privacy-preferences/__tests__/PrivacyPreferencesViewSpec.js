@@ -164,11 +164,14 @@ describe('<PrivacyPreferencesView>', function() {
     it('should load privacy preferences', function() {
 
       // given
-      const values = [ false, false ];
+      const values = [ false ];
+
+      // const values = [ false, false ];
 
       const privacyPreferences = {
-        ENABLE_CRASH_REPORTS: values[0],
-        ENABLE_UPDATE_CHECKS: values[1]
+        ENABLE_CRASH_REPORTS: values[0]
+
+        // ENABLE_UPDATE_CHECKS: values[1]
       };
 
       // when
@@ -187,13 +190,13 @@ describe('<PrivacyPreferencesView>', function() {
     it('should not set autofocus', async function() {
 
       // given
-      const preferenceKey = PREFERENCES_LIST[1].key;
+      const preferenceKey = PREFERENCES_LIST[0].key;
 
       // when
       const wrapper = mount(<PrivacyPreferencesView />);
 
       // then
-      expect(wrapper.find(`#${preferenceKey}`).is(':focus')).to.be.false;
+      expect(wrapper.find(`#${preferenceKey}`).prop('autoFocus')).to.be.false;
     });
 
 
@@ -201,7 +204,7 @@ describe('<PrivacyPreferencesView>', function() {
     it('should set autofocus if specified', async function() {
 
       // given
-      const preferenceKey = PREFERENCES_LIST[1].key;
+      const preferenceKey = PREFERENCES_LIST[0].key;
 
       // when
       const wrapper = mount(
@@ -216,8 +219,9 @@ describe('<PrivacyPreferencesView>', function() {
     it('should save privacy preferences on save click', function() {
 
       let currentPreferences = {
-        ENABLE_CRASH_REPORTS: true,
-        ENABLE_UPDATE_CHECKS: true
+        ENABLE_CRASH_REPORTS: true
+
+        // ENABLE_UPDATE_CHECKS: true
       };
 
       const onSaveAndClose = spy();

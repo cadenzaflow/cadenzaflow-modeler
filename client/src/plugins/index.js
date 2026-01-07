@@ -15,9 +15,9 @@ import ElementTemplatesModal from './element-templates-modal';
 import ErrorTracking from './error-tracking';
 import PrivacyPreferences from './privacy-preferences';
 
-// ProcessApplications removed
 import ReportFeedback from './report-feedback';
-import UpdateChecks from './update-checks';
+
+// import UpdateChecks from './update-checks';
 import VersionInfo from './version-info';
 import TemplateUpdater from './template-updater';
 import Settings from './settings';
@@ -30,7 +30,8 @@ export default [
   ErrorTracking,
   PrivacyPreferences,
   ReportFeedback,
-  UpdateChecks,
+
+  // UpdateChecks,
   VersionInfo,
   TemplateUpdater,
   Settings
