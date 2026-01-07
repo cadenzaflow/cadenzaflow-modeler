@@ -98,7 +98,7 @@ describe('<webAppUrls>', function() {
       const cockpitUrl = await determineCockpitUrl(engineRestUrl);
 
       // then
-      expect(cockpitUrl).to.be.equal('http://localhost:8080/camunda/app/cockpit/default/#/');
+      expect(cockpitUrl).to.be.equal('http://localhost:8080/cadenzaflow/app/cockpit/default/#/');
     });
 
 

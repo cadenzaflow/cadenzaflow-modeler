@@ -116,12 +116,12 @@ export const GenericApiErrors = {
 
 export const GenericApiErrorMessages = {
   [ NO_INTERNET_CONNECTION ]: 'Could not establish a network connection.',
-  [ CONNECTION_FAILED ]: 'Should point to a running Camunda REST API.',
+  [ CONNECTION_FAILED ]: 'Should point to a running CadenzaFlow REST API.',
   [ UNAUTHORIZED ]: 'Credentials do not match with the server.',
   [ FORBIDDEN ]: 'This user is not permitted to deploy. Please use different credentials or get this user enabled to deploy.',
-  [ NOT_FOUND ]: 'Should point to a running Camunda REST API.',
-  [ INTERNAL_SERVER_ERROR ]: 'Camunda is reporting an error. Please check the server status.',
-  [ UNAVAILABLE_ERROR ]: 'Camunda is reporting an error. Please check the server status.'
+  [ NOT_FOUND ]: 'Should point to a running CadenzaFlow REST API.',
+  [ INTERNAL_SERVER_ERROR ]: 'CadenzaFlow is reporting an error. Please check the server status.',
+  [ UNAVAILABLE_ERROR ]: 'CadenzaFlow is reporting an error. Please check the server status.'
 };
 
 export class ConnectionError extends Error {
