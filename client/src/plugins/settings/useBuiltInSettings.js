@@ -39,7 +39,7 @@ export const schema = {
       flag: 'enable-new-context-pad',
       label: 'Enable new context pad',
       restartRequired: true,
-      documentationUrl: utmTag('https://docs.camunda.io/docs/components/modeler/web-modeler/context-pad/'),
+      documentationUrl: utmTag('https://docs.cadenzaflow.org/manual/latest/modeler/context-pad/'),
     },
     'app.disablePlugins': {
       type: 'boolean',
@@ -69,7 +69,7 @@ export const schema = {
       options: getEngineOptions(ENGINES.PLATFORM),
       default: getLatestStable(ENGINES.PLATFORM),
       flag: 'c7-engine-version',
-      label: 'Default Camunda 7 version',
+      label: 'Default CadenzaFlow version',
     }
   }
 };

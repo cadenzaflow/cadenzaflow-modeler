@@ -67,7 +67,6 @@ class MenuBuilder {
     this.appendFileMenu(
       new MenuBuilder(this.options)
         .appendNewFile()
-        .appendNewProcessApplication()
         .appendOpen()
         .appendSeparator()
         .appendSwitchTab()
@@ -267,17 +266,6 @@ class MenuBuilder {
       enabled: this.options.state.save,
       click: function() {
         app.emit('menu:action', 'save-all');
-      }
-    }));
-
-    return this;
-  }
-
-  appendNewProcessApplication() {
-    this.menu.append(new MenuItem({
-      label: 'New Process Application...',
-      click: function() {
-        app.emit('menu:action', 'emit-event', { type: 'create-process-application' });
       }
     }));
 
