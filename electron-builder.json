@@ -38,7 +38,6 @@
     ]
   },
   "mac": {
-    "icon": "resources/icon.png",
     "hardenedRuntime": true,
     "entitlements": "./build/entitlements.mac.inherit.plist",
     "target": [

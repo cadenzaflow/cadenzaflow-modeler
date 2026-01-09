@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>CadenzaFlow Modeler</title>
 
   <style>
-    body, html {
+    body,
+    html {
       --color-grey-225-10-15: hsl(225, 10%, 15%);
       height: 100%;
       width: 100%;
@@ -42,6 +44,7 @@
       0% {
         transform: rotate(0deg);
       }
+
       100% {
         transform: rotate(360deg);
       }
@@ -63,6 +66,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="spinner-border spinner-border-global"></div>
@@ -70,14 +74,15 @@
   <div id="root"></div>
 
   <script>
-    window.onerror = function(msg, url, line) {
+    window.onerror = function (msg, url, line) {
       document.querySelector('.spinner-border').title = "JS ERROR: " + msg;
       console.error("Global Error:", msg, url, line);
     };
     console.log("Inline script running. Waiting for bundle.js...");
     document.querySelector('.spinner-border').title = "Waiting for bundle.js...";
   </script>
-  <script src="bundle.js" onerror="document.querySelector('.spinner-border').title = 'FAILED TO LOAD bundle.js'"></script>
+  <script src="bundle.js"
+    onerror="document.querySelector('.spinner-border').title = 'FAILED TO LOAD bundle.js'"></script>
 </body>
 
 </html>
