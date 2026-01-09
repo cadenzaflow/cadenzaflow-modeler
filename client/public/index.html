@@ -69,7 +69,15 @@
 
   <div id="root"></div>
 
-  <script src="bundle.js"></script>
+  <script>
+    window.onerror = function(msg, url, line) {
+      document.querySelector('.spinner-border').title = "JS ERROR: " + msg;
+      console.error("Global Error:", msg, url, line);
+    };
+    console.log("Inline script running. Waiting for bundle.js...");
+    document.querySelector('.spinner-border').title = "Waiting for bundle.js...";
+  </script>
+  <script src="bundle.js" onerror="document.querySelector('.spinner-border').title = 'FAILED TO LOAD bundle.js'"></script>
 </body>
 
 </html>
