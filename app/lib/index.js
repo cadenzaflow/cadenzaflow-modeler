@@ -622,7 +622,7 @@ function bootstrap() {
   const userPath = app.getPath('userData');
 
   let resourcesPaths = [
-    path.join(appPath, 'resources'),
+    process.resourcesPath,
     path.join(userPath, 'resources')
   ];
 

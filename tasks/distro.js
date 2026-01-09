@@ -12,6 +12,12 @@
 
 const argv = require('mri')(process.argv);
 
+if (argv.forceProduction) {
+  process.env.NODE_ENV = 'production';
+}
+
+console.log('Detected NODE_ENV:', process.env.NODE_ENV);
+
 const exec = require('execa').sync;
 
 const getVersion = require('../app/util/get-version');
