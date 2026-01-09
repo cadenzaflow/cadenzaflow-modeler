@@ -134,7 +134,7 @@ renderer.onSync('app:get-plugins', () => {
 
   // expose only necessary properties (e.g. not `menu` function)
   return plugins.getAll()
-    .map(plugin => pick(plugin, ['base', 'name', 'pluginPath', 'style', 'script']));
+    .map(plugin => pick(plugin, [ 'base', 'name', 'pluginPath', 'style', 'script' ]));
 });
 
 renderer.onSync('app:get-flags', () => {
@@ -147,7 +147,7 @@ renderer.onSync('app:get-metadata', () => {
 
 // external //////////
 
-renderer.on('external:open-url', function (options) {
+renderer.on('external:open-url', function(options) {
   const url = options.url;
 
   browserOpen(url);
@@ -155,7 +155,7 @@ renderer.on('external:open-url', function (options) {
 
 // dialogs //////////
 
-renderer.on('dialog:open-files', async function (options, done) {
+renderer.on('dialog:open-files', async function(options, done) {
   const {
     activeFile
   } = options;
@@ -172,13 +172,13 @@ renderer.on('dialog:open-files', async function (options, done) {
   done(null, filePaths);
 });
 
-renderer.on('dialog:open-file-error', async function (options, done) {
+renderer.on('dialog:open-file-error', async function(options, done) {
   const response = await dialog.showOpenFileErrorDialog(options);
 
   done(null, response);
 });
 
-renderer.on('dialog:save-file', async function (options, done) {
+renderer.on('dialog:save-file', async function(options, done) {
   const { file } = options;
 
   if (file.path) {
@@ -193,13 +193,13 @@ renderer.on('dialog:save-file', async function (options, done) {
   done(null, filePath);
 });
 
-renderer.on('dialog:show', async function (options, done) {
+renderer.on('dialog:show', async function(options, done) {
   const response = await dialog.showDialog(options);
 
   done(null, response);
 });
 
-renderer.on('dialog:open-file-explorer', function (options, done) {
+renderer.on('dialog:open-file-explorer', function(options, done) {
   const { path } = options;
 
   fileExplorerOpen(path);
@@ -209,7 +209,7 @@ renderer.on('dialog:open-file-explorer', function (options, done) {
 
 // clipboard ///////////
 
-renderer.on('system-clipboard:write-text', function (options, done) {
+renderer.on('system-clipboard:write-text', function(options, done) {
   const { text } = options;
 
   clipboardWriteText(text);
@@ -218,7 +218,7 @@ renderer.on('system-clipboard:write-text', function (options, done) {
 });
 
 // file context //////////
-renderer.on('file-context:add-root', function (options, done) {
+renderer.on('file-context:add-root', function(options, done) {
   const { filePath } = options;
 
   fileContext.addRoot(filePath);
@@ -226,7 +226,7 @@ renderer.on('file-context:add-root', function (options, done) {
   done(null);
 });
 
-renderer.on('file-context:remove-root', function (options, done) {
+renderer.on('file-context:remove-root', function(options, done) {
   const { filePath } = options;
 
   fileContext.removeRoot(filePath);
@@ -234,7 +234,7 @@ renderer.on('file-context:remove-root', function (options, done) {
   done(null);
 });
 
-renderer.on('file-context:file-opened', function (filePath, options, done) {
+renderer.on('file-context:file-opened', function(filePath, options, done) {
   const fileUrl = toFileUrl(filePath);
 
   fileContext.fileOpened(fileUrl, options);
@@ -248,13 +248,13 @@ renderer.on('file-context:file-opened', function (filePath, options, done) {
   done(null);
 });
 
-renderer.on('file-context:file-updated', function (filePath, options, done) {
+renderer.on('file-context:file-updated', function(filePath, options, done) {
   fileContext.fileUpdated(toFileUrl(filePath), options);
 
   done(null);
 });
 
-renderer.on('file-context:file-closed', function (filePath, done) {
+renderer.on('file-context:file-closed', function(filePath, done) {
   const fileUrl = toFileUrl(filePath);
 
   const processApplicationFile = fileContext._indexer.getItems().find((item) => {
@@ -270,7 +270,7 @@ renderer.on('file-context:file-closed', function (filePath, done) {
 
 // filesystem //////////
 
-renderer.on('file:read', function (filePath, options = {}, done) {
+renderer.on('file:read', function(filePath, options = {}, done) {
   try {
     const newFile = readFile(filePath, options);
 
@@ -280,13 +280,13 @@ renderer.on('file:read', function (filePath, options = {}, done) {
   }
 });
 
-renderer.on('file:read-stats', function (file, done) {
+renderer.on('file:read-stats', function(file, done) {
   const newFile = readFileStats(file);
 
   done(null, newFile);
 });
 
-renderer.on('file:write', function (filePath, file, options = {}, done) {
+renderer.on('file:write', function(filePath, file, options = {}, done) {
   try {
     const newFile = writeFile(filePath, file, options);
 
@@ -298,7 +298,7 @@ renderer.on('file:write', function (filePath, file, options = {}, done) {
 
 // config //////////
 
-renderer.on('config:get', function (key, ...args) {
+renderer.on('config:get', function(key, ...args) {
   const done = args.pop();
 
   let value;
@@ -312,7 +312,7 @@ renderer.on('config:get', function (key, ...args) {
   }
 });
 
-renderer.on('config:set', function (key, value, ...args) {
+renderer.on('config:set', function(key, value, ...args) {
   const done = args.pop();
 
   try {
@@ -326,16 +326,16 @@ renderer.on('config:set', function (key, value, ...args) {
 
 // plugin toggling //////////
 
-renderer.on('toggle-plugins', function () {
+renderer.on('toggle-plugins', function() {
 
   const pluginsDisabled = flags.get('disable-plugins');
 
-  app.emit('restart', [pluginsDisabled ? '--no-disable-plugins' : '--disable-plugins']);
+  app.emit('restart', [ pluginsDisabled ? '--no-disable-plugins' : '--disable-plugins' ]);
 });
 
 // open file handling //////////
 
-app.on('app:client-ready', function () {
+app.on('app:client-ready', function() {
   bootstrapLog.info('received client-ready');
 
   // open pending files
@@ -346,24 +346,24 @@ app.on('app:client-ready', function () {
   renderer.send('client:started');
 });
 
-renderer.on('client:ready', function () {
+renderer.on('client:ready', function() {
   app.clientReady = true;
 
   app.emit('app:client-ready');
 });
 
-renderer.on('client:error', function (...args) {
+renderer.on('client:error', function(...args) {
   const done = args.pop();
 
   clientLog.error(...args);
   done(null);
 });
 
-renderer.on('app:reload', async function () {
+renderer.on('app:reload', async function() {
   app.mainWindow.reload();
 });
 
-renderer.on('app:restart', function () {
+renderer.on('app:restart', function() {
   app.relaunch();
   app.exit(0);
 });
@@ -398,7 +398,7 @@ app.on('web-contents-created', (event, webContents) => {
  *
  * @param {Array<string>} filePaths
  */
-app.openFiles = function (filePaths) {
+app.openFiles = function(filePaths) {
 
   log.info('open files', filePaths);
 
@@ -428,7 +428,7 @@ app.openFiles = function (filePaths) {
  *
  * @return {BrowserWindow}
  */
-app.createEditorWindow = function () {
+app.createEditorWindow = function() {
 
   const nodeIntegration = !!flags.get('dangerously-enable-node-integration');
 
@@ -465,11 +465,8 @@ app.createEditorWindow = function () {
 
   mainWindow.loadURL(url);
 
-  // FORCE OPEN DEVTOOLS FOR DEBUGGING
-  mainWindow.webContents.openDevTools();
-
   // handling case when user clicks on window close button
-  mainWindow.on('close', function (e) {
+  mainWindow.on('close', function(e) {
     log.info('initating close of main window');
 
     if (app.quitAllowed) {
@@ -493,7 +490,7 @@ app.createEditorWindow = function () {
     renderer.send('menu:action', 'quit');
   });
 
-  mainWindow.on('focus', function () {
+  mainWindow.on('focus', function() {
     log.info('window focused');
 
     renderer.send('client:window-focused');
@@ -509,9 +506,9 @@ app.createEditorWindow = function () {
   app.quitAllowed = false;
 };
 
-app.on('restart', function (args) {
+app.on('restart', function(args) {
 
-  const effectiveArgs = Cli.appendArgs(process.argv.slice(1), [...args, '--relaunch']);
+  const effectiveArgs = Cli.appendArgs(process.argv.slice(1), [ ...args, '--relaunch' ]);
 
   log.info('restarting with args', effectiveArgs);
 
@@ -526,7 +523,7 @@ app.on('restart', function (args) {
  * Application entry point
  * Emitted when Electron has finished initialization.
  */
-app.on('ready', function () {
+app.on('ready', function() {
 
   bootstrapLog.info('received ready');
 
@@ -550,14 +547,14 @@ app.on('ready', function () {
   });
 
   // quit command from menu/shortcut
-  app.on('app:quit', function () {
+  app.on('app:quit', function() {
     log.info('initiating quit');
 
     renderer.send('menu:action', 'quit');
   });
 
   // client quit verification event
-  renderer.on('app:quit-allowed', function () {
+  renderer.on('app:quit-allowed', function() {
     log.info('quit allowed');
 
     app.quitAllowed = true;
@@ -611,8 +608,8 @@ function bootstrapEPIPESuppression() {
  */
 function bootstrap() {
   const appPath = path.dirname(app.getPath('exe')),
-    cwd = process.cwd(),
-    userDesktopPath = app.getPath('userDesktop');
+        cwd = process.cwd(),
+        userDesktopPath = app.getPath('userDesktop');
 
   const {
     files,

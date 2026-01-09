@@ -76,7 +76,7 @@ const expectedFiles = {
       name: `${pkg.name}-\${version}-linux-\${arch}.tar.gz`,
       archs: [ 'x64' ],
       contents: [
-        `${pkg.name}-\${version}-linux-\${arch}/camunda-modeler`,
+        `${pkg.name}-\${version}-linux-\${arch}/cadenzaflow-modeler`,
         `${pkg.name}-\${version}-linux-\${arch}/support/xdg_register.sh`,
         `${pkg.name}-\${version}-linux-\${arch}/VERSION`
       ]
@@ -91,7 +91,7 @@ const expectedFiles = {
       name: `${pkg.name}-\${version}-mac-\${arch}.zip`,
       archs: [ 'x64', 'arm64' ],
       contents: [
-        'Camunda Modeler.app/Contents/Info.plist'
+        'CadenzaFlow Modeler.app/Contents/Info.plist'
       ]
     }
   ]

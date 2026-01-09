@@ -43,16 +43,7 @@ const keyboardBindings = new KeyboardBindings({
 
 
 
-
 async function render() {
-
-  const spinner = document.querySelector('body > .spinner-border');
-  const log = (msg) => {
-    if (spinner) spinner.title = msg;
-    console.log('[Startup]', msg);
-  };
-
-  log('Starting render...');
 
   if (process.env.NODE_ENV !== 'production') {
     const { loadA11yHelper } = await import('./util/a11y');
@@ -62,30 +53,26 @@ async function render() {
   // load plugins
   plugins.bindHelpers(window);
 
-  log('Loading plugins...');
   await plugins.loadAll();
-  log('Plugins loaded.');
 
   const rootElement = document.querySelector('#root');
 
   const onStarted = () => {
-    log('Client started event received. Hiding spinner.');
+
     // mark as finished loading
-    if (spinner) spinner.classList.add('hidden');
+    document.querySelector('body > .spinner-border').classList.add('hidden');
   };
 
   const tabsProvider = new TabsProvider(plugins.get('tabs'), globals.settings);
 
-  log('Mounting AppParent...');
   ReactDOM.render(
     <AppParent
-      keyboardBindings={keyboardBindings}
-      globals={globals}
-      tabsProvider={tabsProvider}
-      onStarted={onStarted}
+      keyboardBindings={ keyboardBindings }
+      globals={ globals }
+      tabsProvider={ tabsProvider }
+      onStarted={ onStarted }
     />, rootElement
   );
-  log('AppParent mounted.');
 }
 
 render();
