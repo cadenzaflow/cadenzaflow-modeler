@@ -23,21 +23,13 @@ import { utmTag } from '../../util/utmTag';
 /**
  * Formik form wrapper for the settings form.
  */
-export function SettingsForm({ schema, values, onChange }) {
+export function SettingsForm({ schema, onChange, targetElement }) {
 
-  const { setFieldValue, values: formikValues, validateForm } = useFormikContext();
-
-
+  const { values: formikValues, validateForm } = useFormikContext();
 
   useEffect(() => {
     onChange(formikValues);
   }, [ formikValues, onChange ]);
-
-  useEffect(() => {
-    forEach(values, (value, key) => {
-      setFieldValue(key, value);
-    });
-  }, [ values, setFieldValue ]);
 
   useEffect(() => {
     validateForm();
@@ -49,32 +41,71 @@ export function SettingsForm({ schema, values, onChange }) {
     return sortSchemaByOrder(schema);
   }, [ schema ]);
 
+  const sections = useMemo(() => {
+    const result = [];
+
+    forEach(orderedSchema, (value, key) => {
+
+      // If the schema has sections, group properties by section and render each
+      if (value.sections) {
+
+        // Group properties by section
+        const propertiesBySection = {};
+        forEach(value.properties, (property, propKey) => {
+          const sectionId = property.section || 'default';
+          if (!propertiesBySection[sectionId]) {
+            propertiesBySection[sectionId] = {};
+          }
+          propertiesBySection[sectionId][propKey] = property;
+        });
+
+        // Render each section
+        forEach(value.sections, (section, sectionId) => {
+          const sectionProperties = propertiesBySection[sectionId] || {};
+          result.push(
+            <SettingsSection
+              key={ `${key}-${sectionId}` }
+              title={ section.title }
+              description={ section.description }
+              properties={ sectionProperties }
+              targetElement={ targetElement }
+            />
+          );
+        });
+      } else {
+
+        // Otherwise render as a single section
+        result.push(<SettingsSection id={ key } key={ key } { ...value } targetElement={ targetElement } />);
+      }
+    });
+
+    return result;
+  }, [ orderedSchema ]);
+
   return (<Form>
-    {
-      map(orderedSchema, (value, key) =>
-        <SettingsSection key={ key } { ...value } />)
-    }
+    { sections }
   </Form>);
 }
 
 function SettingsSection(props) {
 
-  const { title, properties } = props;
+  const { title, description, id, properties } = props;
 
   return (
-    <Section>
+    <Section id={ id }>
       <Section.Header>{ title }</Section.Header>
       <Section.Body>
+        { description && <p className="section__description">{ description }</p> }
         {
-          map(properties, (props, key) =>
-            <SettingsField key={ key } name={ key } { ...props } />)
+          map(properties, (property, key) =>
+            <SettingsField key={ key } name={ key } { ...property } targetElement={ props.targetElement } />)
         }
       </Section.Body>
     </Section>
   );
 }
 
-function SettingsField(props) {
+export function SettingsField(props) {
 
   const { type, flag, condition, name } = props;
 
@@ -84,9 +115,13 @@ function SettingsField(props) {
     return Flags.get(flag);
   }, [ flag ]);
 
-  const component = useMemo(() => {
+  const FieldComponent = useMemo(() => {
     if (condition && !isConditionMet(name, values, condition)) {
       return null;
+    }
+
+    if (type === 'custom') {
+      return props.component;
     }
 
     if (type === 'text' || type === 'password') {
@@ -108,8 +143,12 @@ function SettingsField(props) {
     return null;
   }, [ condition, name, type, values ]);
 
-  if (!component) {
+  if (!FieldComponent) {
     return null;
+  }
+
+  if (type === 'custom') {
+    return <FieldComponent { ...props } />;
   }
 
   const { label, description, hint, options, documentationUrl, constraints } = props;
@@ -132,19 +171,22 @@ function SettingsField(props) {
   }
 
   return <>
-    <Field
-      name={ name }
-      component={ component }
-      disabled={ disabledByFlag }
-      label={ label }
-      description={ description }
-      hint={ hint }
-      options={ options }
-      values={ options }
-      documentationUrl={ documentationUrl }
-      validate={ validate }
-      { ...restProps }
-    />
+    <Field name={ name } validate={ validate }>
+      {({ field, form }) => (
+        <FieldComponent
+          field={ field }
+          form={ form }
+          disabled={ disabledByFlag }
+          label={ label }
+          description={ description }
+          hint={ hint }
+          options={ options }
+          values={ options }
+          documentationUrl={ documentationUrl }
+          { ...restProps }
+        />
+      )}
+    </Field>
     { disabledByFlag &&
       <div className="flag-warning">
         This option is overridden by <code>{ flag }</code> flag.&nbsp;
@@ -214,13 +256,18 @@ export function resolvePath(currentPath, targetPath) {
 
 /**
  * Checks if a given condition is met based on the provided form values.
+ * Works with both nested Formik values (when propName is provided) and flat objects.
  *
- * @param {string} propName - The base path for the property being evaluated.
- * @param {Object} values - The object containing all form values, used to cross reference other section/fields
+ * @param {string} [propName] - The base path for the property being evaluated. If omitted, values are treated as a flat object.
+ * @param {Object} values - The object containing form values
  * @param {Condition} condition - The condition object to evaluate.
  * @returns {boolean} True if the condition is met, false otherwise.
  */
 export function isConditionMet(propName, values, condition) {
+  if (!condition) {
+    return true;
+  }
+
   if (condition.allMatch) {
     return condition.allMatch.every((childCondition) => isConditionMet(propName, values, childCondition));
   }
@@ -228,8 +275,12 @@ export function isConditionMet(propName, values, condition) {
   if (!condition.property) {
     return false;
   }
-  const conditionPropPath = resolvePath(propName, condition.property);
-  const conditionPropValue = getIn(values, conditionPropPath);
+
+  // If propName is provided, use path resolution for nested Formik values
+  // Otherwise, treat values as a flat object with direct property access
+  const conditionPropValue = propName
+    ? getIn(values, resolvePath(propName, condition.property))
+    : values[condition.property];
 
   if ('equals' in condition) {
     return conditionPropValue === condition.equals;
@@ -291,6 +342,37 @@ function isEmpty(value) {
 
 function matchesPattern(value, pattern) {
   return new RegExp(pattern).test(value);
+}
+
+function validateValue(value, constraints, label) {
+  if (constraints)
+    return validator(constraints, label)(value);
+}
+
+export function validateProperties(values, properties) {
+  if (!values) {
+    return { _error: 'No values provided' };
+  }
+
+  const errors = {};
+
+  for (const property of properties) {
+    const { key, condition, constraints, label } = property;
+
+    // Skip validation if condition is not met (field is not visible/applicable)
+    if (!isConditionMet(null, values, condition)) {
+      continue;
+    }
+
+    const value = values[key];
+    const error = validateValue(value, constraints, label);
+
+    if (error) {
+      errors[key] = error;
+    }
+  }
+
+  return errors;
 }
 
 /**

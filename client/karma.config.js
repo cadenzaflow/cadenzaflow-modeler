@@ -72,12 +72,11 @@ module.exports = function(karma) {
 
     browsers: browsers,
 
-    browserNoActivityTimeout: 100000,
+    browserNoActivityTimeout: 60000,
     browserDisconnectTolerance: 3,
-    browserSocketTimeout: 100000,
-    browserDisconnectTimeout: 100000,
-    captureTimeout: 100000,
-    pingTimeout: 100000,
+    browserSocketTimeout: 60000,
+    browserDisconnectTimeout: 60000,
+    pingTimeout: 60000,
 
     singleRun: true,
     autoWatch: false,
@@ -137,16 +136,12 @@ module.exports = function(karma) {
         ],
         modules: [
           'node_modules',
-          path.resolve(__dirname, '../node_modules'),
           absoluteBasePath,
           resourcePath
         ],
         alias: {
-          'react': require.resolve('react'),
-
-          // 'react-dom': require.resolve('react-dom'),
-          // 'react-dom/server': require.resolve('react-dom/server'),
-          // 'react-dom/test-utils': require.resolve('react-dom/test-utils'),
+          'react': path.resolve(absoluteBasePath, 'node_modules/react'),
+          'react-dom': path.resolve(absoluteBasePath, 'node_modules/react-dom'),
           'bpmn-js/lib/Modeler': modelers ? 'bpmn-js/lib/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-cloud/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-cloud/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-platform/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-platform/Modeler' : 'test/mocks/bpmn-js/Modeler',
@@ -157,7 +152,8 @@ module.exports = function(karma) {
           './editor/FormEditor': 'test/mocks/form-js',
           '@camunda/linting': 'test/mocks/linting',
           '@camunda/linting/modeler': 'test/mocks/linting/modeler',
-          'mixpanel-browser': 'test/mocks/mixpanel-browser'
+          'mixpanel-browser': 'test/mocks/mixpanel-browser',
+          '../../globals': 'test/mocks/globals'
         }
       },
       devtool: 'eval-cheap-module-source-map'
