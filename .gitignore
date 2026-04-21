@@ -10,3 +10,6 @@ coverage
 .linked-dependencies
 tmp
 .idea/
+.env
+.env.local
+.env.*.local
