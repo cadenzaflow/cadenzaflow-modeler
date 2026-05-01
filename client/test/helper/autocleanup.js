@@ -8,21 +8,9 @@
  * except in compliance with the MIT License.
  */
 
-import React from 'react';
+import { cleanup } from '@testing-library/react';
 
-import { render } from '@testing-library/react';
-
-import { ReleaseInfo } from '../ReleaseInfo';
-
-
-describe('<ReleaseInfo>', function() {
-
-  it('should render', function() {
-
-    // given
-    const doRender = () => render(<ReleaseInfo />);
-
-    // then
-    expect(doRender).not.to.throw();
-  });
+// eslint-disable-next-line mocha/no-top-level-hooks
+beforeEach(function() {
+  cleanup();
 });

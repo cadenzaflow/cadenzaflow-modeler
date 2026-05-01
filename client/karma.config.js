@@ -36,6 +36,8 @@ process.env.CHROME_BIN = require('puppeteer').executablePath();
 // any of [ 'ChromeHeadless', 'Chrome', 'Firefox', 'IE', 'PhantomJS' ]
 var browsers = (process.env.TEST_BROWSERS || 'ChromeHeadless').split(/,/g);
 
+var autocleanup = 'test/helper/autocleanup.js';
+
 var suite = 'test/suite.js';
 
 if (modelers) {
@@ -55,10 +57,12 @@ module.exports = function(karma) {
     ],
 
     files: [
+      autocleanup,
       suite
     ],
 
     preprocessors: {
+      [autocleanup]: [ 'webpack' ],
       [suite]: [ 'webpack', 'env' ]
     },
 
@@ -101,13 +105,42 @@ module.exports = function(karma) {
             use: 'babel-loader'
           },
           {
+            test: /\.css$/,
+            use: {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  mode: 'global',
+                  exportOnlyLocals: true,
+                  localIdentName: '[name]__[local]--[hash:base64:5]'
+                }
+              }
+            }
+          },
+          {
+            test: /\.less$/,
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: {
+                    mode: 'global',
+                    exportOnlyLocals: true,
+                    localIdentName: '[name]__[local]--[hash:base64:5]'
+                  }
+                }
+              },
+              'less-loader'
+            ]
+          },
+          {
             oneOf: [
               {
                 test: /[/\\][A-Z][^/\\]+\.svg$/,
                 use: 'react-svg-loader'
               },
               {
-                test: /\.(css|bpmn|dmn|less|xml|png|svg|form|rpa)$/,
+                test: /\.(bpmn|dmn|xml|png|svg|form|rpa)$/,
                 type: 'asset/source'
               }
             ]
@@ -120,12 +153,16 @@ module.exports = function(karma) {
       },
       plugins: [
         new DefinePlugin({
-          'process.env': {
-            NODE_ENV: JSON.stringify('test'),
-            WINDOWS: JSON.stringify(windows)
+          'process.env.NODE_ENV': JSON.stringify('test'),
+          'process.env.WINDOWS': JSON.stringify(windows),
+          'process.env.RTL_SKIP_AUTO_CLEANUP': JSON.stringify('true'), // auto-cleanup is configured as beforeEach hook
+          'process': { // must be present to prevent short-circuit in RTL auto-cleanup
+            env: {} // mocks variables set at build time
           }
         }),
-        new MonacoWebpackPlugin()
+        new MonacoWebpackPlugin({
+          languages: [ 'json' ] // Only bundle JSON language for RPA editor
+        })
       ],
       resolve: {
         mainFields: [
