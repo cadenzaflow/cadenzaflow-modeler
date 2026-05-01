@@ -4,6 +4,9 @@ on:
     types: [closed, assigned]
 jobs:
   create_release_issue:
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack tokens) for release-issue choreography.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     name: Create new Release Issue
     if: |
@@ -24,6 +27,9 @@ jobs:
     name: Assign milestone
     needs: create_release_issue
     if: github.event.issue.milestone
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack tokens) for release-issue choreography.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Get current Milestone
@@ -52,6 +58,9 @@ jobs:
   update_slack_role:
     name: Sync Slack roles
     needs: create_release_issue
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack tokens) for release-issue choreography.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     if: |
       always() &&
@@ -85,6 +94,9 @@ jobs:
     if: |
       always() &&
       contains(github.event.issue.labels.*.name, 'release')
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack tokens) for release-issue choreography.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     steps:
     - name: Import Secrets

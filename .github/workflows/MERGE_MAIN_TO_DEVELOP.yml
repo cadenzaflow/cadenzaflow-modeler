@@ -6,6 +6,9 @@ on:
 
 jobs:
   merge_main_to_develop:
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack token) for merge-back automation.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -27,6 +30,9 @@ jobs:
     name: Notify failure
     needs: merge_main_to_develop
     if: failure()
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack token) for merge-back automation.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     steps:
     - name: Import Secrets
