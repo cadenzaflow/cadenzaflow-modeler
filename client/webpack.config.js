@@ -127,6 +127,7 @@ module.exports = {
       patterns: [ copyPattern ]
     }),
     new MonacoWebpackPlugin({
+
       // require.resolve so we work regardless of where npm hoisted monaco-editor
       // (workspace root vs client/node_modules — differs between local and CI installs)
       monacoEditorPath: path.dirname(require.resolve('monaco-editor/package.json'))
