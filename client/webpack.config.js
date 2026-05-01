@@ -126,7 +126,9 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [ copyPattern ]
     }),
-    new MonacoWebpackPlugin(),
+    new MonacoWebpackPlugin({
+      monacoEditorPath: path.resolve(__dirname, 'node_modules/monaco-editor')
+    }),
     ...sentryIntegration(),
     ...extractDependencies()
   ],
