@@ -85,7 +85,6 @@
   },
   "overrides": {
     "@isaacs/brace-expansion": "^5.0.1",
-    "@xmldom/xmldom": "^0.9.10",
     "axios": "^1.15.2",
     "basic-ftp": "^5.3.1",
     "dompurify": "^3.4.1",
