@@ -129,8 +129,6 @@
     "dompurify": "^3.4.1",
     "flatted": "^3.4.2",
     "immutable": "^5.1.5",
-    "minimatch": "^9.0.9",
-    "picomatch": "^2.3.2",
     "serialize-javascript": "^7.0.5"
   },
   "scripts": {
