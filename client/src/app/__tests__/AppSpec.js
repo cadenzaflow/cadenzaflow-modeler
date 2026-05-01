@@ -122,7 +122,7 @@ describe('<App>', function() {
       });
 
 
-    // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
+      // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
       it.skip('on tab closing', async function() {
 
         // given
@@ -613,7 +613,7 @@ describe('<App>', function() {
       const file1 = createFile('1.bpmn');
       const file2 = createFile('2.bpmn');
 
-    // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
+      // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
       it.skip('should open active file tab', async function() {
 
         // given
@@ -1698,7 +1698,7 @@ describe('<App>', function() {
         expect(activeTab.file).not.to.equal(newTab);
       });
 
-    // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
+      // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
       it.skip('after all closed', async function() {
 
         // given
@@ -1726,7 +1726,7 @@ describe('<App>', function() {
 
     describe('__internal__', function() {
 
-    // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
+      // Skipped: cadenzaflow App.js diverges structurally from upstream (Camunda 8 removed, ~450 lines diff); upstream behaviour expectations don't apply.
       it.skip('should reset state on all closed', async function() {
 
         // when
