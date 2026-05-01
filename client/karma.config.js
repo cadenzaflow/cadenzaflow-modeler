@@ -162,7 +162,9 @@ module.exports = function(karma) {
         }),
         new MonacoWebpackPlugin({
           languages: [ 'json' ], // Only bundle JSON language for RPA editor
-          monacoEditorPath: path.resolve(__dirname, 'node_modules/monaco-editor')
+          // require.resolve so we work regardless of where npm hoisted monaco-editor
+          // (workspace root vs client/node_modules — differs between local and CI installs)
+          monacoEditorPath: path.dirname(require.resolve('monaco-editor/package.json'))
         })
       ],
       resolve: {
