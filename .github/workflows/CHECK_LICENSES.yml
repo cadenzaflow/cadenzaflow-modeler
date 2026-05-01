@@ -15,6 +15,9 @@ on:
 jobs:
   analyze:
     name: Analyze dependencies
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (FOSSA_API_KEY secret).
+    # Re-enable once cadenzaflow has its own license-scanning service plumbing.
+    if: false
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

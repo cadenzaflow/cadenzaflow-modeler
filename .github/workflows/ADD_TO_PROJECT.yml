@@ -14,7 +14,9 @@ on:
 jobs:
   exec:
     name: Add issue to project
-    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (ADD_TO_PROJECT_PAT secret).
+    # Re-enable once cadenzaflow has its own GitHub project board + token plumbing.
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: Import Secrets
