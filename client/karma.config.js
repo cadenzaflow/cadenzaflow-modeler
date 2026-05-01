@@ -161,7 +161,8 @@ module.exports = function(karma) {
           }
         }),
         new MonacoWebpackPlugin({
-          languages: [ 'json' ] // Only bundle JSON language for RPA editor
+          languages: [ 'json' ], // Only bundle JSON language for RPA editor
+          monacoEditorPath: path.resolve(__dirname, 'node_modules/monaco-editor')
         })
       ],
       resolve: {
@@ -177,8 +178,8 @@ module.exports = function(karma) {
           resourcePath
         ],
         alias: {
-          'react': path.resolve(absoluteBasePath, 'node_modules/react'),
-          'react-dom': path.resolve(absoluteBasePath, 'node_modules/react-dom'),
+          'react': path.resolve(absoluteBasePath, '../node_modules/react'),
+          'react-dom': path.resolve(absoluteBasePath, '../node_modules/react-dom'),
           'bpmn-js/lib/Modeler': modelers ? 'bpmn-js/lib/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-cloud/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-cloud/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-platform/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-platform/Modeler' : 'test/mocks/bpmn-js/Modeler',
