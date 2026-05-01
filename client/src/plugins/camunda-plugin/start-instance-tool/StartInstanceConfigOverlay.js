@@ -23,6 +23,9 @@ import {
   Formik
 } from 'formik';
 
+import { utmTag } from '../../../util/utmTag';
+
+
 export default class StartInstanceConfigOverlay extends React.PureComponent {
 
   onClose = (action = 'cancel', data) => this.props.onClose(action, data);
@@ -64,25 +67,24 @@ export default class StartInstanceConfigOverlay extends React.PureComponent {
 
                 <Section.Body>
                   <p className="intro">
-                    Enter details to start a process instance on Camunda Platform. Alternatively, you can start a process instance <a href="https://docs.camunda.org/manual/latest/reference/rest/process-definition/post-start-process-instance/#request">via a Rest Client</a>.
+                    Enter details to start a process instance on CadenzaFlow. Alternatively, you can start a process instance via a Rest Client.
                   </p>
 
                   <fieldset>
                     <div className="fields">
-                      <Field
-                        name="businessKey"
-                        component={ TextInput }
-                        label="Business Key"
-                        hint="A business key is a domain-specific identifier of a process instance."
-                        autoFocus
-                      />
+                      <Field name="businessKey">
+                        {({ field, form }) => (
+                          <TextInput
+                            field={ field }
+                            form={ form }
+                            label="Business Key"
+                            hint="A business key is a domain-specific identifier of a process instance."
+                            autoFocus
+                          />
+                        )}
+                      </Field>
                       <Field
                         name="variables"
-                        component={ TextInput }
-                        multiline={ true }
-                        label="Variables (optional)"
-                        description={ <p>Must be a proper <a href="https://www.w3schools.com/js/js_json_intro.asp">JSON string</a> representing <a href="https://docs.camunda.org/manual/latest/reference/rest/process-definition/post-start-process-instance/#starting-a-process-instance-at-its-default-initial-activity">process instance variables</a>.</p> }
-                        hint="A JSON string representing the variables the process instance is started with."
                         validate={ (value) => {
                           if (value && value.trim().length > 0) {
                             try {
@@ -93,7 +95,18 @@ export default class StartInstanceConfigOverlay extends React.PureComponent {
                             return null;
                           }
                         } }
-                      />
+                      >
+                        {({ field, form }) => (
+                          <TextInput
+                            field={ field }
+                            form={ form }
+                            multiline={ true }
+                            label="Variables (optional)"
+                            description={ <p>Must be a proper <a href="https://www.w3schools.com/js/js_json_intro.asp">JSON string</a> representing <a href={ utmTag('https://docs.camunda.org/manual/latest/reference/rest/process-definition/post-start-process-instance/#starting-a-process-instance-at-its-default-initial-activity') }>process instance variables</a>.</p> }
+                            hint="A JSON string representing the variables the process instance is started with."
+                          />
+                        )}
+                      </Field>
                     </div>
                   </fieldset>
 

@@ -10,7 +10,7 @@
 
 import React from 'react';
 
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 
 import { ToggleSwitch } from '..';
 
@@ -25,36 +25,38 @@ describe('<ToggleSwitch>', function() {
   it('should be checked', function() {
 
     // given
-    const wrapper = createToggleSwitch({
+    createToggleSwitch({
       field:
         {
           name: 'foo',
-          value: true
+          value: true,
+          onChange: () => {}
         }
     });
 
-    const input = wrapper.find('input');
+    const input = screen.getByRole('checkbox');
 
     // then
-    expect(input.prop('checked')).to.be.true;
+    expect(input.checked).to.be.true;
   });
 
 
   it('should not be checked', function() {
 
     // given
-    const wrapper = createToggleSwitch({
+    createToggleSwitch({
       field:
         {
           name: 'foo',
-          value: false
+          value: false,
+          onChange: () => {}
         }
     });
 
-    const input = wrapper.find('input');
+    const input = screen.getByRole('checkbox');
 
     // then
-    expect(input.prop('checked')).to.be.false;
+    expect(input.checked).to.be.false;
   });
 
 });
@@ -64,7 +66,8 @@ describe('<ToggleSwitch>', function() {
 
 const DEFAULT_FIELD = {
   name: 'foo',
-  value: true
+  value: true,
+  onChange: () => {}
 };
 
 function createToggleSwitch(props = {}) {
@@ -72,7 +75,7 @@ function createToggleSwitch(props = {}) {
     field = DEFAULT_FIELD
   } = props;
 
-  return shallow(<ToggleSwitch
+  return render(<ToggleSwitch
     field={ field }
   />);
 }

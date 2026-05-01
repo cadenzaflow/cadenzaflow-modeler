@@ -19,6 +19,7 @@ import * as css from './Section.less';
 export function Section(props) {
 
   const {
+    id,
     children,
     className,
     maxHeight,
@@ -31,11 +32,12 @@ export function Section(props) {
 
     if (maxHeight === true) {
       style = {
-        'overflow-y': 'hidden'
+        'overflowY': 'hidden'
       };
     } else {
       style = {
-        '--section-max-height': isString(maxHeight) ? maxHeight : `${maxHeight}px`
+        '--section-max-height': isString(maxHeight) ? maxHeight : `${maxHeight}px`,
+        'overflowY': 'auto'
       };
     }
   }
@@ -49,6 +51,7 @@ export function Section(props) {
 
   return (
     <section
+      id={ id }
       className={ classNames(css.Section, 'section', {
         [ className ]: className
       }) }

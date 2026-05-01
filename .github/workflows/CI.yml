@@ -15,11 +15,11 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     - name: Use Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: 22
+        node-version: 24
         cache: 'npm'
     - name: Install dependencies
       run: npm ci
@@ -31,8 +31,11 @@ jobs:
     - name: Build
       if: ${{ runner.OS != 'Linux' }}
       run: npm run all -- --x64 --no-compress
+    # cadenzaflow does not have access to Camunda Inc's Vault — the secret import
+    # and codecov upload are kept for parity but allowed to fail without breaking CI.
     - name: Import Secrets
       if: ${{ runner.OS == 'Linux' }}
+      continue-on-error: true
       id: secrets
       uses: hashicorp/vault-action@v3.0.0
       with:
@@ -45,8 +48,9 @@ jobs:
           secret/data/products/desktop-modeler/ci/CODECOV_TOKEN CODECOV_TOKEN;
     - name: Upload coverage
       if: ${{ runner.OS == 'Linux' }}
+      continue-on-error: true
       uses: codecov/codecov-action@v5
       with:
-        fail_ci_if_error: true
+        fail_ci_if_error: false
       env:
         CODECOV_TOKEN: ${{ steps.secrets.outputs.CODECOV_TOKEN }}

@@ -39,7 +39,7 @@ export default class EndpointURLValidator extends BaseInputValidator {
     const trimmed = value.trim();
 
     if (trimmed === 'http://' || trimmed === 'https://') {
-      return 'Should point to a running Camunda REST API.';
+      return 'Should point to a running CadenzaFlow REST API.';
     }
 
     return null;

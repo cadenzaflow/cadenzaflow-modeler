@@ -12,6 +12,12 @@
 
 const argv = require('mri')(process.argv);
 
+if (argv.forceProduction) {
+  process.env.NODE_ENV = 'production';
+}
+
+console.log('Detected NODE_ENV:', process.env.NODE_ENV);
+
 const exec = require('execa').sync;
 
 const getVersion = require('../app/util/get-version');
@@ -134,6 +140,60 @@ const args = [
   ...artifactOptions,
   ...extraMetadataOptions
 ];
+
+const fs = require('fs');
+const path = require('path');
+
+// Ensure app dependencies are installed (fixing hoisting issues)
+console.log('Copying production dependencies to app/node_modules...');
+const appPkg = require('../app/package.json');
+const rootNodeModules = path.resolve(__dirname, '../node_modules');
+const appNodeModules = path.resolve(__dirname, '../app/node_modules');
+
+if (!fs.existsSync(appNodeModules)) {
+  fs.mkdirSync(appNodeModules, { recursive: true });
+}
+
+const visited = new Set();
+const queue = Object.keys(appPkg.dependencies || {});
+
+while (queue.length > 0) {
+  const depName = queue.shift();
+  if (visited.has(depName)) continue;
+  visited.add(depName);
+
+  // Handle scoped packages (e.g. @sentry/node)
+  const src = path.join(rootNodeModules, depName);
+  const dest = path.join(appNodeModules, depName);
+
+  if (fs.existsSync(src)) {
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    try {
+      fs.cpSync(src, dest, { recursive: true, force: true, dereference: true });
+    } catch (err) {
+      console.error(`Error copying ${depName}:`, err.message);
+    }
+
+    // Read package.json to find sub-dependencies
+    try {
+      const depPkgPath = path.join(src, 'package.json');
+      if (fs.existsSync(depPkgPath)) {
+        const depPkg = JSON.parse(fs.readFileSync(depPkgPath, 'utf8'));
+        if (depPkg.dependencies) {
+          queue.push(...Object.keys(depPkg.dependencies));
+        }
+      }
+    } catch (e) {
+      console.warn(`Warning: Could not read package.json for ${depName}`);
+    }
+  } else {
+
+    // Some dependencies might be optional or already nested (though we look in root).
+    // For now we assume flat structure in root node_modules or that they are not critical if missing from root.
+    // console.warn(`Warning: Dependency ${depName} not found in root node_modules.`);
+  }
+}
+console.log(`Copied ${visited.size} dependencies to app/node_modules.`);
 
 console.log(`
 Building ${pkg.name} distro

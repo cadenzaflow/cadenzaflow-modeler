@@ -9,6 +9,10 @@
  */
 
 import {
+  ENGINES
+} from '../../util/Engines';
+
+import {
   engineProfilesEqual,
   isKnownEngineProfile
 } from './EngineProfile';
@@ -56,15 +60,15 @@ export default class EngineProfileHelper {
 
 function fixExecutionPlatform(engineProfile = {}) {
   const {
-    executionPlatform = 'Camunda Cloud'
+    executionPlatform = ENGINES.PLATFORM
   } = engineProfile;
 
-  if ([ 'Camunda Platform', 'Camunda Cloud' ].includes(executionPlatform)) {
+  if ([ ENGINES.PLATFORM ].includes(executionPlatform)) {
     return engineProfile;
   }
 
   return {
     ...engineProfile,
-    executionPlatform: 'Camunda Cloud'
+    executionPlatform: ENGINES.PLATFORM
   };
 }

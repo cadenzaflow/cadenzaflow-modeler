@@ -11,6 +11,9 @@
 import React from 'react';
 import * as css from './ReleaseInfo.less';
 
+// If you add links to the release info, make sure to track them with UTM tags
+// import { utmTag } from '../../util/utmTag';
+
 /**
  * Release info notice which is displayed once user clicks the version number on the status bar.
  *
@@ -44,12 +47,16 @@ export function ReleaseInfo(props) {
     <div className={ css.ReleaseInfo }>
       <ul className="dashed">
         <li>
-          <h4>Start instance improved</h4>
-          Edit process variables directly in a dedicated code editor when starting an instance.
+          <h4>Enhanced element template support</h4>
+          Element templates now support templating signal events, enabling reusable signals across processes.
         </li>
         <li>
-          <h4>Support for new task listener types</h4>
-          The task listener now supports <code>creating</code>, and <code>canceling</code> events.
+          <h4>Enhanced label visibility</h4>
+          External labels are now visually connected to their target elements, making it easier to understand diagram relationships.
+        </li>
+        <li>
+          <h4>Improved properties panel usability</h4>
+          We addressed several issues related to input handling and made it easier to interact with the tooltips.
         </li>
         <li>
           <h4>Bug fixes and more</h4>

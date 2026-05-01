@@ -37,7 +37,7 @@ export default function CockpitLink(props) {
   return (
     <div className={ css.CockpitLink }>
       { children }
-      { link ? <a href={ link }>Open in Camunda Cockpit</a> : null }
+      { link ? <a href={ link }>Open in CadenzaFlow Cockpit</a> : null }
     </div>
   );
 }

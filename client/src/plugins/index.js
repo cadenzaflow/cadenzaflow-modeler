@@ -14,12 +14,11 @@ import CreateNewAction from './create-new-action';
 import ElementTemplatesModal from './element-templates-modal';
 import ErrorTracking from './error-tracking';
 import PrivacyPreferences from './privacy-preferences';
-import ProcessApplications from './process-applications';
+
 import ReportFeedback from './report-feedback';
-import UpdateChecks from './update-checks';
-import UserJourneyStatistics from './user-journey-statistics';
+
+// import UpdateChecks from './update-checks';
 import VersionInfo from './version-info';
-import ZeebePlugin from './zeebe-plugin';
 import TemplateUpdater from './template-updater';
 import Settings from './settings';
 
@@ -30,12 +29,10 @@ export default [
   ElementTemplatesModal,
   ErrorTracking,
   PrivacyPreferences,
-  ProcessApplications,
   ReportFeedback,
-  UpdateChecks,
+
+  // UpdateChecks,
   VersionInfo,
-  ZeebePlugin,
-  UserJourneyStatistics,
   TemplateUpdater,
   Settings
 ];

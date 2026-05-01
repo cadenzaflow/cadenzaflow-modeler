@@ -10,9 +10,9 @@
 
 /* global sinon */
 
-import React from 'react';
+import React, { createRef } from 'react';
 
-import { shallow } from 'enzyme';
+import { act, render, waitFor } from '@testing-library/react';
 
 import TemplateUpdater from '..';
 
@@ -104,9 +104,10 @@ describe('<TemplateUpdater>', function() {
     backend.receive('client:templates-update-done', null, true);
 
     // then
-    expect(displayNotificationSpy).to.have.been.calledWithMatch({ type: 'success', title: 'Camunda Connector templates updated' });
-
-    expect(triggerActionSpy).to.have.been.calledWith('elementTemplates.reload');
+    await waitFor(() => {
+      expect(displayNotificationSpy).to.have.been.calledWithMatch({ type: 'success', title: 'Camunda Connector templates updated' });
+      expect(triggerActionSpy).to.have.been.calledWith('elementTemplates.reload');
+    });
   });
 
 
@@ -167,7 +168,9 @@ describe('<TemplateUpdater>', function() {
 });
 
 async function createTemplateUpdater(props = {}) {
-  const wrapper = shallow(<TemplateUpdater { ...{
+  const ref = createRef();
+
+  render(<TemplateUpdater ref={ ref } { ...{
     _getGlobal: () => {},
     displayNotification: () => {},
     log: () => {},
@@ -176,15 +179,16 @@ async function createTemplateUpdater(props = {}) {
     ...props
   } } />);
 
-  wrapper.setState({
-    activeTab: createTab()
+  const instance = ref.current;
+
+  await act(async () => {
+    instance.setState({
+      activeTab: createTab()
+    });
   });
 
-  const instance = wrapper.instance();
-
   return {
-    instance,
-    wrapper
+    instance
   };
 }
 

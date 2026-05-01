@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     # Import FOSSA_API_KEY from Vault
     - name: Import Secrets
       id: secrets
@@ -35,12 +35,12 @@ jobs:
         secrets: |
           secret/data/products/desktop-modeler/ci/fossa FOSSA_API_KEY;
     - name: Setup fossa-cli
-      uses: camunda/infra-global-github-actions/fossa/setup@dcc2982946174b100518ab4dc04612faddba8a1a
+      uses: camunda/infra-global-github-actions/fossa/setup@83dd3777b573878a73ea4b9a0547ad42c5bd8500
     - name: Get context info
       id: info
-      uses: camunda/infra-global-github-actions/fossa/info@dcc2982946174b100518ab4dc04612faddba8a1a
+      uses: camunda/infra-global-github-actions/fossa/info@83dd3777b573878a73ea4b9a0547ad42c5bd8500
     - name: Analyze project
-      uses: camunda/infra-global-github-actions/fossa/analyze@dcc2982946174b100518ab4dc04612faddba8a1a
+      uses: camunda/infra-global-github-actions/fossa/analyze@83dd3777b573878a73ea4b9a0547ad42c5bd8500
       with:
         api-key: ${{ steps.secrets.outputs.FOSSA_API_KEY }}
         branch: ${{  steps.info.outputs.head-ref }}
@@ -50,7 +50,7 @@ jobs:
     # It does not fail for pre-existing issues already present in the base branch.
     - name: Check Pull Request for new License Issues
       if: steps.info.outputs.is-pull-request == 'true'
-      uses: camunda/infra-global-github-actions/fossa/pr-check@dcc2982946174b100518ab4dc04612faddba8a1a
+      uses: camunda/infra-global-github-actions/fossa/pr-check@83dd3777b573878a73ea4b9a0547ad42c5bd8500
       with:
         api-key: ${{ steps.secrets.outputs.FOSSA_API_KEY }}
         base-ref: ${{ steps.info.outputs.base-ref }}

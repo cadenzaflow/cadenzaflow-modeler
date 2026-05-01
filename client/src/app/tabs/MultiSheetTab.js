@@ -57,7 +57,11 @@ export class MultiSheetTab extends CachedComponent {
       sheets = [];
     }
 
-    const provider = activeSheet.provider;
+    const provider = activeSheet?.provider;
+
+    if (!provider) {
+      return;
+    }
 
     const wiredNewSheets = newSheets.map(newSheet => {
       return {
@@ -410,6 +414,11 @@ export class MultiSheetTab extends CachedComponent {
             onWarning={ this.handleWarning }
             linting={ this.props.linting }
             settings={ this.props.settings }
+            backend={ this.props.backend }
+            config={ this.props.config }
+            deployment={ this.props.deployment }
+            startInstance={ this.props.startInstance }
+            zeebeApi={ this.props.zeebeApi }
           />
         </TabContainer>
 

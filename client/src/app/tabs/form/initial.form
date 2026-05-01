@@ -6,6 +6,6 @@
     "version": "{{ EXPORTER_VERSION }}"
   },
   "components": [],
-  "executionPlatform": "Camunda Platform",
+  "executionPlatform": "CadenzaFlow",
   "executionPlatformVersion": "{{ CAMUNDA_PLATFORM_VERSION }}"
 }

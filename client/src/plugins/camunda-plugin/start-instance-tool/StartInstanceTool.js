@@ -19,8 +19,6 @@ import StartInstanceConfigOverlay from './StartInstanceConfigOverlay';
 
 import CockpitProcessInstanceLink from '../shared/ui/CockpitProcessInstanceLink';
 
-import * as css from './StartInstanceTool.less';
-
 import { Fill } from '../../../app/slot-fill';
 
 import { OverlayDropdown } from '../../../shared/ui';
@@ -112,7 +110,7 @@ export default class StartInstanceTool extends PureComponent {
       action
     } = await deployService.getDeployConfigurationFromUserInput(tab, deployConfig, {
       title: 'Start Process Instance - Step 1 of 2',
-      intro: 'Specify deployment details to deploy this diagram to Camunda Platform.',
+      intro: 'Specify deployment details to deploy this diagram to CadenzaFlow.',
       primaryAction: 'Next',
       anchor: this.anchorRef
     });
@@ -544,7 +542,7 @@ export default class StartInstanceTool extends PureComponent {
       <Fill slot="status-bar__file" group="8_deploy">
         <OverlayDropdown
           title="Start current diagram"
-          className={ classNames(css.StartInstanceTool, { 'btn--active': this.state.activeButton }) }
+          className={ classNames({ 'btn--active': this.state.activeButton }) }
           items={ this.START_ACTIONS }
           buttonRef={ this.anchorRef }
           overlayState={ this.state.activeButton }

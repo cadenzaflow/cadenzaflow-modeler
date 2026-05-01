@@ -69,7 +69,6 @@ class FakeTab extends Component {
   }
 
   triggerAction(action, options) {
-    console.log('FakeTab#triggerAction', action, options);
 
     if (action === 'save') {
       return 'CONTENTS';
@@ -167,19 +166,6 @@ export class TabsProvider {
         },
         getIcon() { return null; }
       },
-      cmmn: {
-        name: 'CMMN',
-        encoding: ENCODING_UTF8,
-        exports: {
-          png: EXPORT_PNG,
-          jpeg: EXPORT_JPEG,
-          svg: EXPORT_SVG
-        },
-        extensions: [ 'cmmn', 'xml' ],
-        getLinter() {
-          return null;
-        }
-      },
       'cloud-dmn': {
         name: 'DMN',
         encoding: ENCODING_UTF8,
@@ -191,7 +177,8 @@ export class TabsProvider {
         extensions: [ 'dmn', 'xml' ],
         getLinter() {
           return null;
-        }
+        },
+        getIcon() { return null; }
       },
       dmn: {
         name: 'DMN',
@@ -204,7 +191,8 @@ export class TabsProvider {
         extensions: [ 'dmn', 'xml' ],
         getLinter() {
           return null;
-        }
+        },
+        getIcon() { return null; }
       },
       form: {
         name: 'FORM',
@@ -227,7 +215,8 @@ export class TabsProvider {
               return [];
             }
           };
-        }
+        },
+        getIcon() { return null; }
       }
     };
   }
@@ -276,6 +265,11 @@ export class TabsProvider {
 
   getProviders() {
     return this.providers;
+  }
+
+  getProviderForFile(file) {
+    const type = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+    return this.getProvider(type);
   }
 
   hasProvider(type) {
@@ -427,9 +421,7 @@ export class FileSystem extends Mock {
   }
 }
 
-export class ZeebeAPI extends Mock {
 
-}
 
 export class Backend extends Mock {
 
@@ -601,6 +593,24 @@ export class SystemClipboard extends Mock {
     return undefined;
   }
 }
+
+export class Deployment extends Mock {
+  getConfigForFile() {}
+
+  deploy() {
+    return { success: true };
+  }
+
+  on() {}
+
+  off() {}
+
+  registerResourcesProvider() {}
+
+  unregisterResourcesProvider() {}
+}
+
+export class StartInstance extends Mock {}
 
 function without(arr, toRemove) {
   return arr.filter(item => item !== toRemove);

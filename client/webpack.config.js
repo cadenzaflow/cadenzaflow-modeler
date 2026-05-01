@@ -20,7 +20,7 @@ const MIXPANEL_STAGE = process.env.MIXPANEL_STAGE || null;
 const DEV = NODE_ENV === 'development';
 const LICENSE_CHECK = process.env.LICENSE_CHECK;
 
-const UPDATES_SERVER_PRODUCT_NAME = process.env.UPDATES_SERVER_PRODUCT_NAME || 'Camunda Modeler';
+const UPDATES_SERVER_PRODUCT_NAME = process.env.UPDATES_SERVER_PRODUCT_NAME || 'CadenzaFlow Modeler';
 
 const getVersion = require('../app/util/get-version');
 
@@ -64,7 +64,11 @@ module.exports = {
     modules: [
       'node_modules',
       resourcePath
-    ]
+    ],
+    alias: {
+      'react': path.resolve(__dirname, '../node_modules/react'),
+      'react-dom': path.resolve(__dirname, '../node_modules/react-dom')
+    }
   },
   module: {
     rules: [
@@ -82,7 +86,7 @@ module.exports = {
             use: 'react-svg-loader'
           },
           {
-            test: /\.(bpmn|cmmn|dmn|form|rpa)$/,
+            test: /\.(bpmn|dmn|form|rpa)$/,
             type: 'asset/source'
           },
           {
@@ -122,7 +126,12 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [ copyPattern ]
     }),
-    new MonacoWebpackPlugin(),
+    new MonacoWebpackPlugin({
+
+      // require.resolve so we work regardless of where npm hoisted monaco-editor
+      // (workspace root vs client/node_modules — differs between local and CI installs)
+      monacoEditorPath: path.dirname(require.resolve('monaco-editor/package.json'))
+    }),
     ...sentryIntegration(),
     ...extractDependencies()
   ],

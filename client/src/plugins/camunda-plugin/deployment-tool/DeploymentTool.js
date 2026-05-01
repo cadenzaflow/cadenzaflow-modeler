@@ -23,8 +23,6 @@ import CockpitDeploymentLink from '../shared/ui/CockpitDeploymentLink';
 import DeploymentConfigOverlay from './DeploymentConfigOverlay';
 import DeploymentConfigValidator from './validation/DeploymentConfigValidator';
 
-import * as css from './DeploymentTool.less';
-
 import {
   generateId
 } from '../../../util';
@@ -73,7 +71,7 @@ export default class DeploymentTool extends PureComponent {
       });
     });
 
-    this.props.subscribe('app.focus-changed', () => {
+    this.props.subscribe('app.focused', () => {
       if (this.focusChangeCallback) {
         this.focusChangeCallback();
       }
@@ -582,7 +580,7 @@ export default class DeploymentTool extends PureComponent {
         <button
           onClick={ onClick }
           title="Deploy current diagram"
-          className={ classNames('btn', css.DeploymentTool, { 'btn--active': isDeployOpen() }) }
+          className={ classNames('btn', { 'btn--active': isDeployOpen() }) }
           ref={ this._anchorRef }
         >
           <DeployIcon className="icon" />
@@ -641,7 +639,6 @@ function addOrUpdateById(collection, element) {
 function isCamundaTab(tab) {
   return tab && [
     'bpmn',
-    'cmmn',
     'dmn',
     'form'
   ].includes(tab.type);
@@ -656,10 +653,6 @@ function getDeploymentType(tab) {
 
   else if (type === 'dmn') {
     return 'Decision definition';
-  }
-
-  else if (type === 'cmmn') {
-    return 'Case definition';
   }
 
   else if (type === 'form') {

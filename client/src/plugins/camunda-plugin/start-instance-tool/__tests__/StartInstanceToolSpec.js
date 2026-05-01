@@ -10,12 +10,9 @@
 
 /* global sinon */
 
-import React from 'react';
+import React, { createRef } from 'react';
 
-import {
-  shallow,
-  mount
-} from 'enzyme';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import { Config } from './../../../../app/__tests__/mocks';
 
@@ -34,6 +31,8 @@ import {
   Slot,
   SlotFillRoot
 } from '../../../../app/slot-fill';
+
+import { ENGINES } from '../../../../util/Engines';
 
 describe('<StartInstanceTool>', function() {
 
@@ -310,7 +309,7 @@ describe('<StartInstanceTool>', function() {
       // then
       expect(deployedTo).to.exist;
       expect(deployedTo.executionPlatformVersion).to.be.null;
-      expect(deployedTo.executionPlatform).to.equal('Camunda Platform');
+      expect(deployedTo.executionPlatform).to.equal(ENGINES.PLATFORM);
     });
 
 
@@ -453,7 +452,7 @@ describe('<StartInstanceTool>', function() {
         const deployedTo = actionSpy.args[0][0].payload.deployedTo;
         expect(deployedTo).to.exist;
         expect(deployedTo.executionPlatformVersion).to.equal('7.14.0');
-        expect(deployedTo.executionPlatform).to.equal('Camunda Platform');
+        expect(deployedTo.executionPlatform).to.equal(ENGINES.PLATFORM);
       });
 
 
@@ -536,7 +535,7 @@ describe('<StartInstanceTool>', function() {
         const deployedTo = actionSpy.args[0][0].payload.deployedTo;
         expect(deployedTo).to.exist;
         expect(deployedTo.executionPlatformVersion).to.equal('7.15.0');
-        expect(deployedTo.executionPlatform).to.equal('Camunda Platform');
+        expect(deployedTo.executionPlatform).to.equal(ENGINES.PLATFORM);
       });
 
 
@@ -995,7 +994,7 @@ describe('<StartInstanceTool>', function() {
           } = createStartInstanceTool({
             activeTab,
             withFillSlot: true
-          }, mount);
+          });
 
           expectOverlayDropdown(wrapper);
         });
@@ -1010,16 +1009,15 @@ describe('<StartInstanceTool>', function() {
           } = createStartInstanceTool({
             activeTab,
             withFillSlot: true
-          }, mount);
+          });
 
           const statusBarBtn = expectOverlayDropdown(wrapper);
 
           // then
-          statusBarBtn.simulate('click');
-          wrapper.update();
+          fireEvent.click(statusBarBtn);
 
           // assume
-          expect(wrapper.find("button[title='Start process instance']").exists()).to.be.false;
+          expect(wrapper.querySelector("button[title='Start process instance']")).to.be.null;
         });
 
 
@@ -1033,16 +1031,15 @@ describe('<StartInstanceTool>', function() {
           } = createStartInstanceTool({
             activeTab,
             withFillSlot: true
-          }, mount);
+          });
 
           expectOverlayDropdown(wrapper);
 
           // when
           document.body.dispatchEvent(new MouseEvent('mousedown'));
-          wrapper.update();
 
           // then
-          expect(wrapper.find("button[title='Start process instance']").exists()).to.be.false;
+          expect(wrapper.querySelector("button[title='Start process instance']")).to.be.null;
         });
 
       });
@@ -1059,7 +1056,7 @@ describe('<StartInstanceTool>', function() {
           activeTab,
           withFillSlot: true,
           keepOpen: true
-        }, mount);
+        });
 
         // open dropdown overlay
         expectOverlayDropdown(wrapper);
@@ -1080,7 +1077,7 @@ describe('<StartInstanceTool>', function() {
           activeTab,
           withFillSlot: true,
           keepOpen: true
-        }, mount);
+        });
 
         // open dropdown overlay
         expectOverlayDropdown(wrapper);
@@ -1091,7 +1088,7 @@ describe('<StartInstanceTool>', function() {
         // click status bar button
         clickButton(wrapper, "button[title='Start current diagram']");
 
-        expect(wrapper.html().includes('form')).to.be.false;
+        expect(wrapper.innerHTML.includes('form')).to.be.false;
       });
 
 
@@ -1108,7 +1105,7 @@ describe('<StartInstanceTool>', function() {
           subscribe,
           withFillSlot: true,
           keepOpen: true
-        }, mount);
+        });
 
         // open dropdown overlay
         expectOverlayDropdown(wrapper);
@@ -1120,7 +1117,7 @@ describe('<StartInstanceTool>', function() {
         callSubscriber({ activeTab: createTab() });
 
         // expect
-        expect(wrapper.html().includes('form')).to.not.be.true;
+        expect(wrapper.innerHTML.includes('form')).to.not.be.true;
       });
 
     });
@@ -1166,10 +1163,10 @@ describe('<StartInstanceTool>', function() {
 
             // then
             try {
-              const cockpitLink = mount(notification.content).find('a').first();
-              const { href } = cockpitLink.props();
+              const { container } = render(notification.content);
+              const cockpitLink = container.querySelector('a');
 
-              expect(href).to.eql(expectedCockpitLink);
+              expect(cockpitLink.href).to.eql(expectedCockpitLink);
 
               done();
             } catch (error) {
@@ -1249,28 +1246,29 @@ class TestStartInstanceTool extends StartInstanceTool {
     return true;
   };
 
-  // closes automatically when overlay is opened
-  componentDidUpdate(...args) {
-    super.componentDidUpdate && super.componentDidUpdate(...args);
+  // Override to bypass overlay rendering entirely (avoids anchor requirement)
+  async getConfigurationFromUserInput(tab, providedConfiguration, uiOptions) {
+    const { keepOpen } = this.props;
 
-    const { overlayState } = this.state;
-    const {
-      userAction,
-      businessKey,
-      keepOpen
-    } = this.props;
-
-    if (overlayState && overlayState.configuration) {
-      const action = userAction || 'start';
-
-      const configuration = action !== 'cancel' && {
-        businessKey: businessKey || overlayState.configuration.businessKey
-      };
-
-      if (!keepOpen) {
-        overlayState.handleClose(action, configuration);
-      }
+    // If keepOpen is true, use the real implementation (needs anchor)
+    if (keepOpen) {
+      return super.getConfigurationFromUserInput(tab, providedConfiguration, uiOptions);
     }
+
+    // Otherwise, simulate user interaction without rendering overlay
+    const configuration = await this.getDefaultConfiguration(providedConfiguration);
+    const action = this.props.userAction || 'start';
+
+    if (action === 'cancel') {
+      return { action: 'cancel', configuration: null };
+    }
+
+    return {
+      action,
+      configuration: {
+        businessKey: this.props.businessKey || configuration.businessKey || null
+      }
+    };
   }
 
 }
@@ -1278,7 +1276,7 @@ class TestStartInstanceTool extends StartInstanceTool {
 function createStartInstanceTool({
   activeTab = createTab(),
   ...props
-} = {}, render = shallow) {
+} = {}) {
   const subscribe = (event, callback) => {
     event === 'app.activeTabChanged' && callback({ activeTab });
   };
@@ -1314,8 +1312,11 @@ function createStartInstanceTool({
     ...props.deployService
   });
 
+  const ref = createRef();
+
   const StartInstance = (
     <TestStartInstanceTool
+      ref={ ref }
       subscribe={ props.subscribe || subscribe }
       triggerAction={ triggerAction }
       displayNotification={ noop }
@@ -1333,13 +1334,13 @@ function createStartInstanceTool({
     </SlotFillRoot>
   );
 
-  const wrapper = render(
+  const { container } = render(
     props.withFillSlot ? StartInstanceWithFillSlot : StartInstance
   );
 
   return {
-    wrapper,
-    instance: wrapper.instance()
+    wrapper: container,
+    instance: ref.current
   };
 }
 
@@ -1383,8 +1384,8 @@ function createSubscribe(activeTab) {
 }
 
 function clickButton(wrapper, searchString) {
-  const button = wrapper.find(searchString);
-  button.simulate('click');
+  const button = wrapper.querySelector(searchString);
+  fireEvent.click(button);
 
   return button;
 }
@@ -1395,7 +1396,7 @@ function expectOverlayDropdown(wrapper) {
   const statusBarBtn = clickButton(wrapper, "button[title='Start current diagram']");
 
   // then
-  expect(wrapper.find("button[title='Start process instance']").exists()).to.be.true;
+  expect(screen.getByTitle('Start process instance')).to.exist;
 
   return statusBarBtn;
 }
@@ -1410,5 +1411,5 @@ async function expectStartInstanceOverlay(wrapper) {
   });
 
   // assume
-  expect(wrapper.html().includes('form')).to.be.true;
+  expect(wrapper.innerHTML.includes('form')).to.be.true;
 }

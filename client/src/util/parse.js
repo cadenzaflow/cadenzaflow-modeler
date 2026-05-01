@@ -13,7 +13,6 @@ import { is } from 'bpmn-js/lib/util/ModelUtil';
 import BpmnModdle from 'bpmn-moddle';
 
 import CamundaBpmnModdle from 'camunda-bpmn-moddle/resources/camunda';
-import ZeebeBpmnModdle from 'zeebe-bpmn-moddle/resources/zeebe';
 import ModelerModdle from 'modeler-moddle/resources/modeler';
 
 import { selfAndAllFlowElements } from './elementsUtil';
@@ -29,10 +28,6 @@ export async function getBpmnDefinitions(xml, diagramType) {
 
   if (diagramType === 'bpmn') {
     extensions.camunda = CamundaBpmnModdle;
-  }
-
-  if (diagramType === 'cloud-bpmn') {
-    extensions.zeebe = ZeebeBpmnModdle;
   }
 
   const moddle = new BpmnModdle(extensions);
@@ -77,7 +72,7 @@ export async function getEngineProfile(contents, resourceType) {
  * @param {String} elementType
  * @param {String} diagramType
  *
- * @return {Array<Object>} a list of elements matching the type
+ * @return {Promise<Array<Object>>} a list of elements matching the type
  */
 export async function getAllElementsByType(xml, elementType, diagramType) {
   const definitions = await getBpmnDefinitions(xml, diagramType);
@@ -143,10 +138,6 @@ export function parseFormFieldCounts(contents) {
 }
 
 function getDefaultExecutionPlatform(type) {
-  if (/^cloud/.test(type)) {
-    return ENGINES.CLOUD;
-  }
-
   return ENGINES.PLATFORM;
 }
 

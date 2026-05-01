@@ -16,6 +16,8 @@ import { omitBy } from 'lodash';
 
 import { Formik } from 'formik';
 
+import debug from 'debug';
+
 import Flags from '../../util/Flags';
 
 import { Modal } from '../../shared/ui';
@@ -25,6 +27,8 @@ import { SettingsForm } from './SettingsForm';
 import useBuiltInSettings from './useBuiltInSettings';
 
 import * as css from './SettingsPlugin.less';
+
+const log = debug('Settings');
 
 /**
  * Provides UI for the settings API.
@@ -56,17 +60,19 @@ export default function SettingsPlugin(props) {
     subscribe('app.settings-open', () => {
       setOpen(true);
     });
-  }, [ ]);
+  }, [ subscribe ]);
 
   useEffect(() => {
     if (!open) return;
 
     // Schema is settings metadata e.g. type, default value, etc.
     setSchema(settings.getSchema());
-  }, [ open ]);
+  }, [ open, settings ]);
 
   useEffect(() => {
     if (!schema) return;
+
+    log('Settings#updateSchema %o', schema);
 
     const values = settings.get();
 
@@ -83,7 +89,7 @@ export default function SettingsPlugin(props) {
     });
 
     setValues(values);
-  }, [ schema ]);
+  }, [ schema, settings ]);
 
   const handleSave = (data) => {
     const formikValues = flattenFormikValues(data);
@@ -103,6 +109,8 @@ export default function SettingsPlugin(props) {
 
     settings.set(changedValues);
     setValues({ ...values, ...changedValues });
+
+    log('Settings#handleSave %o', changedValues);
   };
 
   const handleRestart = () => {
@@ -114,7 +122,7 @@ export default function SettingsPlugin(props) {
   }
 
   return (
-    <Modal onClose={ () => setOpen(false) }>
+    <Modal adaptive={ true } onClose={ () => setOpen(false) }>
       <div className="modal-header">
         <h2 className="modal-title">Settings</h2>
       </div>
@@ -127,12 +135,12 @@ export default function SettingsPlugin(props) {
         }
 
         <Formik
-          initialValues={ { } }
-          onSubmit={ debounce(handleSave, 500) }
+          initialValues={ unflattenValues(values) }
+          enableReinitialize
         >
           <SettingsForm
             schema={ schema }
-            values={ values }
+            onChange={ debounce(handleSave, 200) }
           />
         </Formik>
 
@@ -184,4 +192,32 @@ function flattenSchema(schema) {
   return reduce(schema, (acc, { properties }) => {
     return { ...acc, ...properties };
   }, {});
+}
+
+/**
+ * Converts flat dotted keys to nested object structure.
+ * e.g. { 'test.checkbox': true } -> { test: { checkbox: true } }
+ *
+ * @param {Object} flatValues
+ * @returns {Object}
+ */
+function unflattenValues(flatValues) {
+  const result = {};
+
+  forEach(flatValues, (value, key) => {
+    const parts = key.split('.');
+    let current = result;
+
+    for (let i = 0; i < parts.length - 1; i++) {
+      const part = parts[i];
+      if (!current[part]) {
+        current[part] = {};
+      }
+      current = current[part];
+    }
+
+    current[parts[parts.length - 1]] = value;
+  });
+
+  return result;
 }

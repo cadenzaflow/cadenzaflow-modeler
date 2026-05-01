@@ -1,12 +1,12 @@
 version: 3
 
 project:
-  id: camunda/camunda-modeler
+  id: cadenzaflow/cadenzaflow-modeler
   labels:
-  - camunda-modeler
+  - cadenzaflow-modeler
   - modeler
-  policy: Camunda8 Distribution
-  url: https://github.com/camunda/camunda-modeler
+  policy: CadenzaFlow Distribution
+  url: https://github.com/cadenzaflow/cadenzaflow-modeler
 
 paths:
   exclude:

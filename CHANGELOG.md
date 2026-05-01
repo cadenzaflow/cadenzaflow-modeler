@@ -6,15 +6,204 @@ All notable changes to the [Camunda Modeler](https://github.com/camunda/camunda-
 
 ___Note:__ Yet to be released changes appear here._
 
+## 1.0.0
+
+* `FEAT`: Initial release of **CadenzaFlow Modeler**.
+* `CHORE`: Rebranded from Camunda Modeler 5.42.0.
+
+## 5.42.0
+
+* `DEPS`: update to `@bpmn-io/properties-panel@3.34.0`
+* `DEPS`: update to `@camunda/linting@3.45.0`
+* `DEPS`: update to `@camunda/rpa-integration@1.2.2`
+* `DEPS`: update to `@camunda/task-testing@1.0.5`
+* `DEPS`: update to `bpmn-js@18.9.1`
+* `DEPS`: update to `bpmn-js-element-templates@2.16.1`
+* `DEPS`: update to `bpmn-js-properties-panel@5.43.0`
+* `DEPS`: update to `camunda-bpmn-js@5.15.0`
+
+### General
+
+* `FEAT`: remove title attribute when unnecessary ([bpmn-io/properties-panel#455](https://github.com/bpmn-io/properties-panel/pull/455))
+* `FIX`: improve tooltip behavior ([#5217](https://github.com/camunda/camunda-modeler/issues/5217), [#4857](https://github.com/camunda/camunda-modeler/issues/4857))
+* `FIX`: correctly handle trimming and debouncing ([#5389](https://github.com/camunda/camunda-modeler/issues/5389), [#4967](https://github.com/camunda/camunda-modeler/issues/4967), [#5392](https://github.com/camunda/camunda-modeler/issues/5392))
+
+### BPMN
+
+* `FEAT`: visually link external label with its target ([#369](https://github.com/camunda/camunda-modeler/issues/369))
+* `FEAT`: allow copying data object references and `isCollection` property ([bpmn-io/bpmn-js#2348](https://github.com/bpmn-io/bpmn-js/pull/2348))
+* `FEAT`: support templating signal events ([#5381](https://github.com/camunda/camunda-modeler/issues/5381))
+* `FEAT`: add `event-based-gateway` rule ([#5194](https://github.com/camunda/camunda-modeler/issues/5194))
+* `FIX`: ensure FEEL expression is enforced for `feel: required` properties ([#4967](https://github.com/camunda/camunda-modeler/issues/4967))
+* `FIX`: task testing does not show Operate button on error state ([#5391](https://github.com/camunda/camunda-modeler/issues/5391))
+* `FIX`: better autocomplete suggestions in task testing ([#5475](https://github.com/camunda/camunda-modeler/pull/5475))
+
+### RPA
+
+* `FIX`: refresh list of files on editor change
+
+## 5.41.0
+
+* `DEPS`: update to `@bpmn-io/form-js@1.18.0`
+* `DEPS`: update to `@bpmn-io/properties-panel@3.33.2`
+* `DEPS`: update to `@camunda/form-playground@0.23.0`
+* `DEPS`: update to `@camunda/linting@3.44.0`
+* `DEPS`: update to `bpmn-js@18.8.0`
+* `DEPS`: update to `bpmn-js-properties-panel@5.42.3`
+* `DEPS`: update to `bpmn-js-element-templates@2.15.0`
+* `DEPS`: update to `dmn-js-properties-panel@3.8.2`
+* `DEPS`: update to `@camunda/task-testing@1.0.2`
+
+### General
+
+* `FEAT`: accept trailing `v2` or `/` for REST cluster URLs ([#5345](https://github.com/camunda/camunda-modeler/issues/5345))
+* `FIX`: use `ZEEBE_GRPC_ADDRESS` in favor of deprecated `ZEEBE_ADDRESS` for cluster connections ([#5362](https://github.com/camunda/camunda-modeler/pull/5362))
+
+### BPMN
+
+* `FEAT`: show local and process variables in task testing outcome ([#5338](https://github.com/camunda/camunda-modeler/issues/5338))
+* `FIX`: use maximize icon in open popup button ([@bpmn-io/properties-panel#438](https://github.com/bpmn-io/properties-panel/pull/444))
+* `FIX`: remove empty values (`""`) also after blurring input fields([@bpmn-io/properties-panel#449](https://github.com/bpmn-io/properties-panel/pull/449))
+* `FIX`: display process and local variables separately in task testing ([@camunda/task-testing#41](https://github.com/camunda/task-testing/pull/41))
+* `FIX`: fix Operate URL in task testing for self-managed ([#5357](https://github.com/camunda/camunda-modeler/issues/5357))
+* `FIX`: mark tasks in ad-hoc sub-process as unsupported ([#50](https://github.com/camunda/task-testing/pull/50))
+* `FIX`: handle variables with the same name in process and local scope ([#48](https://github.com/camunda/task-testing/issues/48))
+
+### Forms
+
+* `FIX`: use field id as an identifier for custom properties ([#1443](https://github.com/bpmn-io/form-js/pull/1443))
+* `FIX`: fix radio group default value after edit ([#1439](https://github.com/bpmn-io/form-js/pull/1439))
+
+## 5.40.1
+
+### General
+
+* `FIX`: prevent task testing freeze for unsaved file ([#5341](https://github.com/camunda/camunda-modeler/issues/5341))
+* `FIX`: correct task testing tracking ([#5347](https://github.com/camunda/camunda-modeler/pull/5347))
+
+## 5.40.0
+
+* `DEPS`: update to `bpmn-js@18.7.0`
+* `DEPS`: update to `@camunda/linting@3.43.1`
+* `DEPS`: update to `bpmn-js-properties-panel@5.42.1`
+* `DEPS`: update to `bpmn-js-element-templates@2.14.0`
+* `DEPS`: update to `bpmn-moddle@9.0.4`
+* `DEPS`: update to `camunda-bpmn-js@5.14.2`
+* `DEPS`: update to `diagram-js@15.4.0`
+* `DEPS`: update to `electron@37.6.0`
+* `DEPS`: update to `zeebe-bpmn-moddle@1.11.0`
+
+### General
+
+* `FEAT`: add task testing ([#5235](https://github.com/camunda/camunda-modeler/pull/5235))
+* `FEAT`: mark Camunda 8.8 and 7.24 as stable ([#5265](https://github.com/camunda/camunda-modeler/issues/5265))
+* `FIX`: make start instance work with REST API ([#5274](https://github.com/camunda/camunda-modeler/issues/5274))
+
+### BPMN
+
+* `FEAT`: add linting rule `no-interrupting-event-subprocess` ([camunda/linting#148](https://github.com/camunda/linting/pull/148))
+* `FEAT`: support `activeElementsCollection` property on `zeebe:adHoc` ([camunda/element-templates-json-schema#198](https://github.com/camunda/element-templates-json-schema/pull/198), [bpmn-io/bpmn-js-element-templates#186](https://github.com/bpmn-io/bpmn-js-element-templates/pull/186))
+* `FEAT`: create sub-process templates as expanded elements ([#5273](https://github.com/camunda/camunda-modeler/issues/5273))
+* `FIX`: ensure popup menu keyboard navigation accounts for group order ([bpmn-io/diagram-js#989](https://github.com/bpmn-io/diagram-js/pull/989))
+* `FIX`: revert `AdHocSubProcess#cancelRemainingInstances` default value removal ([bpmn-io/bpmn-moddle#132](https://github.com/bpmn-io/bpmn-moddle/pull/132))
+* `FIX`: preserve variables with same name but different scopes ([bpmn-io/variable-resolver#56](https://github.com/bpmn-io/variable-resolver/pull/56))
+* `FIX`: allow intermediate catch event without outgoing sequence flows in ad-hoc subprocess ([#5189](https://github.com/camunda/camunda-modeler/issues/5189))
+* `FIX`: do not try to find unresolved variables of a broken expression ([bpmn-io/variable-resolver#50](https://github.com/bpmn-io/variable-resolver/issues/50))
+
+## 5.39.0
+
+* `DEPS`: update to `bpmn-js@18.6.3`
+* `DEPS`: update to `@camunda/linting@3.42.0`
+* `DEPS`: update to `@bpmn-io/properties-panel@3.33.0`
+* `DEPS`: update to `bpmn-js-properties-panel@5.42.0`
+* `DEPS`: update to `bpmn-js-element-templates@2.11.0`
+* `DEPS`: update to `camunda-bpmn-js@5.13.0`
+* `DEPS`: update to `bpmn-moddle@9.0.3`
+* `DEPS`: update to `dmn-js@17.4.0`
+* `DEPS`: update to `camunda-dmn-js@3.5.0`
+* `DEPS`: update to `@bpmn-io/form-js@1.17.0`
+
+### General
+
+* `FEAT`: change privacy preferences to default all settings to enabled ([#5238](https://github.com/camunda/camunda-modeler/pull/5238))
+* `FEAT`: support connection through both gRPC and REST when deploying and starting instance ([#4607](https://github.com/camunda/camunda-modeler/issues/4607))
+* `FEAT`: support multiline feel strings in `camunda` dialect ([#5089](https://github.com/camunda/camunda-modeler/issues/5089))
+* `FIX`: recognize unclosed feel string literal as syntax error ([#5190](https://github.com/camunda/camunda-modeler/issues/5190))
+
+### BPMN
+
+* `FEAT`: clean up ad-hoc subprocess when implementation type is changed ([camunda/camunda-bpmn-js-behaviors#104](https://github.com/camunda/camunda-bpmn-js-behaviors/pull/104), [camunda/camunda-bpmn-js-behaviors#106](https://github.com/camunda/camunda-bpmn-js-behaviors/pull/106))
+* `FEAT`: add output collection props for `bpmn:AdHocSubProcess` ([bpmn-io/bpmn-js-properties-panel#1143](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1143))
+* `FEAT`: support job worker implementation of `bpmn:AdHocSubProcess` ([bpmn-io/bpmn-js-properties-panel#1144](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1144))
+* `FEAT`: support `zeebe:assignmentDefinition` binding ([bpmn-io/bpmn-js-element-templates#168](https://github.com/bpmn-io/bpmn-js-element-templates/pull/168))
+* `FEAT`: support `zeebe:priorityDefinition` binding ([bpmn-io/bpmn-js-element-templates#171](https://github.com/bpmn-io/bpmn-js-element-templates/pull/171))
+* `FEAT`: support `zeebe:taskSchedule` binding ([bpmn-io/bpmn-js-element-templates#173](https://github.com/bpmn-io/bpmn-js-element-templates/pull/173))
+* `FEAT`: support `zeebe:adHoc` binding ([bpmn-io/bpmn-js-element-templates#175](https://github.com/bpmn-io/bpmn-js-element-templates/pull/175))
+* `FIX`: trigger create mode if auto place of element with template not possible ([bpmn-io/bpmn-js-create-append-anything#56](https://github.com/bpmn-io/bpmn-js-create-append-anything/pull/56))
+* `FIX`: use default values for displaying edited marker ([#5126](https://github.com/camunda/camunda-modeler/issues/5126))
+* `FIX`: `cancelRemainingInstances` of ad-hoc sub-processes is unset by default ([bpmn-io/bpmn-js-properties-panel#1148](https://github.com/bpmn-io/bpmn-js-properties-panel/pull/1148), [bpmn-io/bpmn-moddle#131](https://github.com/bpmn-io/bpmn-moddle/issues/131))
+* `FEAT`: handle `bpmn:AdHocSubProcess` with `zeebe:TaskDefinition` lint error ([camunda/linting#146](https://github.com/camunda/linting/pull/146))
+* `FEAT`: handle `zeebe:AdHoc` `outputCollection` and `outputElement` lint errors ([camunda/linting#146](https://github.com/camunda/linting/pull/146))
+
+## 5.38.1
+
+* `DEPS`: update to `@camunda/linting@3.40.1`
+* `DEPS`: update to `@bpmn-io/properties-panel@3.31.1`
+
+### General
+
+* `FIX`: revert inclusion of camunda builtin extensions due to performance issues ([camunda/bpmnlint-plugin-camunda-compat#215](https://github.com/camunda/bpmnlint-plugin-camunda-compat/pull/215))
+* `FIX`: make `priority-definition` rule handle number value ([camunda/bpmnlint-plugin-camunda-compat#213](https://github.com/camunda/bpmnlint-plugin-camunda-compat/pull/213))
+* `FIX`: template select button is now always visible ([bpmn-io/properties-panel#436](https://github.com/bpmn-io/properties-panel/pull/436))
+
+## 5.38.0
+
+### General
+
 * `FEAT`: use FEEL parserDialect `camunda` for DMN and BPMN ([#4809](https://github.com/camunda/camunda-modeler/issues/4809))
-* `FEAT`: Input entries of a decision table use the unary-tests expression language dialect ([bpmn-io/dmn-js#947](https://github.com/bpmn-io/dmn-js/pull/947))
 * `FEAT`: allow to pass tenant ID with no authentication ([#5106](https://github.com/camunda/camunda-modeler/issues/5106))
+* `FEAT`: support all Camunda FEEL builtins ([#3983](https://github.com/camunda/camunda-modeler/issues/3983))
 * `FIX`: use uniform GTK symbols on Linux ([#5095](https://github.com/camunda/camunda-modeler/issues/5095))
+* `FIX`: display tooltip on number fields ([#5102](https://github.com/camunda/camunda-modeler/issues/5102))
+* `FIX`: use `monospace` font in code editors ([#5140](https://github.com/camunda/camunda-modeler/issues/5140))
 * `DEPS`: update to `electron@37`
 * `DEPS`: update to `dmn-js@17.3.0`
+* `DEPS`: update to `camunda-bpmn-js@5.11.0`
 * `DEPS`: update to `camunda-dmn-js@3.4.0`
-* `DEPS`: update to `bpmn-js-properties-panel@5.38.0`
-* `DEPS`: update to `@camunda/linting@3.39.0`
+* `DEPS`: update to `bpmn-js-properties-panel@5.39.0`
+* `DEPS`: update to `bpmn-js-element-templates@2.8.0`
+* `DEPS`: update to `@camunda/linting@3.40.0`
+* `DEPS`: update to `@bpmn-io/form-js@1.16.0`
+* `DEPS`: update to `@camunda/form-playground@0.20.0`
+* `DEPS`: update to `@camunda/form-linting@0.23.0`
+* `DEPS`: update to `@bpmn-io/dmn-migrate@0.6.0`
+* `DEPS`: update to `@bpmn-io/properties-panel@3.31.0`
+
+### BPMN
+
+* `FEAT`: add linting for IO mapping ([#5137](https://github.com/camunda/camunda-modeler/issues/5137))
+* `FEAT`: support `bindingType` property ([bpmn-io/bpmn-js-element-templates#165](https://github.com/bpmn-io/bpmn-js-element-templates/pull/165))
+* `FEAT`: support properties of type `bpmn:Expression` ([bpmn-io/bpmn-js-element-templates#161](https://github.com/bpmn-io/bpmn-js-element-templates/pull/161))
+* `FEAT`: support `zeebe:script` in element templates ([#5026](https://github.com/camunda/camunda-modeler/issues/5026))
+* `FEAT`: support `zeebe:calledDecision` in element templates ([#5025](https://github.com/camunda/camunda-modeler/issues/5025))
+* `FEAT`: support `zeebe:formDefintion` in element templates ([#5073](https://github.com/camunda/camunda-modeler/issues/5073))
+* `FIX`: keep groups closed when template is first applied ([#5039](https://github.com/camunda/camunda-modeler/issues/5039))
+* `FIX`: correctly handle numeric conditions in element templates ([bpmn-io/bpmn-js-element-templates#69](https://github.com/bpmn-io/bpmn-js-element-templates/issues/69))
+* `FIX`: handle participants when removing empty `zeebe:VersionTag` ([#5115](https://github.com/camunda/camunda-modeler/issues/5115))
+
+### DMN
+
+* `FEAT`: input entries of a decision table use the unary-tests expression language dialect ([bpmn-io/dmn-js#947](https://github.com/bpmn-io/dmn-js/pull/947))
+
+### Forms
+
+* `FEAT`: support pattern validation custom message ([#1360](https://github.com/bpmn-io/form-js/issues/1360))
+* `FIX`: flush debounced fields on enter ([#35032](https://github.com/camunda/camunda/issues/35032))
+* `FIX`: properties panel toggle configurations work again ([5df5bf5](https://github.com/bpmn-io/form-js/commit/5df5bf58ea43045bb8693f6eb5411f5fcbfcf8b2))
+
+### RPA
+
+* `FEAT`: add RPA multi-file and linting ([#5152](https://github.com/camunda/camunda-modeler/issues/5152))
 
 ## 5.37.0
 

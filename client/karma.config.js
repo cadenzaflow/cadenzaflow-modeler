@@ -36,6 +36,8 @@ process.env.CHROME_BIN = require('puppeteer').executablePath();
 // any of [ 'ChromeHeadless', 'Chrome', 'Firefox', 'IE', 'PhantomJS' ]
 var browsers = (process.env.TEST_BROWSERS || 'ChromeHeadless').split(/,/g);
 
+var autocleanup = 'test/helper/autocleanup.js';
+
 var suite = 'test/suite.js';
 
 if (modelers) {
@@ -55,10 +57,12 @@ module.exports = function(karma) {
     ],
 
     files: [
+      autocleanup,
       suite
     ],
 
     preprocessors: {
+      [autocleanup]: [ 'webpack' ],
       [suite]: [ 'webpack', 'env' ]
     },
 
@@ -73,9 +77,19 @@ module.exports = function(karma) {
     browsers: browsers,
 
     browserNoActivityTimeout: 60000,
+    browserDisconnectTolerance: 3,
+    browserSocketTimeout: 60000,
+    browserDisconnectTimeout: 60000,
+    pingTimeout: 60000,
 
     singleRun: true,
     autoWatch: false,
+
+    client: {
+      mocha: {
+        timeout: 10000
+      }
+    },
 
     webpack: {
       mode: 'none',
@@ -91,13 +105,42 @@ module.exports = function(karma) {
             use: 'babel-loader'
           },
           {
+            test: /\.css$/,
+            use: {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  mode: 'global',
+                  exportOnlyLocals: true,
+                  localIdentName: '[name]__[local]--[hash:base64:5]'
+                }
+              }
+            }
+          },
+          {
+            test: /\.less$/,
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: {
+                    mode: 'global',
+                    exportOnlyLocals: true,
+                    localIdentName: '[name]__[local]--[hash:base64:5]'
+                  }
+                }
+              },
+              'less-loader'
+            ]
+          },
+          {
             oneOf: [
               {
                 test: /[/\\][A-Z][^/\\]+\.svg$/,
                 use: 'react-svg-loader'
               },
               {
-                test: /\.(css|bpmn|cmmn|dmn|less|xml|png|svg|form|rpa)$/,
+                test: /\.(bpmn|dmn|xml|png|svg|form|rpa)$/,
                 type: 'asset/source'
               }
             ]
@@ -110,12 +153,19 @@ module.exports = function(karma) {
       },
       plugins: [
         new DefinePlugin({
-          'process.env': {
-            NODE_ENV: JSON.stringify('test'),
-            WINDOWS: JSON.stringify(windows)
+          'process.env.NODE_ENV': JSON.stringify('test'),
+          'process.env.WINDOWS': JSON.stringify(windows),
+          'process.env.RTL_SKIP_AUTO_CLEANUP': JSON.stringify('true'), // auto-cleanup is configured as beforeEach hook
+          'process': { // must be present to prevent short-circuit in RTL auto-cleanup
+            env: {} // mocks variables set at build time
           }
         }),
-        new MonacoWebpackPlugin()
+        new MonacoWebpackPlugin({
+          languages: [ 'json' ], // Only bundle JSON language for RPA editor
+          // require.resolve so we work regardless of where npm hoisted monaco-editor
+          // (workspace root vs client/node_modules — differs between local and CI installs)
+          monacoEditorPath: path.dirname(require.resolve('monaco-editor/package.json'))
+        })
       ],
       resolve: {
         mainFields: [
@@ -130,10 +180,11 @@ module.exports = function(karma) {
           resourcePath
         ],
         alias: {
+          'react': path.resolve(absoluteBasePath, '../node_modules/react'),
+          'react-dom': path.resolve(absoluteBasePath, '../node_modules/react-dom'),
           'bpmn-js/lib/Modeler': modelers ? 'bpmn-js/lib/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-cloud/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-cloud/Modeler' : 'test/mocks/bpmn-js/Modeler',
           'camunda-bpmn-js/lib/camunda-platform/Modeler': modelers ? 'camunda-bpmn-js/lib/camunda-platform/Modeler' : 'test/mocks/bpmn-js/Modeler',
-          'cmmn-js/lib/Modeler': modelers ? 'cmmn-js/lib/Modeler' : 'test/mocks/cmmn-js/Modeler',
           'camunda-dmn-js$': modelers ? 'camunda-dmn-js' : 'test/mocks/dmn-js/Modeler',
           './DmnModeler': modelers ? './DmnModeler' : 'test/mocks/dmn-js/Modeler',
           './CodeMirror': 'test/mocks/code-mirror/CodeMirror',
@@ -141,7 +192,8 @@ module.exports = function(karma) {
           './editor/FormEditor': 'test/mocks/form-js',
           '@camunda/linting': 'test/mocks/linting',
           '@camunda/linting/modeler': 'test/mocks/linting/modeler',
-          'mixpanel-browser': 'test/mocks/mixpanel-browser'
+          'mixpanel-browser': 'test/mocks/mixpanel-browser',
+          '../../globals': 'test/mocks/globals'
         }
       },
       devtool: 'eval-cheap-module-source-map'

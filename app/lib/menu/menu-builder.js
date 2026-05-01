@@ -67,7 +67,6 @@ class MenuBuilder {
     this.appendFileMenu(
       new MenuBuilder(this.options)
         .appendNewFile()
-        .appendNewProcessApplication()
         .appendOpen()
         .appendSeparator()
         .appendSwitchTab()
@@ -267,17 +266,6 @@ class MenuBuilder {
       enabled: this.options.state.save,
       click: function() {
         app.emit('menu:action', 'save-all');
-      }
-    }));
-
-    return this;
-  }
-
-  appendNewProcessApplication() {
-    this.menu.append(new MenuItem({
-      label: 'New Process Application...',
-      click: function() {
-        app.emit('menu:action', 'emit-event', { type: 'create-process-application' });
       }
     }));
 
@@ -616,35 +604,33 @@ class MenuBuilder {
     const topPart = [
       {
         label: 'Documentation',
-        click: () => browserOpen('https://docs.camunda.io/docs/components/modeler/desktop-modeler/')
-      },
-      {
-        label: 'User Forum',
-        click: () => browserOpen('https://forum.camunda.io/c/bpmn-modeling/')
+        click: () => browserOpen('https://docs.cadenzaflow.org/manual/latest/modeler/')
       },
       {
         label: 'Keyboard Shortcuts',
         click: () => app.emit('menu:action', 'show-shortcuts')
       },
-      getSeparatorTemplate(),
-      {
-        label: 'Search Feature Requests',
-        click: () => browserOpen('https://github.com/camunda/camunda-modeler/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement')
-      },
-      {
-        label: 'Report Issue',
-        click: () => app.emit('menu:action', 'emit-event', { type: 'reportFeedback.open' })
-      },
+
+      // getSeparatorTemplate(),
+      // {
+      //   label: 'Search Feature Requests',
+      //   click: () => browserOpen('https://github.com/cadenzaflow/cadenzaflow-modeler/issues?q=is%3Aopen%20is%3Aissue%20label%3Aenhancement')
+      // },
+      // {
+      //   label: 'Report Issue',
+      //   click: () => app.emit('menu:action', 'emit-event', { type: 'reportFeedback.open' })
+      // },
       ... (app.flags && !app.flags.get('disable-remote-interaction')) ? [
         getSeparatorTemplate(),
         {
           label: 'Privacy Preferences',
           click: () => app.emit('menu:action', 'emit-event', { type: 'show-privacy-preferences' })
-        },
-        {
-          label: 'Check for Updates',
-          click: () => app.emit('menu:action', 'emit-event', { type: 'updateChecks.execute' })
-        },
+        }
+
+        // {
+        //   label: 'Check for Updates',
+        //   click: () => app.emit('menu:action', 'emit-event', { type: 'updateChecks.execute' })
+        // },
       ] : [],
       getSeparatorTemplate()
     ];
@@ -671,7 +657,7 @@ class MenuBuilder {
     const bottomPart = [
       {
         label: 'FEEL Reference',
-        click: () => browserOpen('https://docs.camunda.io/docs/components/modeler/feel/what-is-feel/')
+        click: () => browserOpen('https://docs.cadenzaflow.org/manual/latest/user-guide/process-engine/expression-language/friendly-enough-expression-language/')
       },
       getSeparatorTemplate(),
       {

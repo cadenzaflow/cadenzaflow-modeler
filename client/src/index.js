@@ -10,28 +10,15 @@
 
 import './styles/style.less';
 
-import {
-  backend,
-  config,
-  dialog,
-  fileSystem,
-  flags,
-  log,
-  metadata,
-  plugins,
-  systemClipboard,
-  workspace,
-  zeebeAPI
-} from './remote';
+import { flags, globals, metadata, plugins } from './globals';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import {
   AppParent,
   KeyboardBindings,
   TabsProvider,
-  Settings
 } from './app';
 
 import Metadata from './util/Metadata';
@@ -50,30 +37,10 @@ if (process.env.NODE_ENV !== 'production') {
 Metadata.init(metadata);
 Flags.init(flags);
 
-
-const isMac = backend.getPlatform() === 'darwin';
-
 const keyboardBindings = new KeyboardBindings({
-  isMac
+  isMac: globals.isMac
 });
 
-const settings = new Settings({
-  config
-});
-
-const globals = {
-  backend,
-  config,
-  dialog,
-  fileSystem,
-  isMac,
-  log,
-  plugins,
-  settings,
-  systemClipboard,
-  workspace,
-  zeebeAPI
-};
 
 
 async function render() {
@@ -96,15 +63,16 @@ async function render() {
     document.querySelector('body > .spinner-border').classList.add('hidden');
   };
 
-  const tabsProvider = new TabsProvider(plugins.get('tabs'), settings);
+  const tabsProvider = new TabsProvider(plugins.get('tabs'), globals.settings);
 
-  ReactDOM.render(
+  const root = createRoot(rootElement);
+  root.render(
     <AppParent
       keyboardBindings={ keyboardBindings }
       globals={ globals }
       tabsProvider={ tabsProvider }
       onStarted={ onStarted }
-    />, rootElement
+    />
   );
 }
 

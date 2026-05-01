@@ -481,11 +481,12 @@ async function createModeler(options = {}) {
   const modelerImport = new Promise(resolve => {
     modeler.once('views.changed', VERY_LOW_PRIORITY, resolve);
 
-    modeler.importXML(diagramXML, (err, warnings) => {
+    modeler.importXML(diagramXML).then(({ warnings }) => {
 
       // assume
-      expect(err).not.to.exist;
       expect(warnings).to.be.empty;
+    }).catch(err => {
+      expect(err).not.to.exist;
     });
   });
 

@@ -20,7 +20,7 @@ import Panel from '../../panel/Panel';
 import { WithCachedState } from '../../cached';
 import Cache from '../../cached/Cache';
 
-import { Settings } from '../mocks';
+import { Settings, Config } from '../mocks';
 
 
 function noop() { }
@@ -40,6 +40,7 @@ export default async function renderEditor(EditorComponent, xml, options = {}) {
 
   const props = {
     cache: new Cache(),
+    config: new Config(),
     getConfig: noop,
     getPlugins: () => [],
     id: 'editor',
@@ -65,8 +66,8 @@ export default async function renderEditor(EditorComponent, xml, options = {}) {
   const TestEditor = WithCachedState(EditorComponent);
 
   const {
-    container,
     rerender,
+    ...renderResults
   } = render(
     <SlotFillRoot>
       <TestEditor ref={ ref } { ...props } />
@@ -81,8 +82,8 @@ export default async function renderEditor(EditorComponent, xml, options = {}) {
   }
 
   return {
+    ...renderResults,
     instance: ref.current,
-    container,
     rerender: (newXML, newOptions = {}) => {
       rerender(
         <SlotFillRoot>

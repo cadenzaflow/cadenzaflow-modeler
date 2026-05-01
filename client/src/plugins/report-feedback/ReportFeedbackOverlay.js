@@ -16,8 +16,8 @@ import { ReportFeedbackSystemInfoSection } from './ReportFeedbackSystemInfoSecti
 
 import * as css from './ReportFeedbackOverlay.less';
 
-const REPORT_ISSUE_LINK = 'https://github.com/camunda/camunda-modeler/issues/new/choose';
-const USER_FORUM_LINK = 'https://forum.camunda.io/tag/modeler?utm_source=modeler&utm_medium=referral';
+
+const REPORT_ISSUE_LINK = 'https://github.com/cadenzaflow/cadenzaflow-modeler/issues/new/choose';
 
 const OFFSET = { right: 0 };
 
@@ -53,9 +53,6 @@ function ReportFeedbackChannelsSection(props) {
         Share your feedback
       </Section.Header>
       <Section.Body>
-        <p>
-          <a onClick={ onClose } href={ USER_FORUM_LINK }>Visit our user forum</a> to share general feedback on the Modeler.
-        </p>
         <p>
           <a onClick={ onClose } href={ REPORT_ISSUE_LINK }>Open an issue on GitHub</a> to report a bug or request a new feature.
         </p>

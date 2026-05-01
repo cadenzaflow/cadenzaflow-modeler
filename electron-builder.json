@@ -1,6 +1,6 @@
 {
-  "appId": "com.camunda.CamundaModeler",
-  "productName": "Camunda Modeler",
+  "appId": "com.cadenzaflow.CadenzaFlowModeler",
+  "productName": "CadenzaFlow Modeler",
   "files": [
     {
       "filter": [
@@ -14,72 +14,71 @@
   "afterPack": "./tasks/after-pack.js",
   "afterSign": "./tasks/after-sign.mjs",
   "win": {
+    "icon": "resources/icon.png",
     "target": [
       {
         "target": "zip",
-        "arch": [ "x64", "ia32" ]
+        "arch": [
+          "x64",
+          "ia32"
+        ]
       }
     ]
   },
   "linux": {
+    "executableName": "cadenzaflow-modeler",
     "category": "Development",
     "target": [
       {
         "target": "tar.gz",
-        "arch": [ "x64" ]
+        "arch": [
+          "x64"
+        ]
       }
     ]
   },
   "mac": {
+    "icon": "resources/icon.png",
     "hardenedRuntime": true,
     "entitlements": "./build/entitlements.mac.inherit.plist",
     "target": [
       {
         "target": "dmg",
-        "arch": [ "x64", "arm64" ]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       },
       {
         "target": "zip",
-        "arch": [ "x64", "arm64" ]
+        "arch": [
+          "x64",
+          "arm64"
+        ]
       }
     ]
   },
   "fileAssociations": [
     {
       "ext": "bpmn",
-      "name": "CamundaModeler.BPMN",
+      "name": "CadenzaFlowModeler.BPMN",
       "description": "BPMN file",
       "role": "Editor",
       "mimeType": "application/bpmn"
     },
     {
       "ext": "dmn",
-      "name": "CamundaModeler.DMN",
+      "name": "CadenzaFlowModeler.DMN",
       "description": "DMN file",
       "role": "Editor",
       "mimeType": "application/dmn"
     },
     {
-      "ext": "cmmn",
-      "name": "CamundaModeler.CMMN",
-      "description": "CMMN file",
-      "role": "Editor",
-      "mimeType": "application/cmmn"
-    },
-    {
       "ext": "form",
-      "name": "CamundaModeler.FORM",
+      "name": "CadenzaFlowModeler.FORM",
       "description": "FORM file",
       "role": "Editor",
       "mimeType": "application/camunda-form"
-    },
-    {
-      "ext": "rpa",
-      "name": "CamundaModeler.RPA",
-      "description": "RPA file",
-      "role": "Editor",
-      "mimeType": "application/rpa"
     }
-  ],
-  "npmArgs": "--workspaces=false"
+  ]
 }

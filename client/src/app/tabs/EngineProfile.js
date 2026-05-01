@@ -12,12 +12,10 @@ import React, { useState, useRef } from 'react';
 
 import classnames from 'classnames';
 
-import semverCompare from 'semver-compare';
-
+import semver from 'semver';
 
 import Flags, {
-  PLATFORM_ENGINE_VERSION,
-  CLOUD_ENGINE_VERSION
+  PLATFORM_ENGINE_VERSION
 } from '../../util/Flags';
 
 import {
@@ -25,16 +23,16 @@ import {
   Section
 } from '../../shared/ui';
 
+import { utmTag } from '../../util/utmTag';
 import { Fill } from '../slot-fill';
 
 import { ENGINES, ENGINE_LABELS, ENGINE_PROFILES, getLatestStable } from '../../util/Engines';
 
 const HELP_LINKS = {
-  [ ENGINES.PLATFORM ]: 'https://docs.camunda.org/manual/latest/',
-  [ ENGINES.CLOUD ]: 'https://docs.camunda.io/?utm_source=modeler&utm_medium=referral'
+  [ENGINES.PLATFORM]: utmTag('https://docs.cadenzaflow.org/manual/latest/')
 };
 
-const DONWLOAD_PAGE = 'https://camunda.com/download/modeler/';
+const DONWLOAD_PAGE = utmTag('https://downloads.cadenzaflow.com/release/communityEdition/cadenzaflow-modeler/');
 
 export function EngineProfile(props) {
   const {
@@ -284,18 +282,12 @@ export function getStatusBarLabel(engineProfile) {
 
   if (!executionPlatformVersion) {
     return `${ENGINE_LABELS[executionPlatform]}`;
-  } else if (executionPlatformVersion.startsWith('1.')) {
-    return `${ENGINE_LABELS[executionPlatform]} (Zeebe ${toSemverMinor(executionPlatformVersion)})`;
   } else {
-    return `Camunda ${toDisplayVersion(engineProfile)}`;
+    return `${ENGINE_LABELS[executionPlatform]} ${toDisplayVersion(engineProfile)}`;
   }
 }
 
 export function getAnnotatedVersion(version, platform) {
-  if (version.startsWith('1.')) {
-    return 'Zeebe ' + version;
-  }
-
   if (platform && isAlpha(version, platform)) {
     return version + ' (alpha)';
   }
@@ -321,8 +313,6 @@ export function getDefaultVersion(engine, settingsVersion) {
 function getFlagVersion(engine) {
   if (engine === ENGINES.PLATFORM) {
     return Flags.get(PLATFORM_ENGINE_VERSION);
-  } else if (engine === ENGINES.CLOUD) {
-    return Flags.get(CLOUD_ENGINE_VERSION);
   }
 }
 
@@ -391,7 +381,7 @@ export function getEngineProfileFromBpmn(definitions, defaultProfile) {
   }
 
   return {
-    executionPlatform: definitions.get('modeler:executionPlatform') || defaultProfile.executionPlatform,
+    executionPlatform: normalizeExecutionPlatform(definitions.get('modeler:executionPlatform')) || defaultProfile.executionPlatform,
     executionPlatformVersion: toSemver(definitions.get('modeler:executionPlatformVersion') || defaultProfile.executionPlatformVersion)
   };
 }
@@ -405,9 +395,16 @@ export function getEngineProfileFromForm(schema, defaultProfile) {
   }
 
   return {
-    executionPlatform: schema.executionPlatform || defaultProfile.executionPlatform,
+    executionPlatform: normalizeExecutionPlatform(schema.executionPlatform) || defaultProfile.executionPlatform,
     executionPlatformVersion: toSemver(schema.executionPlatformVersion || defaultProfile.executionPlatformVersion)
   };
+}
+
+function normalizeExecutionPlatform(platform) {
+  if (platform === 'Camunda Platform') {
+    return ENGINES.PLATFORM;
+  }
+  return platform;
 }
 
 /**
@@ -475,6 +472,7 @@ function toDisplayVersion(engineProfile) {
  */
 function isAlpha(version, platform) {
   const latest = getLatestStable(platform);
+  const coerced = semver.coerce(version);
 
-  return semverCompare(version, latest) > 0;
+  return semver.compare(coerced, latest) > 0;
 }
