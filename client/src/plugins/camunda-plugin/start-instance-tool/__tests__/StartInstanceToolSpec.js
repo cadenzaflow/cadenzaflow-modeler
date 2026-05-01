@@ -32,6 +32,8 @@ import {
   SlotFillRoot
 } from '../../../../app/slot-fill';
 
+import { ENGINES } from '../../../../util/Engines';
+
 describe('<StartInstanceTool>', function() {
 
   it('should render', function() {
@@ -307,7 +309,7 @@ describe('<StartInstanceTool>', function() {
       // then
       expect(deployedTo).to.exist;
       expect(deployedTo.executionPlatformVersion).to.be.null;
-      expect(deployedTo.executionPlatform).to.equal('Camunda Platform');
+      expect(deployedTo.executionPlatform).to.equal(ENGINES.PLATFORM);
     });
 
 
@@ -450,7 +452,7 @@ describe('<StartInstanceTool>', function() {
         const deployedTo = actionSpy.args[0][0].payload.deployedTo;
         expect(deployedTo).to.exist;
         expect(deployedTo.executionPlatformVersion).to.equal('7.14.0');
-        expect(deployedTo.executionPlatform).to.equal('Camunda Platform');
+        expect(deployedTo.executionPlatform).to.equal(ENGINES.PLATFORM);
       });
 
 
@@ -533,7 +535,7 @@ describe('<StartInstanceTool>', function() {
         const deployedTo = actionSpy.args[0][0].payload.deployedTo;
         expect(deployedTo).to.exist;
         expect(deployedTo.executionPlatformVersion).to.equal('7.15.0');
-        expect(deployedTo.executionPlatform).to.equal('Camunda Platform');
+        expect(deployedTo.executionPlatform).to.equal(ENGINES.PLATFORM);
       });
 
 

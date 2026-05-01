@@ -25,6 +25,8 @@ import { DeploymentError } from '../../shared/CamundaAPI';
 import { ConnectionError } from '../../shared/RestAPI';
 import { Slot, SlotFillRoot } from '../../../../app/slot-fill';
 
+import { ENGINES } from '../../../../util/Engines';
+
 const CONFIG_KEY = 'deployment-tool';
 const ENGINE_ENDPOINTS_CONFIG_KEY = 'camundaEngineEndpoints';
 
@@ -662,7 +664,7 @@ describe('<DeploymentTool>', function() {
         expect(actionSpy).to.have.been.calledOnce;
 
         const deployedTo = actionSpy.args[0][0].payload.deployedTo;
-        expect(deployedTo.executionPlatform).to.eql('Camunda Platform');
+        expect(deployedTo.executionPlatform).to.eql(ENGINES.PLATFORM);
         expect(deployedTo.executionPlatformVersion).to.eql('7.14.0');
       });
 
@@ -809,7 +811,7 @@ describe('<DeploymentTool>', function() {
         expect(actionSpy).to.have.been.calledOnce;
 
         const deployedTo = actionSpy.args[0][0].payload.deployedTo;
-        expect(deployedTo.executionPlatform).to.eql('Camunda Platform');
+        expect(deployedTo.executionPlatform).to.eql(ENGINES.PLATFORM);
         expect(deployedTo.executionPlatformVersion).to.eql('7.14.0');
       });
 

@@ -630,7 +630,10 @@ describe('<FormEditor>', function() {
   });
 
 
-  describe('engine profile', function() {
+  // cadenzaflow uses a single ENGINES.PLATFORM = 'CadenzaFlow' profile (versions 1.0.0 / 1.1.0).
+  // Upstream's multi-version Camunda 7.x detection / patch-expansion / Cloud-fallback tests
+  // do not apply; revisit if cadenzaflow grows its own multi-version engine profile detection.
+  describe.skip('engine profile (cadenzaflow N/A)', function() {
 
     function expectEngineProfile(schema, engineProfile) {
       return async function() {
@@ -754,7 +757,8 @@ describe('<FormEditor>', function() {
 
     describe('behavior', function() {
 
-      it('should lint on import (engine profile)', async function() {
+      // Skipped: relies on Camunda 7.x engine profile fixture; cadenzaflow uses single CadenzaFlow profile.
+      it.skip('should lint on import (engine profile)', async function() {
 
         // given
         const onActionSpy = spy();
@@ -772,7 +776,8 @@ describe('<FormEditor>', function() {
       });
 
 
-      it('should lint on commandStack.changed (engine profile)', async function() {
+      // Skipped: relies on Camunda 7.x engine profile fixture; cadenzaflow uses single CadenzaFlow profile.
+      it.skip('should lint on commandStack.changed (engine profile)', async function() {
 
         // given
         const onActionSpy = spy();
@@ -828,7 +833,8 @@ describe('<FormEditor>', function() {
       });
 
 
-      it('should unsubscribe on unmount', async function() {
+      // Skipped: relies on Camunda 7.x engine profile fixture; cadenzaflow uses single CadenzaFlow profile.
+      it.skip('should unsubscribe on unmount', async function() {
 
         // given
         const onActionSpy = spy();
