@@ -11,6 +11,9 @@ defaults:
 jobs:
   pre_release:
     name: Prepare release
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (signing certs, FOSSA, CODECOV, mail) for the release pipeline.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -36,6 +39,9 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-2022 ]
       fail-fast: false
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (signing certs, FOSSA, CODECOV, mail) for the release pipeline.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ${{ matrix.os }}
 
     # Required to upload release artifacts to GitHub
@@ -143,6 +149,9 @@ jobs:
   post_release:
     name: Post release
     needs: build_release
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (signing certs, FOSSA, CODECOV, mail) for the release pipeline.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -167,6 +176,9 @@ jobs:
     needs:
     - pre_release
     - build_release
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (signing certs, FOSSA, CODECOV, mail) for the release pipeline.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
 
     # skip for release candidates
@@ -230,6 +242,9 @@ jobs:
     needs:
       - pre_release
       - build_release
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (signing certs, FOSSA, CODECOV, mail) for the release pipeline.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ubuntu-latest
 
     steps:

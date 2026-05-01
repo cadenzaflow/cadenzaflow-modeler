@@ -18,6 +18,9 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-2022 ]
+    # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (CODECOV_TOKEN); triggered manually for ad-hoc builds.
+    # Re-enable when cadenzaflow has its own infra plumbing.
+    if: false
     runs-on: ${{ matrix.os }}
     env:
       ON_DEMAND: true
