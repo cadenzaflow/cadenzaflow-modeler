@@ -67,7 +67,7 @@ export default class StartInstanceConfigOverlay extends React.PureComponent {
 
                 <Section.Body>
                   <p className="intro">
-                    Enter details to start a process instance on Camunda Platform. Alternatively, you can start a process instance <a href={ utmTag('https://docs.camunda.org/manual/latest/reference/rest/process-definition/post-start-process-instance/#request') }>via a Rest Client</a>.
+                    Enter details to start a process instance on CadenzaFlow. Alternatively, you can start a process instance via a Rest Client.
                   </p>
 
                   <fieldset>

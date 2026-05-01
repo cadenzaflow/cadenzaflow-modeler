@@ -328,7 +328,7 @@ export default class DeploymentConfigOverlay extends React.PureComponent {
                               form={ fieldForm }
                               fieldError={ fieldError }
                               label="REST endpoint"
-                              hint="Should point to a running Camunda REST API endpoint."
+                              hint="Should point to a running CadenzaFlow REST API endpoint."
                             />
                           )}
                         </Field>
