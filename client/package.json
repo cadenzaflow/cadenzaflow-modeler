@@ -1,6 +1,6 @@
 {
   "name": "cadenzaflow-modeler-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "CadenzaFlow Modeler client application",
   "private": true,
   "license": "MIT",

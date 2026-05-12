@@ -1,6 +1,6 @@
 {
   "name": "cadenzaflow-modeler",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Modeling solution for BPMN, DMN, and Forms based on bpmn.io.",
   "private": true,
   "main": "prod.js",
