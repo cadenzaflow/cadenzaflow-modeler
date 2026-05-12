@@ -181,8 +181,6 @@ jobs:
     if: false
     runs-on: ubuntu-latest
 
-    # skip for release candidates
-    if: contains(needs.pre_release.outputs.tag, 'rc') == false
     steps:
     - name: Import Secrets
       id: secrets

@@ -9,9 +9,6 @@ jobs:
     if: false
     runs-on: ubuntu-latest
     name: Create new Release Issue
-    if: |
-      contains(github.event.issue.labels.*.name, 'release') &&
-      github.event.action == 'closed'
     outputs:
       assignee: ${{ steps.create_release_issue.outputs.assignee }}
       issue: ${{ steps.create_release_issue.outputs.issue }}
@@ -26,7 +23,6 @@ jobs:
   assign_milestone:
     name: Assign milestone
     needs: create_release_issue
-    if: github.event.issue.milestone
     # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack tokens) for release-issue choreography.
     # Re-enable when cadenzaflow has its own infra plumbing.
     if: false
@@ -62,9 +58,6 @@ jobs:
     # Re-enable when cadenzaflow has its own infra plumbing.
     if: false
     runs-on: ubuntu-latest
-    if: |
-      always() &&
-      contains(github.event.issue.labels.*.name, 'release')
     steps:
     - name: Import Secrets
       id: secrets
@@ -91,9 +84,6 @@ jobs:
   notify_on_slack:
     name: Notify new release manager on Slack
     needs: create_release_issue
-    if: |
-      always() &&
-      contains(github.event.issue.labels.*.name, 'release')
     # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack tokens) for release-issue choreography.
     # Re-enable when cadenzaflow has its own infra plumbing.
     if: false

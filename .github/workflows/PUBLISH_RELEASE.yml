@@ -43,7 +43,6 @@ jobs:
   post_failure:
     name: Notify failure
     needs: publish
-    if: failure()
     # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (mail recipients) for release publish notification.
     # Re-enable when cadenzaflow has its own infra plumbing.
     if: false

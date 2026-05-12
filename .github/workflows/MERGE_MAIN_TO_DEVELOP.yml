@@ -29,7 +29,6 @@ jobs:
   post_failure:
     name: Notify failure
     needs: merge_main_to_develop
-    if: failure()
     # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (Slack token) for merge-back automation.
     # Re-enable when cadenzaflow has its own infra plumbing.
     if: false

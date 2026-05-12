@@ -140,7 +140,6 @@ jobs:
   post_failure:
     name: Notify failure
     needs: build_nightly
-    if: failure()
     # Disabled for cadenzaflow: depends on Camunda Inc HashiCorp Vault (CODECOV_TOKEN, MAIL_RECIPIENTS) for nightly build + failure notification.
     # Re-enable when cadenzaflow has its own infra plumbing.
     if: false
