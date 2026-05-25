@@ -121,24 +121,15 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: gh release edit "${{ needs.pre_release.outputs.tag }}" --draft=false --repo ${{ github.repository }}
 
-  trigger_publish:
-    name: Trigger downloads publish
-    needs: [ pre_release, finalize_release ]
-    runs-on: ubuntu-latest
-    steps:
-    - name: Dispatch to cadenzaflow-download
-      env:
-        GH_TOKEN: ${{ secrets.DOWNLOAD_DISPATCH_TOKEN }}
-      run: |
-        TAG="${{ needs.pre_release.outputs.tag }}"
-        # Derive the version key used in config.json (1.1.0 -> 1.1)
-        VERSION_NUMERIC="${TAG#v}"
-        MINOR="$(echo "$VERSION_NUMERIC" | awk -F. '{print $1"."$2}')"
-
-        gh api repos/cadenzaflow/cadenzaflow-download/dispatches \
-          -X POST \
-          -f event_type=cadenzaflow-release-published \
-          -f client_payload[source_repo]=${{ github.repository }} \
-          -f client_payload[release_tag]=$TAG \
-          -f client_payload[package]=cadenzaflow-modeler \
-          -f client_payload[package_version]=$MINOR
+# NOTE: downstream publish to downloads.cadenzaflow.com is currently triggered
+# manually: open the cadenzaflow-download repo Actions tab, run the PUBLISH
+# workflow with inputs:
+#   source_repo:     cadenzaflow/cadenzaflow-modeler
+#   release_tag:     <the v* tag this run published>
+#   package:         cadenzaflow-modeler
+#   package_version: e.g. 1.1 (the X.Y key used in config.json)
+#
+# To automate later: add a `trigger_publish` job that POSTs a
+# repository_dispatch (event_type: cadenzaflow-release-published) to
+# cadenzaflow-download. That needs a cross-repo token (PAT or GitHub App)
+# stored as DOWNLOAD_DISPATCH_TOKEN — see notes.
