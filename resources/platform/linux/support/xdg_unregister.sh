@@ -16,10 +16,10 @@ echo "Unregistering mime types..."
 xdg-mime uninstall $WORKING_DIR/mime-types.xml
 
 echo "Uninstalling desktop file..."
-xdg-desktop-menu uninstall camunda-modeler.desktop
+xdg-desktop-menu uninstall cadenzaflow-modeler.desktop
 
 echo "Uninstalling icons..."
-xdg-icon-resource uninstall --size  16 camunda-modeler
-xdg-icon-resource uninstall --size  48 camunda-modeler
-xdg-icon-resource uninstall --size 128 camunda-modeler
+xdg-icon-resource uninstall --size  16 cadenzaflow-modeler
+xdg-icon-resource uninstall --size  48 cadenzaflow-modeler
+xdg-icon-resource uninstall --size 128 cadenzaflow-modeler
 echo "done."

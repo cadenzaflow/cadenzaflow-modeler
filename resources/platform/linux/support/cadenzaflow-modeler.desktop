@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=CadenzaFlow Modeler
+Keywords=bpmn;dmn;form;rpa;modeler;cadenzaflow
+GenericName=Process Modeling Tool
+Type=Application
+Categories=Development
+Terminal=false
+StartupNotify=true
+MimeType=application/bpmn;application/dmn;application/cadenzaflow-form;application/rpa
+Icon=cadenzaflow-modeler
+X-Ayatana-Desktop-Shortcuts=NewWindow;RepositoryBrowser
+Exec=cadenzaflow-modeler
