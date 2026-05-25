@@ -92,22 +92,43 @@ jobs:
       if: ${{ runner.os == 'Linux' }}
       env:
         NODE_ENV: production
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run build -- --linux --publish always
+      run: npm run build -- --linux --publish never
 
     - name: Build release (macOS)
       if: ${{ runner.os == 'macOS' }}
       env:
         NODE_ENV: production
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run build -- --mac --publish always
+      run: npm run build -- --mac --publish never
 
     - name: Build release (Windows)
       if: ${{ runner.os == 'Windows' }}
       env:
         NODE_ENV: production
+      run: npm run build -- --win --publish never
+
+    - name: Upload distributables to the GitHub Release
+      env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: npm run build -- --win --publish always
+      shell: bash
+      run: |
+        TAG="${{ needs.pre_release.outputs.tag }}"
+        cd dist
+        # Match only the user-facing artifacts; skip electron-builder
+        # internals like builder-debug.yml / builder-effective-config.yaml
+        # and per-platform subdirs (mac/, win-unpacked/, linux-unpacked/).
+        shopt -s nullglob
+        FILES=()
+        for f in *.zip *.tar.gz *.dmg *.AppImage *.deb *.rpm *.exe *.blockmap latest*.yml; do
+          [ -f "$f" ] && FILES+=("$f")
+        done
+        if [ ${#FILES[@]} -eq 0 ]; then
+          echo "No artifacts found in dist/" >&2
+          ls -la
+          exit 1
+        fi
+        echo "Uploading ${#FILES[@]} files:"
+        printf '  - %s\n' "${FILES[@]}"
+        gh release upload "$TAG" "${FILES[@]}" --repo ${{ github.repository }} --clobber
 
   finalize_release:
     name: Publish the draft release
