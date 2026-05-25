@@ -245,6 +245,6 @@ function getPublishOptions(publish, onDemand) {
   }
 
   return [
-    `--publish=${ publish ? 'always' : 'never' }`
+    `--publish=${ shouldPublish(publish) ? 'always' : 'never' }`
   ];
 }
