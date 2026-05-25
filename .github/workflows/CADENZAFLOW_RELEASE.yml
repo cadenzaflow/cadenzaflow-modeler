@@ -1,0 +1,144 @@
+name: CADENZAFLOW_RELEASE
+
+# CadenzaFlow's release workflow.
+#
+# Trigger: pushing a tag matching v* (e.g. v1.1.0).
+# 1) Creates a draft GitHub Release for the tag.
+# 2) Builds the modeler on three OS runners in parallel; each runner uploads
+#    its platform artifacts to the GitHub Release.
+# 3) Once all three OS builds succeed, the draft is auto-published, which in
+#    turn triggers the downstream cadenzaflow-download PUBLISH workflow via
+#    a repository_dispatch event.
+#
+# Signing is intentionally skipped (forceCodeSigning=false in tasks/distro.js).
+# When CadenzaFlow obtains its own Apple Developer ID + Azure Trusted Signing
+# credentials, add the env vars to GitHub Secrets and the existing signing
+# code path will activate automatically. No workflow changes needed at that
+# point — only the env section here.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to (re)build, e.g. v1.1.0'
+        required: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  pre_release:
+    name: Prepare release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.TAG }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+    - name: Resolve tag
+      id: tag
+      run: |
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          TAG="${{ github.event.inputs.tag }}"
+        else
+          TAG="$(git describe --tags --abbrev=0)"
+        fi
+        echo "TAG=$TAG" >> "$GITHUB_OUTPUT"
+        echo "Resolved tag: $TAG"
+    - name: Create draft GitHub Release (idempotent)
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        TAG="${{ steps.tag.outputs.TAG }}"
+        if gh release view "$TAG" >/dev/null 2>&1; then
+          echo "Release $TAG already exists, leaving as is."
+        else
+          gh release create "$TAG" --draft --title "$TAG" --generate-notes
+        fi
+
+  build_release:
+    name: Build release
+    needs: pre_release
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, macos-latest, windows-2022 ]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        ref: ${{ needs.pre_release.outputs.tag }}
+
+    - name: Use Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build release (Linux)
+      if: ${{ runner.os == 'Linux' }}
+      env:
+        NODE_ENV: production
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run build -- --linux --publish always
+
+    - name: Build release (macOS)
+      if: ${{ runner.os == 'macOS' }}
+      env:
+        NODE_ENV: production
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run build -- --mac --publish always
+
+    - name: Build release (Windows)
+      if: ${{ runner.os == 'Windows' }}
+      env:
+        NODE_ENV: production
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: npm run build -- --win --publish always
+
+  finalize_release:
+    name: Publish the draft release
+    needs: [ pre_release, build_release ]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Promote draft to published
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh release edit "${{ needs.pre_release.outputs.tag }}" --draft=false --repo ${{ github.repository }}
+
+  trigger_publish:
+    name: Trigger downloads publish
+    needs: [ pre_release, finalize_release ]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dispatch to cadenzaflow-download
+      env:
+        GH_TOKEN: ${{ secrets.DOWNLOAD_DISPATCH_TOKEN }}
+      run: |
+        TAG="${{ needs.pre_release.outputs.tag }}"
+        # Derive the version key used in config.json (1.1.0 -> 1.1)
+        VERSION_NUMERIC="${TAG#v}"
+        MINOR="$(echo "$VERSION_NUMERIC" | awk -F. '{print $1"."$2}')"
+
+        gh api repos/cadenzaflow/cadenzaflow-download/dispatches \
+          -X POST \
+          -f event_type=cadenzaflow-release-published \
+          -f client_payload[source_repo]=${{ github.repository }} \
+          -f client_payload[release_tag]=$TAG \
+          -f client_payload[package]=cadenzaflow-modeler \
+          -f client_payload[package_version]=$MINOR
