@@ -214,6 +214,20 @@ exec('electron-builder', args, {
   stdio: 'inherit'
 });
 
+// `mri` parses `--publish never` as `publish="never"`, which is a truthy
+// string — without normalization the caller-intended "never" silently
+// flips to "always". Treat "never" / false / explicit boolean as "no
+// publish"; everything else (true, "always", "onTag", ...) means publish.
+function shouldPublish(publish) {
+  if (publish === undefined || publish === false) {
+    return false;
+  }
+  if (typeof publish === 'string' && publish.toLowerCase() === 'never') {
+    return false;
+  }
+  return true;
+}
+
 function getPublishOptions(publish, onDemand) {
   if (onDemand) {
     const bucket = process.env.AWS_BUCKET;
@@ -222,7 +236,7 @@ function getPublishOptions(publish, onDemand) {
     const region = process.env.AWS_REGION;
 
     return [
-      `--publish=${ publish ? 'always' : 'never' }`,
+      `--publish=${ shouldPublish(publish) ? 'always' : 'never' }`,
       publish && '-c.publish.provider=s3',
       publish && `-c.publish.bucket=${bucket}`,
       publish && buildName && `-c.publish.path=${buildName}`,
