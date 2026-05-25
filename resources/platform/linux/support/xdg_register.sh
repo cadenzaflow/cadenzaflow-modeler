@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Resolve the location of the Camunda Modeler installation.
+# Resolve the location of the CadenzaFlow Modeler installation.
 # This includes resolving any symlinks.
 
 PRG=$0
@@ -23,10 +23,10 @@ cd ".."
 CAMUNDA_MODELER_BIN=`pwd`
 cd "${oldpwd}"
 
-ICON_NAME=camunda-modeler
+ICON_NAME=cadenzaflow-modeler
 TMP_DIR=`mktemp --directory`
-DESKTOP_FILE=$TMP_DIR/camunda-modeler.desktop
-cat "$CAMUNDA_MODELER_BIN/support/camunda-modeler.desktop" > $DESKTOP_FILE
+DESKTOP_FILE=$TMP_DIR/cadenzaflow-modeler.desktop
+cat "$CAMUNDA_MODELER_BIN/support/cadenzaflow-modeler.desktop" > $DESKTOP_FILE
 
 desktop-file-edit \
   --set-key="Path" --set-value="$CAMUNDA_MODELER_BIN" \

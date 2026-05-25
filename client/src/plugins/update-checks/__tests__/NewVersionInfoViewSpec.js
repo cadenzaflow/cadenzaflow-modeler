@@ -70,7 +70,7 @@ describe('<NewVersionInfoView>', function() {
 
     // given
     const expectedFragments = [
-      'Camunda Modeler v3.7.0 is available. Your version is v3.4.0.',
+      'CadenzaFlow Modeler v3.7.0 is available. Your version is v3.4.0.',
       'Would you like to download it now?',
       'Release notes',
       'v3.5.0',

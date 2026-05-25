@@ -1079,7 +1079,7 @@ function getMigrationDialog() {
     defaultId: 1,
     message: 'Would you like to migrate your diagram to DMN 1.3?',
     detail: [
-      'Only DMN 1.3 diagrams can be opened with Camunda Modeler v4.0.0 or later.',
+      'Only DMN 1.3 diagrams can be opened with CadenzaFlow Modeler.',
     ].join('\n'),
     checkboxChecked: true,
     checkboxLabel: 'Do not ask again.'

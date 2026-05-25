@@ -43,7 +43,7 @@ function UpdateAvailableSection(props) {
         Update available
       </Section.Header>
       <Section.Body>
-        <p>Camunda Desktop Modeler {version} is available for use.</p>
+        <p>CadenzaFlow Modeler {version} is available for use.</p>
         <a className="links" onClick={ onOpenDownloadUrl }>Update now</a>
         <a className="links" onClick={ onOpenNewVersionInfoView }>Learn what&apos;s new</a>
       </Section.Body>

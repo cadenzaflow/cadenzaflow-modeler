@@ -3,74 +3,74 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Classes]
 
 [HKEY_CURRENT_USER\Software\Classes\.bpmn]
-@="CamundaModeler.BPMN"
+@="CadenzaFlowModeler.BPMN"
 
 [HKEY_CURRENT_USER\Software\Classes\.dmn]
-@="CamundaModeler.DMN"
+@="CadenzaFlowModeler.DMN"
 
 [HKEY_CURRENT_USER\Software\Classes\.form]
-@="CamundaModeler.FORM"
+@="CadenzaFlowModeler.FORM"
 
 [HKEY_CURRENT_USER\Software\Classes\.rpa]
-@="CamundaModeler.RPA"
+@="CadenzaFlowModeler.RPA"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.BPMN]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.BPMN]
 @="BPMN file"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.BPMN\DefaultIcon]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.BPMN\DefaultIcon]
 @="__CWD__,0"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.BPMN\shell]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.BPMN\shell]
 @="open"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.BPMN\shell\open]
-@="Open with Camunda Modeler"
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.BPMN\shell\open]
+@="Open with CadenzaFlow Modeler"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.BPMN\shell\open\command]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.BPMN\shell\open\command]
 @="__CWD__ \"%1\""
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.DMN]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.DMN]
 @="DMN file"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.DMN\DefaultIcon]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.DMN\DefaultIcon]
 @="__CWD__,0"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.DMN\shell]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.DMN\shell]
 @="open"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.DMN\shell\open]
-@="Open with Camunda Modeler"
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.DMN\shell\open]
+@="Open with CadenzaFlow Modeler"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.DMN\shell\open\command]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.DMN\shell\open\command]
 @="__CWD__ \"%1\""
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.FORM]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.FORM]
 @="FORM file"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.FORM\DefaultIcon]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.FORM\DefaultIcon]
 @="__CWD__,0"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.FORM\shell]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.FORM\shell]
 @="open"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.FORM\shell\open]
-@="Open with Camunda Modeler"
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.FORM\shell\open]
+@="Open with CadenzaFlow Modeler"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.FORM\shell\open\command]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.FORM\shell\open\command]
 @="__CWD__ \"%1\""
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.RPA]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.RPA]
 @="RPA file"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.RPA\DefaultIcon]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.RPA\DefaultIcon]
 @="__CWD__,0"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.RPA\shell]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.RPA\shell]
 @="open"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.RPA\shell\open]
-@="Open with Camunda Modeler"
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.RPA\shell\open]
+@="Open with CadenzaFlow Modeler"
 
-[HKEY_CURRENT_USER\Software\Classes\CamundaModeler.RPA\shell\open\command]
+[HKEY_CURRENT_USER\Software\Classes\CadenzaFlowModeler.RPA\shell\open\command]
 @="__CWD__ \"%1\""
 
