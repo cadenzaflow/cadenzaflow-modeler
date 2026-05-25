@@ -45,6 +45,12 @@ export default async function(context) {
     APPLE_TEAM_ID: appleTeamId
   } = process.env;
 
+  if (!appleId || !appleIdPassword || !appleTeamId) {
+    console.log('  • skipped notarization (APPLE_DEVELOPER_ID / APPLE_DEVELOPER_ID_PASSWORD / APPLE_TEAM_ID not set — produces an unsigned .app; macOS Gatekeeper will quarantine downloads until certs land)');
+
+    return;
+  }
+
   const appPath = `${appOutDir}/${appName}.app`;
 
   console.log(`  • notarizing app from path: ${appPath}`);
